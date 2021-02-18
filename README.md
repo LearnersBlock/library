@@ -1,5 +1,7 @@
 # Learner's Block Library
 
+### Warning: Commits to the Main branch will be automatically deployed to the live site.
+
 ## Install the dependencies
 ```bash
 yarn
