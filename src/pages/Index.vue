@@ -1,0 +1,205 @@
+<template ref="indexPage">
+  <q-page class="row items-center justify-evenly">
+      <q-spinner
+        color="primary"
+        size="10%"
+        v-if="fetchResourcesLoading"
+      />
+      <div v-if="fetchedResources && !fetchResourcesLoading" class="resource_container">
+        <div v-if="fetchedResources.resources.length" class="resource_box q-mt-lg q-mb-xl">
+          <router-link  class="resource q-mt-md items-center" tag="div" :to="'/resource/' + resource.id" v-for="resource in fetchedResources.resources" :key="resource.id">
+            <div>
+              <img class="resource_image width" :src="resource.logo ? 'https://library-api.learnersblock.org' + resource.logo.url : require('../assets/default.jpg')">
+            </div>
+            <div class="resource_info">
+              <div dir="auto" class="text-h3 resource_name josefin sans">
+                {{ resource.name }}
+              </div>
+              <div dir="auto" class="text-h6 q-mt-md resource_description">{{ resource.description }}</div>
+              <div class="resource_languages">
+                 <q-badge class="q-pa-lg q-mr-sm q-mt-md" color="primary"  v-for="language in resource.languages" :key="language.id">
+                  {{ $t(language.language) }}
+                </q-badge>
+              </div>
+              <div class="text-h6 resource_size">{{$t('size')}}: {{ resource.size }} GB</div>
+            </div>
+          </router-link>
+        </div>
+        <div v-else class="text-h3 text-center text-grey">No results found</div>
+        <div class="text-center">
+        <q-btn v-if="fetchedResources.resources.length && !fetchResourcesLoading" :disabled="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount" color="grey-6" @click="loadMore" class="resource_button q-mb-xl">{{$t('load_more')}}</q-btn>
+      </div>
+      </div>
+  </q-page>
+</template>
+
+<script lang="ts">
+import { useQuery } from '@vue/apollo-composable'
+import { defineComponent, onMounted, ref } from '@vue/composition-api'
+import { GET_RESOURCES } from '../gql/resource/queries'
+import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
+export default defineComponent({
+  name: 'PageIndex',
+  props: {
+    formats: {
+      type: Array
+    },
+    tags: {
+      type: Array
+    },
+    keyword: {
+      type: String
+    },
+    languages: {
+      type: Array
+    }
+  },
+  setup (props) {
+    // Loading boolean in case the api is very fast, the UI still loads for a lil bit - better User Experience
+    const limit = ref<number>(10)
+    // Fetch resources query
+    const { 
+      result: fetchedResources, 
+      loading: fetchResourcesLoading,
+      refetch: fetchResources } = useQuery(GET_RESOURCES, {limit: 10})
+
+     const { 
+      result: fetchedResourcesLength, 
+      loading: fetchResourcesLengthLoading,
+      refetch: fetchResourcesLength
+     } = useQuery(GET_RESOURCES_LENGTH, {})
+
+    // On mount, enable loading and fetch resources
+    onMounted(async () => {
+      await fetchResources()
+    })
+
+    const loadMore = async () => {
+      limit.value = limit.value + 10
+      await fetchFilteredResources()
+    }
+
+    // Enable loading and filter resources according to all inputs
+    const fetchFilteredResources = async (
+      keyword:string = props.keyword!,
+      formats: string[] = props.formats! as string[], 
+      languages: string[] = props.languages as string[],
+      tags: string[] = props.tags as string[] ) => {
+         await fetchResourcesLength(
+     {
+       keyword,
+       languages,
+       formats,
+       tags
+     }
+     )
+     await fetchResources({
+       keyword,
+       languages,
+       formats,
+       tags,
+       limit: limit.value
+     } as any)
+    
+    }
+
+    return {
+      fetchedResources,
+      fetchFilteredResources,
+      fetchResourcesLoading,
+      fetchedResourcesLength,
+      fetchResourcesLengthLoading,
+      limit,
+      loadMore
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.resource {
+  box-shadow: 0 .3rem 1rem .1rem rgba(0,0,0,.2);
+  padding: 2rem;
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  border-radius: .3rem;
+  transition: all .15s ease-in-out;
+  @media only screen and (max-width: 1412px) {
+   flex-direction: column;
+
+  }
+
+  &:hover {
+    box-shadow: 0 .3rem 1rem .1rem rgba(0,0,0,.3);
+    transform: translateY(-.1rem);
+  }
+
+  &_image {
+    width: 15rem;
+    margin-right: 2rem;
+     @media only screen and (max-width: 1412px) {
+       margin: auto;
+       margin-bottom: 2rem;
+
+    }
+    @media screen and (max-width: 1680px) {
+      width: 15rem;
+      height: 50%;
+      align-self: center;
+    }
+     @media only screen and (max-width: 1260px) {
+      width: 10rem;
+    }
+  }
+
+  &_languages {
+    display: flex;
+    align-self: flex-start;
+     @media only screen and (max-width: 1412px) {
+       margin-top: 1rem;
+    }
+     @media only screen and (max-width: 600px) {
+       flex-direction: column;
+       width: 5.7rem;
+       margin: auto;
+    }
+  }
+
+  &_name {
+  
+      @media only screen and (max-width: 800px) {
+      font-size: 1.7rem;
+    }
+  }
+
+   &_description {
+      @media only screen and (max-width: 800px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &_size {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+     @media only screen and (max-width: 677px) {
+       position: relative;
+       margin-top: 4rem;
+       margin-left: 2.7rem;
+    }
+  }
+
+  &_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &_container {
+    position: absolute;
+    top: 2rem;
+    width: 70%;
+  }
+}
+</style>
