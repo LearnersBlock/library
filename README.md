@@ -1,4 +1,4 @@
-# Quasar App (Learner's Block Library)
+# Learner's Block Library
 
 ## Install the dependencies
 ```bash
