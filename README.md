@@ -1,6 +1,4 @@
-# Quasar App (language-app)
-
-A Quasar Framework app
+# Learner's Block Library
 
 ## Install the dependencies
 ```bash
