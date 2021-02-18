@@ -1,6 +1,6 @@
-import enUS from './en-us'
-import French from './fr'
-import Arabic from './ar'
+import enUS from './enUS.json'
+import French from './fr.json'
+import Arabic from './ar.json'
 // Here you can define additional languages
 export default {
   'en-us': enUS,
