@@ -14,28 +14,32 @@
             </router-link>
         </q-item>
             <div class="text-center">
+                <div v-if="fetchedResource.resource.logo && fetchedResource.resource.logo.formats && fetchedResource.resource.logo.formats.thumbnail && fetchedResource.resource.logo.formats.thumbnail.url">
+                <img class="resource_image q-mt-xl" :src="'https://library-api.learnersblock.org' + fetchedResource.resource.logo.formats.thumbnail.url">
+                </div>
+                <div v-else>
                 <img class="resource_image q-mt-xl" :src="fetchedResource.resource.logo ? 'https://library-api.learnersblock.org' + fetchedResource.resource.logo.url : require('../assets/default.jpg')">
+                </div>
             </div>
             <div dir="auto" class="text-h2 josefin sans resource_name">{{ fetchedResource.resource.name }}</div>
             <div dir="auto" class="text-h6 q-mt-md resource_description">{{ fetchedResource.resource.description }}</div>
             <q-separator class="q-mt-md" />
-
             <div class="resource_info q-mt-lg text-left">
                   <div class="text-h6 q-mr-md q-mt-sm resource_info-label">{{$t('author')}} </div>
                   <div class="text-h6 q-mt-sm">
                       <a :href="fetchedResource.resource.author_website" target="_blank">{{ fetchedResource.resource.author }}
                       </a>
                   </div> 
-                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label resource_info-label">{{$t('languages')}} </div>
+                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('languages')}} </div>
                   <div class="q-mt-sm">
                     <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary" 
                      v-for="language in fetchedResource.resource.languages" :key="language.id">
                          {{ $t(language.language) }}
                     </q-badge>
                   </div>
-                  <div class="text-h6 q-mr-md q-mt-sm">{{$t('formats')}}</div> 
+                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('formats')}}</div> 
                   <div class="q-mt-sm">
-                     <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
+                     <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
                         {{ format.type}}
                     </q-badge> 
                   </div>  
@@ -135,16 +139,14 @@ export default defineComponent({
     &_image {
         width: 15rem;
         margin-bottom: 1rem;
-         @media only screen and (max-width: 1050px) {
-        width: 10rem;
-        margin-top: 7rem;
+        @media only screen and (max-width: 1050px) {
+            width: 15rem;
       }
     }
 
     &_info {
         display: grid;
         grid-template-columns: 1fr 1fr;
-      
 
       &-label {
          @media only screen and (max-width: 470px) {
