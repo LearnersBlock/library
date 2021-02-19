@@ -21,30 +21,30 @@
             <q-separator class="q-mt-md" />
 
             <div class="resource_info q-mt-lg text-left">
-                  <div class="text-h6  q-mt-sm resource_info-label">{{$t('author')}} </div>
+                  <div class="text-h6 q-mr-md q-mt-sm resource_info-label">{{$t('author')}} </div>
                   <div class="text-h6 q-mt-sm">
                       <a :href="fetchedResource.resource.author_website" target="_blank">{{ fetchedResource.resource.author }}
                       </a>
                   </div> 
-                  <div class="text-h6  q-mt-sm resource_info-label resource_info-label">{{$t('languages')}} </div>
+                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label resource_info-label">{{$t('languages')}} </div>
                   <div class="q-mt-sm">
                     <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary" 
                      v-for="language in fetchedResource.resource.languages" :key="language.id">
                          {{ $t(language.language) }}
                     </q-badge>
                   </div>
-                  <div class="text-h6  q-mt-sm">Formats </div> 
+                  <div class="text-h6 q-mr-md q-mt-sm">Formats </div> 
                   <div class="q-mt-sm">
                      <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
                         {{ format.type}}
                     </q-badge> 
                   </div>  
-                  <div class="text-h6  q-mt-sm resource_info-label">{{$t('size')}}  </div>
+                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('size')}}  </div>
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.size }} GB</div>
-                  <div class="text-h6  q-mt-sm resource_info-label">{{$t('host')}} </div>
+                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('host')}} </div>
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div>            
-                  <div class="text-h6  q-mt-sm">{{$t('url')}} </div>
-                  <div class="text-h6 q-mt-sm">
+                  <div class="text-h6 q-mt-sm ">{{$t('url')}} </div>
+                  <div class="text-h6 q-mt-sm q-mr-md">
                       <a :href="fetchedResource.resource.download_url" target="_blank">
                           {{ fetchedResource.resource.download_url }}
                       </a>
@@ -55,7 +55,7 @@
                           </q-tooltip>
                       </span>
                   </div> 
-                  <div class="text-h6  q-mt-sm">{{ $t('sample_url')}} </div> 
+                  <div class="text-h6 q-mt-sm q-mr-md">{{ $t('sample_url')}} </div> 
                   <div class="text-h6 q-mt-sm">
                       <a :href="fetchedResource.resource.sample" target="_blank">{{ fetchedResource.resource.sample }}
                       </a>
@@ -66,7 +66,7 @@
                           </q-tooltip>
                       </span>
                   </div> 
-                  <div class="text-h6  q-mt-sm">{{$t('Rsync URL')}} </div> 
+                  <div class="text-h6 q-mt-sm q-mr-md">{{$t('Rsync URL')}} </div> 
                   <div class="text-h6 q-mt-sm">
                       {{ fetchedResource.resource.rsync }}
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-rsync">
@@ -76,20 +76,20 @@
                           </q-tooltip>
                       </span>
                   </div> 
-                   <div class="text-h6  q-mt-sm resource_info-label">{{$t('tags')}} </div>   
+                   <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('tags')}} </div>   
                   <div class="q-mt-sm">
                   <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
                           {{ tag.tag}}
                   </q-badge>
                   </div>         
-                  <div class="text-h6  q-mt-sm resource_info-label">{{$t('licenses')}} </div>
+                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('licenses')}} </div>
                   <div v-if="fetchedResource.resource.licenses.length" class="q-mt-sm">
                   <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="license in fetchedResource.resource.licenses" :key="license.id">
                           {{ license.license}}
                   </q-badge>
                   </div> 
                   <div class="q-mt-sm" v-else>{{'--'}}</div>
-                  <div class="text-h6  q-mt-sm">{{$t('uid')}} </div> 
+                  <div class="text-h6 q-mt-sm q-mr-md">{{$t('uid')}} </div> 
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
               </div>    
             </div>
