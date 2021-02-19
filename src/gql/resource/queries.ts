@@ -42,7 +42,7 @@ export const GET_RESOURCE = gql`
             type
           }
           uid
-          url
+          download_url
           languages {
               id
               language

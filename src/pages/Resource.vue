@@ -41,8 +41,8 @@
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div>            
                   <div class="text-h6  q-mt-sm">{{$t('url')}} </div>
                   <div class="text-h6 q-mt-sm">
-                      <a :href="fetchedResource.resource.url" target="_blank">
-                          {{ fetchedResource.resource.url }}
+                      <a :href="fetchedResource.resource.download_url" target="_blank">
+                          {{ fetchedResource.resource.download_url }}
                       </a>
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-url">
                           content_copy  
@@ -111,7 +111,7 @@ export default defineComponent({
         if(e.target.classList.contains('clipboard-sampleUrl')) {
            copyToClipboard(fetchedResource.value.resource.sample)
         } else if (e.target.classList.contains('clipboard-url')) {
-           copyToClipboard(fetchedResource.value.resource.url)
+           copyToClipboard(fetchedResource.value.resource.download_url)
         } else if (e.target.classList.contains('clipboard-rsync')) {
            copyToClipboard(fetchedResource.value.resource.rsync)
 
