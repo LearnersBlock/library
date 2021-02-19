@@ -8,18 +8,18 @@
         />
         <!-- Resource container -->
         <div v-if="fetchedResource" class="resource_container q-mb-xl">
-        <q-item class="back q-mt-xl q-mr-sm" >
-            <router-link color="secondary" class="back text-h6 cursor-pointer" tag="div" to="/">
-                <q-btn color="primary" class="text-subtitle1">{{$t('back')}}</q-btn>
-            </router-link>
+        <q-item class="back q-mt-md q-mr-sm" >
+            <q-page-sticky position="top-left q-pa-sm" :offset="[18, 18]">
+                <router-link color="secondary" class="back text-h6 cursor-pointer" tag="div" to="/">
+                    <q-btn color="white" text-color="primary" class="text-subtitle2">{{$t('back')}}</q-btn>
+                </router-link>
+            </q-page-sticky>
         </q-item>
-            <div class="text-center">
-                <div v-if="fetchedResource.resource.logo && fetchedResource.resource.logo.formats && fetchedResource.resource.logo.formats.thumbnail && fetchedResource.resource.logo.formats.thumbnail.url">
+            <div v-if="fetchedResource.resource.logo && fetchedResource.resource.logo.formats && fetchedResource.resource.logo.formats.thumbnail && fetchedResource.resource.logo.formats.thumbnail.url">
                 <img class="resource_image q-mt-xl" :src="'https://library-api.learnersblock.org' + fetchedResource.resource.logo.formats.thumbnail.url">
-                </div>
-                <div v-else>
+            </div>
+            <div v-else>
                 <img class="resource_image q-mt-xl" :src="fetchedResource.resource.logo ? 'https://library-api.learnersblock.org' + fetchedResource.resource.logo.url : require('../assets/default.jpg')">
-                </div>
             </div>
             <div dir="auto" class="text-h2 josefin sans resource_name">{{ fetchedResource.resource.name }}</div>
             <div dir="auto" class="text-h6 q-mt-md resource_description">{{ fetchedResource.resource.description }}</div>
@@ -47,39 +47,6 @@
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.size }} GB</div>
                   <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('host')}} </div>
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div>            
-                  <div class="text-h6 q-mt-sm ">{{$t('url')}} </div>
-                  <div class="text-h6 q-mt-sm q-mr-md">
-                      <a :href="fetchedResource.resource.download_url" target="_blank">
-                          {{ fetchedResource.resource.download_url }}
-                      </a>
-                      <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-url">
-                          content_copy  
-                          <q-tooltip >
-                              <span class="text-subtitle1">{{$t('copy_to_clipboard')}}</span> 
-                          </q-tooltip>
-                      </span>
-                  </div> 
-                  <div class="text-h6 q-mt-sm q-mr-md">{{ $t('sample_url')}} </div> 
-                  <div class="text-h6 q-mt-sm">
-                      <a :href="fetchedResource.resource.sample" target="_blank">{{ fetchedResource.resource.sample }}
-                      </a>
-                      <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-sampleUrl">
-                          content_copy  
-                          <q-tooltip >
-                              <span class="text-subtitle1">{{$t('copy_to_clipboard')}}</span> 
-                          </q-tooltip>
-                      </span>
-                  </div> 
-                  <div class="text-h6 q-mt-sm q-mr-md">{{$t('rsync_url')}} </div> 
-                  <div class="text-h6 q-mt-sm">
-                      {{ fetchedResource.resource.rsync }}
-                      <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-rsync">
-                          content_copy  
-                          <q-tooltip >
-                              <span class="text-subtitle1">{{$t('copy_to_clipboard')}}</span> 
-                          </q-tooltip>
-                      </span>
-                  </div> 
                    <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('tags')}} </div>   
                   <div class="q-mt-sm">
                   <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
@@ -96,6 +63,41 @@
                   <div class="text-h6 q-mt-sm q-mr-md">{{$t('uid')}} </div> 
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
               </div>    
+
+
+
+
+
+
+<div class="q-pt-xl q-gutter-sm">
+    <q-btn-dropdown
+      split
+      @click="downloadZip"
+      color="primary"
+      rounded
+      label="Download"
+    >
+    <q-list>
+        <q-item clickable v-close-popup @click="copyRsync">
+            <q-item-section>
+            <q-item-label>RSync</q-item-label>
+            </q-item-section>
+        </q-item>
+    </q-list>
+    </q-btn-dropdown>
+    <q-btn 
+        split 
+        rounded color="primary" 
+        icon="visibility" 
+        label="Sample" 
+        @click="viewSample">
+    </q-btn>
+</div>
+
+
+
+
+
             </div>
     </q-page>
 </template>
@@ -105,6 +107,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
 import { GET_RESOURCE } from 'src/gql/resource/queries'
 import { copyToClipboard } from 'quasar'
+import { Notify } from 'quasar'
 
 export default defineComponent({
     setup (_,{root}) {
@@ -112,22 +115,26 @@ export default defineComponent({
     // Fetch resources
     const { result: fetchedResource, loading: fetchResourceLoading } = useQuery(GET_RESOURCE,{id: root.$route.params.id})
 
+    // Bottom button functions 
+   const viewSample = () => {
+        window.open(fetchedResource.value.resource.sample);
+   }
 
-    const copyToClipBoard = (e: any) => {
-        if(e.target.classList.contains('clipboard-sampleUrl')) {
-           copyToClipboard(fetchedResource.value.resource.sample)
-        } else if (e.target.classList.contains('clipboard-url')) {
-           copyToClipboard(fetchedResource.value.resource.download_url)
-        } else if (e.target.classList.contains('clipboard-rsync')) {
-           copyToClipboard(fetchedResource.value.resource.rsync)
+   const downloadZip = () => {
+        window.open(fetchedResource.value.resource.download_url);
+   }
 
-        }
-    }
-
+   const copyRsync = () => {
+        copyToClipboard(fetchedResource.value.resource.rsync);
+        Notify.create('RSync URL Copied to Clipboard')
+   }
+        
     return {
         fetchedResource,
         fetchResourceLoading,
-        copyToClipBoard
+        downloadZip,
+        viewSample,
+        copyRsync
     }
     }
 })
@@ -146,7 +153,7 @@ export default defineComponent({
 
     &_info {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: .5fr 1fr;
 
       &-label {
          @media only screen and (max-width: 470px) {
