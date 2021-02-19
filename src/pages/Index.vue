@@ -137,7 +137,9 @@ export default defineComponent({
   }
 
   &_image {
-    width: 15rem;
+    max-width: 13rem;
+    width: auto;
+    height: auto;
     margin-right: 2rem;
      @media only screen and (max-width: 1412px) {
        margin: auto;
@@ -145,12 +147,15 @@ export default defineComponent({
 
     }
     @media screen and (max-width: 1680px) {
-      width: 15rem;
-      height: 50%;
+      max-width: 15rem;
+      width: auto;
+      height: auto;
       align-self: center;
     }
      @media only screen and (max-width: 1260px) {
-      width: 10rem;
+      max-width: 10rem;
+      width: auto;
+      height: auto;
     }
   }
 
