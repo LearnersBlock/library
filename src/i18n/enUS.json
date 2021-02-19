@@ -1,6 +1,5 @@
 {
   "keywords": "Keywords",
-  "languages": "Languages",
   "formats": "Formats",
   "copy_to_clipboard": "Copy to Clipboard",
   "switch_language": "Switch Language",
@@ -16,12 +15,14 @@
   "tags": "Tags",
   "back": "Back",
   "enable_rtl": "Enable RTL",
-  "English": "English",
-  "French": "French",
-  "Arabic": "Arabic",
   "reset": "Reset",
   "url": "Download URL",
   "rsync_url": "Rsync URL",
   "sample_url": "Sample URL",
-  "uid": "UID"
+  "uid": "UID",
+  "languages": "Languages",
+  "English": "English",
+  "French": "French",
+  "Arabic": "Arabic",
+  "Spanish": "Spanish"
 }
