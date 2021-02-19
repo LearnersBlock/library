@@ -34,6 +34,7 @@ export const GET_RESOURCE = gql`
           name
           description
           author
+          author_website
           host
           sample
           rsync
