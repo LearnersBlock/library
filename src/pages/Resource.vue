@@ -14,7 +14,7 @@
             </router-link>
         </q-item>
             <div class="text-center">
-                <img class="resource_image q-mt-xl" :src="fetchedResource.resource.logo ? 'https://library-api.learnersblock.org' + fetchedResource.resource.logo.formats.thumbnail.url : require('../assets/default.jpg')">
+                <img class="resource_image q-mt-xl" :src="fetchedResource.resource.logo ? 'https://library-api.learnersblock.org' + fetchedResource.resource.logo.url : require('../assets/default.jpg')">
             </div>
             <div dir="auto" class="text-h2 josefin sans resource_name">{{ fetchedResource.resource.name }}</div>
             <div dir="auto" class="text-h6 q-mt-md resource_description">{{ fetchedResource.resource.description }}</div>
@@ -33,7 +33,7 @@
                          {{ $t(language.language) }}
                     </q-badge>
                   </div>
-                  <div class="text-h6 q-mr-md q-mt-sm">Formats </div> 
+                  <div class="text-h6 q-mr-md q-mt-sm">{{$t('formats')}}</div> 
                   <div class="q-mt-sm">
                      <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
                         {{ format.type}}
@@ -51,7 +51,7 @@
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-url">
                           content_copy  
                           <q-tooltip >
-                              <span class="text-subtitle1">Copy to clipboard</span> 
+                              <span class="text-subtitle1">{{$t('copy_to_clipboard')}}</span> 
                           </q-tooltip>
                       </span>
                   </div> 
@@ -62,7 +62,7 @@
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-sampleUrl">
                           content_copy  
                           <q-tooltip >
-                              <span class="text-subtitle1">Copy to clipboard</span> 
+                              <span class="text-subtitle1">{{$t('copy_to_clipboard')}}</span> 
                           </q-tooltip>
                       </span>
                   </div> 
@@ -72,7 +72,7 @@
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-rsync">
                           content_copy  
                           <q-tooltip >
-                              <span class="text-subtitle1">Copy to clipboard</span> 
+                              <span class="text-subtitle1">{{$t('copy_to_clipboard')}}</span> 
                           </q-tooltip>
                       </span>
                   </div> 
