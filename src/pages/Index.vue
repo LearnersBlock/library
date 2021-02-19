@@ -17,9 +17,10 @@
               </div>
               <div dir="auto" class="text-h6 q-mt-md resource_description">{{ resource.description }}</div>
               <div class="resource_languages">
-                 <q-badge class="q-pa-lg q-mr-sm q-mt-md" color="primary"  v-for="language in resource.languages" :key="language.id">
+                 <div><q-badge class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large" color="primary"  v-for="language in resource.languages" :key="language.id">
                   {{ $t(language.language) }}
                 </q-badge>
+                </div>
               </div>
               <div class="text-h6 resource_size">{{$t('size')}}: {{ resource.size }} GB</div>
             </div>
