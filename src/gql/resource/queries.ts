@@ -34,6 +34,7 @@ export const GET_RESOURCE = gql`
           name
           description
           author
+          author_website
           host
           sample
           rsync
@@ -42,7 +43,7 @@ export const GET_RESOURCE = gql`
             type
           }
           uid
-          url
+          download_url
           languages {
               id
               language

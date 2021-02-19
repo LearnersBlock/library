@@ -19,12 +19,16 @@
             <div dir="auto" class="text-h2 josefin sans resource_name">{{ fetchedResource.resource.name }}</div>
             <div dir="auto" class="text-h6 q-mt-md resource_description">{{ fetchedResource.resource.description }}</div>
             <q-separator class="q-mt-md" />
+
             <div class="resource_info q-mt-lg text-left">
                   <div class="text-h6  q-mt-sm resource_info-label">{{$t('author')}} </div>
-                  <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.author }}</div>
+                  <div class="text-h6 q-mt-sm">
+                      <a :href="fetchedResource.resource.author_website" target="_blank">{{ fetchedResource.resource.author }}
+                      </a>
+                  </div> 
                   <div class="text-h6  q-mt-sm resource_info-label resource_info-label">{{$t('languages')}} </div>
                   <div class="q-mt-sm">
-                    <q-badge class="q-pa-md q-mr-sm resource_language" color="primary" 
+                    <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary" 
                      v-for="language in fetchedResource.resource.languages" :key="language.id">
                          {{ $t(language.language) }}
                     </q-badge>
@@ -41,8 +45,8 @@
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div>            
                   <div class="text-h6  q-mt-sm">{{$t('url')}} </div>
                   <div class="text-h6 q-mt-sm">
-                      <a :href="fetchedResource.resource.url" target="_blank">
-                          {{ fetchedResource.resource.url }}
+                      <a :href="fetchedResource.resource.download_url" target="_blank">
+                          {{ fetchedResource.resource.download_url }}
                       </a>
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-url">
                           content_copy  
@@ -65,7 +69,6 @@
                   <div class="text-h6  q-mt-sm">{{$t('Rsync URL')}} </div> 
                   <div class="text-h6 q-mt-sm">
                       {{ fetchedResource.resource.rsync }}
-                      </a>
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-rsync">
                           content_copy  
                           <q-tooltip >
@@ -75,7 +78,7 @@
                   </div> 
                    <div class="text-h6  q-mt-sm resource_info-label">{{$t('tags')}} </div>   
                   <div class="q-mt-sm">
-                  <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
+                  <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
                           {{ tag.tag}}
                   </q-badge>
                   </div>         
@@ -90,7 +93,6 @@
                   <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
               </div>    
             </div>
-        </div>
     </q-page>
 </template>
 
@@ -111,7 +113,7 @@ export default defineComponent({
         if(e.target.classList.contains('clipboard-sampleUrl')) {
            copyToClipboard(fetchedResource.value.resource.sample)
         } else if (e.target.classList.contains('clipboard-url')) {
-           copyToClipboard(fetchedResource.value.resource.url)
+           copyToClipboard(fetchedResource.value.resource.download_url)
         } else if (e.target.classList.contains('clipboard-rsync')) {
            copyToClipboard(fetchedResource.value.resource.rsync)
 
