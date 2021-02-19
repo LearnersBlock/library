@@ -66,7 +66,7 @@
                           </q-tooltip>
                       </span>
                   </div> 
-                  <div class="text-h6 q-mt-sm q-mr-md">{{$t('Rsync URL')}} </div> 
+                  <div class="text-h6 q-mt-sm q-mr-md">{{$t('rsync_url')}} </div> 
                   <div class="text-h6 q-mt-sm">
                       {{ fetchedResource.resource.rsync }}
                       <span @click="copyToClipBoard" class="material-icons text-h5 q-ml-sm cursor-pointer clipboard-rsync">
