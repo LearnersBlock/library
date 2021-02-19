@@ -28,7 +28,7 @@
                   </div> 
                   <div class="text-h6  q-mt-sm resource_info-label resource_info-label">{{$t('languages')}} </div>
                   <div class="q-mt-sm">
-                    <q-badge class="q-pa-md q-mr-sm resource_language" color="primary" 
+                    <q-badge class="q-pa-md q-mr-sm q-mb-sm resource_language" color="primary" 
                      v-for="language in fetchedResource.resource.languages" :key="language.id">
                          {{ $t(language.language) }}
                     </q-badge>
@@ -78,7 +78,7 @@
                   </div> 
                    <div class="text-h6  q-mt-sm resource_info-label">{{$t('tags')}} </div>   
                   <div class="q-mt-sm">
-                  <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
+                  <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
                           {{ tag.tag}}
                   </q-badge>
                   </div>         
