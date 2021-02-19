@@ -26,7 +26,7 @@
             </div>
           </router-link>
         </div>
-        <div v-else class="text-h3 text-center text-grey">No results found</div>
+        <div v-else class="text-h3 text-center text-grey">{{$t('no_results_found')}}</div>
         <div class="text-center">
         <q-btn v-if="fetchedResources.resources.length && !fetchResourcesLoading" :disabled="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount" color="grey-6" @click="loadMore" class="resource_button q-mb-xl">{{$t('load_more')}}</q-btn>
       </div>

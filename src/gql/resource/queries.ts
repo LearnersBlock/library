@@ -8,19 +8,17 @@ export const GET_RESOURCES = gql`
           tags: {id_in: $tags}
           languages: {id_in: $languages}
           formats: {id_in: $formats}
-        }, sort: "name",limit:$limit) {
+        }, limit:$limit) {
           id
           name
-          RTL
           description
           languages {
-              id
-              language
+            id
+            language
           }
           size
           logo {
-            width
-            height
+            formats
             url
           }
       }
@@ -45,8 +43,8 @@ export const GET_RESOURCE = gql`
           uid
           download_url
           languages {
-              id
-              language
+            id
+            language
           }
           licenses {
             id
@@ -59,8 +57,7 @@ export const GET_RESOURCE = gql`
           size
           published
           logo {
-            width
-            height
+            formats 
             url
           }
       }
