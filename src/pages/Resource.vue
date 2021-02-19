@@ -14,7 +14,7 @@
             </router-link>
         </q-item>
             <div class="text-center">
-                <img class="resource_image q-mt-xl" :src="fetchedResource.resource.logo ? 'https://library-api.learnersblock.org' + fetchedResource.resource.logo.url : require('../assets/default.jpg')">
+                <img class="resource_image q-mt-xl" :src="fetchedResource.resource.logo ? 'https://library-api.learnersblock.org' + fetchedResource.resource.logo.formats.thumbnail.url : require('../assets/default.jpg')">
             </div>
             <div dir="auto" class="text-h2 josefin sans resource_name">{{ fetchedResource.resource.name }}</div>
             <div dir="auto" class="text-h6 q-mt-md resource_description">{{ fetchedResource.resource.description }}</div>
