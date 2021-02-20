@@ -25,80 +25,69 @@
             <div dir="auto" class="text-h6 q-mt-md resource_description">{{ fetchedResource.resource.description }}</div>
             <q-separator class="q-mt-md" />
             <div class="resource_info q-mt-lg text-left">
-                  <div class="text-h6 q-mr-md q-mt-sm resource_info-label">{{$t('author')}} </div>
-                  <div class="text-h6 q-mt-sm">
-                      <a :href="fetchedResource.resource.author_website" target="_blank">{{ fetchedResource.resource.author }}
-                      </a>
-                  </div> 
-                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('languages')}} </div>
-                  <div class="q-mt-sm">
-                    <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary" 
-                     v-for="language in fetchedResource.resource.languages" :key="language.id">
-                         {{ $t(language.language) }}
-                    </q-badge>
-                  </div>
-                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('formats')}}</div> 
-                  <div class="q-mt-sm">
-                     <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
-                        {{ format.type}}
-                    </q-badge> 
-                  </div>  
-                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('size')}}  </div>
-                  <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.size }} GB</div>
-                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('host')}} </div>
-                  <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div>            
-                   <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('tags')}} </div>   
-                  <div class="q-mt-sm">
-                  <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
-                          {{ tag.tag}}
-                  </q-badge>
-                  </div>         
-                  <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('licenses')}} </div>
-                  <div v-if="fetchedResource.resource.licenses.length" class="q-mt-sm">
-                  <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="license in fetchedResource.resource.licenses" :key="license.id">
-                          {{ license.license}}
-                  </q-badge>
-                  </div> 
-                  <div class="q-mt-sm" v-else>{{'--'}}</div>
-                  <div class="text-h6 q-mt-sm q-mr-md">{{$t('uid')}} </div> 
-                  <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
-              </div>    
-
-
-
-
-
-
-<div class="q-pt-xl q-gutter-sm">
-    <q-btn-dropdown
-      split
-      @click="downloadZip"
-      color="primary"
-      rounded
-      label="Download"
-    >
-    <q-list>
-        <q-item clickable v-close-popup @click="copyRsync">
-            <q-item-section>
-            <q-item-label>RSync</q-item-label>
-            </q-item-section>
-        </q-item>
-    </q-list>
-    </q-btn-dropdown>
-    <q-btn 
-        split 
-        rounded color="primary" 
-        icon="visibility" 
-        label="Sample" 
-        @click="viewSample">
-    </q-btn>
-</div>
-
-
-
-
-
+                <div class="text-h6 q-mr-md q-mt-sm resource_info-label">{{$t('author')}} </div>
+                <div class="text-h6 q-mt-sm">
+                    <a :href="fetchedResource.resource.author_website" target="_blank">{{ fetchedResource.resource.author }}
+                    </a>
+                </div> 
+                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('languages')}} </div>
+                <div class="q-mt-sm">
+                <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary" 
+                    v-for="language in fetchedResource.resource.languages" :key="language.id">
+                        {{ $t(language.language) }}
+                </q-badge>
+                </div>
+                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('formats')}}</div> 
+                <div class="q-mt-sm">
+                    <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
+                    {{ format.type}}
+                </q-badge> 
+                </div>  
+                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('size')}}  </div>
+                <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.size }} GB</div>
+                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('host')}} </div>
+                <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div>            
+                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('tags')}} </div>   
+                <div class="q-mt-sm">
+                <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
+                        {{ tag.tag }}
+                </q-badge>
+                </div>         
+                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('licenses')}} </div>
+                <div v-if="fetchedResource.resource.licenses.length" class="q-mt-sm">
+                <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="license in fetchedResource.resource.licenses" :key="license.id">
+                        {{ license.license}}
+                </q-badge>
+                </div> 
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
+                <div class="text-h6 q-mt-sm q-mr-md">{{$t('uid')}} </div> 
+                <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
+            </div>    
+            <div class="q-pt-xl q-gutter-sm">
+                <q-btn-dropdown
+                split
+                @click="downloadZip"
+                color="primary"
+                rounded
+                :label="$t('download')"
+                >
+                <q-list>
+                    <q-item clickable v-close-popup @click="copyRsync();$q.notify($t('rsync_url_copied'));">
+                        <q-item-section>
+                        <q-item-label>{{$t('rsync')}}</q-item-label>
+                        </q-item-section>
+                    </q-item>
+                </q-list>
+                </q-btn-dropdown>
+                <q-btn 
+                    split 
+                    rounded color="primary" 
+                    icon="visibility" 
+                    :label="$t('sample')" 
+                    @click="viewSample">
+                </q-btn>
             </div>
+        </div>
     </q-page>
 </template>
 
@@ -107,7 +96,6 @@ import { useQuery } from '@vue/apollo-composable'
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
 import { GET_RESOURCE } from 'src/gql/resource/queries'
 import { copyToClipboard } from 'quasar'
-import { Notify } from 'quasar'
 
 export default defineComponent({
     setup (_,{root}) {
@@ -126,7 +114,6 @@ export default defineComponent({
 
    const copyRsync = () => {
         copyToClipboard(fetchedResource.value.resource.rsync);
-        Notify.create('RSync URL Copied to Clipboard')
    }
         
     return {
