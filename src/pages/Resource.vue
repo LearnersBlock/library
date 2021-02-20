@@ -11,7 +11,7 @@
         <q-item class="back q-mt-md q-mr-sm" >
             <q-page-sticky position="top-left q-pa-sm" :offset="[18, 18]">
                 <router-link color="secondary" class="back text-h6 cursor-pointer" tag="div" to="/">
-                    <q-btn color="white" text-color="primary" class="text-subtitle2">{{$t('back')}}</q-btn>
+                    <q-btn color="white" text-color="primary" class="text-subtitle2 text-weight-bold">{{$t('back')}}</q-btn>
                 </router-link>
             </q-page-sticky>
         </q-item>
@@ -63,28 +63,34 @@
                 <div class="text-h6 q-mt-sm q-mr-md">{{$t('uid')}} </div> 
                 <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
             </div>    
-            <div class="q-pt-xl q-gutter-sm">
-                <q-btn-dropdown
+            <div class="q-pt-xl q-gutter-sm q-pl-xl">
+                <q-btn-dropdown v-if="fetchedResource.resource.download_url || fetchedResource.resource.rsync"
+                glossy
                 split
                 @click="downloadZip"
                 color="primary"
+                icon="download"
                 rounded
                 :label="$t('download')"
-                >
+                :disabled="!fetchedResource.resource.download_url"
+                :disable-dropdown="!fetchedResource.resource.rsync">
                 <q-list>
-                    <q-item clickable v-close-popup @click="copyRsync();$q.notify($t('rsync_url_copied'));">
+                    <q-item
+                        clickable v-close-popup @click="copyRsync();$q.notify($t('rsync_url_copied'));">
                         <q-item-section>
                         <q-item-label>{{$t('rsync')}}</q-item-label>
                         </q-item-section>
                     </q-item>
                 </q-list>
                 </q-btn-dropdown>
-                <q-btn 
+                <q-btn v-if="fetchedResource.resource.sample"
+                    glossy
                     split 
                     rounded color="primary" 
                     icon="visibility" 
                     :label="$t('sample')" 
-                    @click="viewSample">
+                    @click="viewSample" 
+                    >
                 </q-btn>
             </div>
         </div>
