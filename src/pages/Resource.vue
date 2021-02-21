@@ -25,13 +25,13 @@
             <div dir="auto" class="text-h6 q-mt-md resource_description">{{ fetchedResource.resource.description }}</div>
             <q-separator class="q-mt-md" />
             <div class="resource_info q-mt-lg text-left">
-                <div class="text-h6 q-mr-md q-mt-sm resource_info-label">{{$t('author')}} </div>
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('author')}} </div>
                 <div v-if="fetchedResource.resource.author" class="text-h6 q-mt-sm">
                     <a :href="fetchedResource.resource.author_website" target="_blank">{{ fetchedResource.resource.author }}
                     </a>
                 </div> 
                 <div class="q-mt-sm" v-else>{{'--'}}</div>  
-                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('languages')}} </div>
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('languages')}} </div>
                 <div v-if="fetchedResource.resource.languages && fetchedResource.resource.languages.length" class="q-mt-sm">
                 <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary" 
                     v-for="language in fetchedResource.resource.languages" :key="language.id">
@@ -39,37 +39,37 @@
                 </q-badge>
                 </div>
                 <div class="q-mt-sm" v-else>{{'--'}}</div> 
-                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('formats')}}</div> 
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('formats')}}</div> 
                 <div v-if="fetchedResource.resource.formats && fetchedResource.resource.formats.length" class="q-mt-sm">
                     <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
                     {{ format.type}}
                 </q-badge> 
                 </div> 
                 <div class="q-mt-sm" v-else>{{'--'}}</div>   
-                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('size')}}  </div>
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('size')}}  </div>
                 <div v-if="fetchedResource.resource.size" class="text-h6 q-mt-sm">{{ fetchedResource.resource.size }} GB</div>
                 <div class="q-mt-sm" v-else>{{'--'}}</div>  
-                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('host')}} </div>
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('host')}} </div>
                 <div v-if="fetchedResource.resource.host" class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div> 
                 <div class="q-mt-sm" v-else>{{'--'}}</div>            
-                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('tags')}} </div>   
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('tags')}} </div>   
                 <div v-if="fetchedResource.resource.tags && fetchedResource.resource.tags.length" class="q-mt-sm">
                     <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
                             {{ tag.tag }}
                     </q-badge>
                 </div>
                 <div class="q-mt-sm" v-else>{{'--'}}</div>         
-                <div class="text-h6 q-mt-sm q-mr-md resource_info-label">{{$t('licenses')}} </div>
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('licenses')}} </div>
                 <div v-if="fetchedResource.resource.licenses && fetchedResource.resource.licenses.length" class="q-mt-sm">
                     <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="license in fetchedResource.resource.licenses" :key="license.id">
                             {{ license.license}}
                     </q-badge>
                 </div> 
                 <div class="q-mt-sm" v-else>{{'--'}}</div>
-                <div class="text-h6 q-mt-sm q-mr-md">{{$t('uid')}} </div> 
+                <div class="text-h6 q-mt-sm">{{$t('uid')}} </div> 
                 <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
             </div>    
-            <div class="q-pt-xl q-gutter-sm q-pl-xl">
+            <div class="q-pt-xl q-gutter-sm q-pl-xl q-pr-xl">
                 <q-btn-dropdown v-if="fetchedResource.resource.download_url || fetchedResource.resource.rsync"
                 glossy
                 split
@@ -153,6 +153,18 @@ export default defineComponent({
     &_info {
         display: grid;
         grid-template-columns: .5fr 1fr;
+        @media only screen and (max-width: 900px) {
+            text-align: center;
+            grid-template-columns: .5fr .5fr;
+        }
+        @media only screen and (max-width: 650px) {
+            text-align: center;
+            grid-template-columns: .5fr .5fr;
+        }
+        @media only screen and (max-width: 525px) {
+            text-align: center;
+            grid-template-columns: .5fr .5fr;
+        }
 
       &-label {
          @media only screen and (max-width: 470px) {
@@ -187,12 +199,15 @@ export default defineComponent({
 
         @media only screen and (max-width: 900px) {
             width: 70%;
+            text-align: center;
         }
         @media only screen and (max-width: 650px) {
             width: 85%;
+            text-align: center;
         }
         @media only screen and (max-width: 525px) {
             width: 95%;
+            text-align: center;
         }
     }
 }

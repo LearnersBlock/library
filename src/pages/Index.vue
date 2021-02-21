@@ -131,6 +131,7 @@ export default defineComponent({
   transition: all .15s ease-in-out;
   @media only screen and (max-width: 1412px) {
     flex-direction: column;
+    text-align: center;
   }
 
   &:hover {
