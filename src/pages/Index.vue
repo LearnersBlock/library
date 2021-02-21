@@ -165,17 +165,16 @@ export default defineComponent({
     display: flex;
     align-self: flex-start;
      @media only screen and (max-width: 1412px) {
-       margin-top: 1rem;
+      margin-top: 1rem;
+      margin: auto;
     }
      @media only screen and (max-width: 600px) {
        flex-direction: column;
-       width: 5.7rem;
        margin: auto;
     }
   }
 
   &_name {
-  
       @media only screen and (max-width: 800px) {
       font-size: 1.7rem;
     }
