@@ -25,7 +25,7 @@
                 </q-badge>
                 </div>
               </div>
-              <div v-if="resource.size" class="text-subtitle1 resource_size">{{$t('size')}}: {{ resource.size }} GB</div>
+              <div v-if="resource.size" class="text-subtitle1 resource_size">{{$t('size')}} {{ resource.size }} GB</div>
             </div>
           </router-link>
         </div>
@@ -129,7 +129,7 @@ export default defineComponent({
   cursor: pointer;
   border-radius: .3rem;
   transition: all .15s ease-in-out;
-  @media only screen and (max-width: 1412px) {
+  @media only screen and (max-width: 960px) {
     flex-direction: column;
     text-align: center;
   }
@@ -143,28 +143,24 @@ export default defineComponent({
     height: auto;
     margin-right: 2rem;
     width: 10rem;
-     @media only screen and (max-width: 1412px) {
+     @media only screen and (max-width: 960px) {
        margin: auto;
        width: 10rem;
        height: auto;
        margin-bottom: 2rem;
 
-    }
-    @media screen and (max-width: 1680px) {
+      }
+      @media screen and (max-width: 1680px) {
       width: 10rem;
       height: auto;
       align-self: center;
+      }
     }
-     @media only screen and (max-width: 1260px) {
-      width: 10rem;
-      height: auto;
-    }
-  }
 
   &_languages {
     display: flex;
     align-self: flex-start;
-     @media only screen and (max-width: 1412px) {
+     @media only screen and (max-width: 960px) {
       margin-top: 1rem;
       margin: auto;
     }
@@ -190,7 +186,7 @@ export default defineComponent({
     position: absolute;
     right: 2.25rem;
     bottom: 1.5rem;
-    @media only screen and (max-width: 1412px) {
+    @media only screen and (max-width: 960px) {
       position: relative;
       right: .3rem;
       margin-top: 3rem;
