@@ -65,9 +65,7 @@
                             {{ license.license}}
                     </q-badge>
                 </div> 
-                <div class="q-mt-sm" v-else>{{'--'}}</div>
-                <div class="text-h6 q-mt-sm">{{$t('uid')}} </div> 
-                <div class="text-h6 q-mt-sm">{{ fetchedResource.resource.uid }}</div>     
+                <div class="q-mt-sm" v-else>{{'--'}}</div>  
             </div>    
             <div class="q-pt-xl q-gutter-sm q-pl-xl q-pr-xl">
                 <q-btn-dropdown v-if="fetchedResource.resource.download_url || fetchedResource.resource.rsync"
