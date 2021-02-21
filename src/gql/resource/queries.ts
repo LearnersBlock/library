@@ -8,7 +8,7 @@ export const GET_RESOURCES = gql`
           tags: {id_in: $tags}
           languages: {id_in: $languages}
           formats: {id_in: $formats}
-        }, limit:$limit) {
+        }, sort: "published",limit:$limit) {
           id
           name
           description
@@ -55,7 +55,6 @@ export const GET_RESOURCE = gql`
             tag
           }
           size
-          published
           logo {
             formats 
             url
