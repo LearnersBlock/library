@@ -8,7 +8,7 @@ export const GET_RESOURCES = gql`
           tags: {id_in: $tags}
           languages: {id_in: $languages}
           formats: {id_in: $formats}
-        }, sort: "published",limit:$limit) {
+        }, sort: "published_at:desc",limit:$limit) {
           id
           name
           description
