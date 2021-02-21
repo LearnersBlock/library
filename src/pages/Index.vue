@@ -25,7 +25,7 @@
                 </q-badge>
                 </div>
               </div>
-              <div class="text-h6 resource_size">{{$t('size')}}: {{ resource.size }} GB</div>
+              <div v-if="resource.size" class="text-subtitle1 resource_size">{{$t('size')}}: {{ resource.size }} GB</div>
             </div>
           </router-link>
         </div>
@@ -188,12 +188,17 @@ export default defineComponent({
 
   &_size {
     position: absolute;
-    right: 2rem;
-    bottom: 2rem;
-     @media only screen and (max-width: 677px) {
-       position: relative;
-       margin-top: 4rem;
-       margin-left: 2.7rem;
+    right: 2.25rem;
+    bottom: 1.5rem;
+    @media only screen and (max-width: 1412px) {
+      position: relative;
+      right: .3rem;
+      margin-top: 3rem;
+    }
+    @media only screen and (max-width: 800px) {
+      position: relative;
+      right: .3rem;
+      margin-top: 3rem;
     }
   }
 
