@@ -19,7 +19,7 @@
         </q-avatar>
 
         <q-toolbar-title class="josefin text-h5 q-mt-xs" >
-          <a class="text-white" style="text-decoration:none;" href="https://library.learnersblock.org" target="_blank">
+          <a class="text-white" style="text-decoration:none;" href="https://library.learnersblock.org" target="_self">
           Learner's Block
           </a>
         </q-toolbar-title>

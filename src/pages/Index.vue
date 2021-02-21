@@ -6,10 +6,13 @@
         v-if="fetchResourcesLoading"
       />
       <div v-if="fetchedResources && !fetchResourcesLoading" class="resource_container">
-        <div v-if="fetchedResources.resources.length" class="resource_box q-mt-lg q-mb-xl">
+        <div v-if="fetchedResources.resources" class="resource_box q-mt-lg q-mb-xl">
           <router-link  class="resource q-mt-md items-center" tag="div" :to="'/resource/' + resource.id" v-for="resource in fetchedResources.resources" :key="resource.id">
-            <div>
-              <img class="resource_image width" :src="resource.logo ? 'https://library-api.learnersblock.org' + resource.logo.url : require('../assets/default.jpg')">
+            <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
+              <img class="resource_image" :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url">
+            </div>
+            <div v-else>
+              <img class="resource_image" :src="resource.logo ? 'https://library-api.learnersblock.org' + resource.logo.url : require('../assets/default.jpg')">
             </div>
             <div class="resource_info">
               <div dir="auto" class="text-h3 resource_name josefin sans">
@@ -127,30 +130,34 @@ export default defineComponent({
   border-radius: .3rem;
   transition: all .15s ease-in-out;
   @media only screen and (max-width: 1412px) {
-   flex-direction: column;
-
+    flex-direction: column;
+    text-align: center;
   }
 
   &:hover {
     box-shadow: 0 .3rem 1rem .1rem rgba(0,0,0,.3);
     transform: translateY(-.1rem);
   }
-
+  
   &_image {
-    width: 15rem;
+    height: auto;
     margin-right: 2rem;
+    width: 10rem;
      @media only screen and (max-width: 1412px) {
        margin: auto;
+       width: 10rem;
+       height: auto;
        margin-bottom: 2rem;
 
     }
     @media screen and (max-width: 1680px) {
-      width: 15rem;
-      height: 50%;
+      width: 10rem;
+      height: auto;
       align-self: center;
     }
      @media only screen and (max-width: 1260px) {
       width: 10rem;
+      height: auto;
     }
   }
 
@@ -158,17 +165,16 @@ export default defineComponent({
     display: flex;
     align-self: flex-start;
      @media only screen and (max-width: 1412px) {
-       margin-top: 1rem;
+      margin-top: 1rem;
+      margin: auto;
     }
      @media only screen and (max-width: 600px) {
        flex-direction: column;
-       width: 5.7rem;
        margin: auto;
     }
   }
 
   &_name {
-  
       @media only screen and (max-width: 800px) {
       font-size: 1.7rem;
     }
@@ -195,6 +201,7 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     justify-content: center;
+
   }
 
   &_container {
