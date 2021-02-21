@@ -64,19 +64,19 @@ export const GET_RESOURCE = gql`
 `
 
 export const GET_RESOURCES_LENGTH = gql`
- query resourcesConnection($keyword: String, $languages: [String], $formats: [String], $tags: [String]) {
-   resourcesConnection(
+  query resourcesConnection($keyword: String, $languages: [String], $formats: [String], $tags: [String]) {
+    resourcesConnection(
       where: { 
           _or: [{name_contains: $keyword},{description_contains: $keyword}]
           tags: {id_in: $tags}
           languages: {id_in: $languages}
           formats: {id_in: $formats}        
       }
-   ) {
-     aggregate {
-       totalCount
-     }
-   }
- }
+    ) {
+      aggregate {
+        totalCount
+      }
+    }
+  }
 `
 
