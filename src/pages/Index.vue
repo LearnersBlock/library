@@ -6,7 +6,7 @@
         v-if="fetchResourcesLoading"
       />
       <div v-if="fetchedResources && !fetchResourcesLoading" class="resource_container">
-        <div v-if="fetchedResources.resources.length" class="resource_box q-mt-lg q-mb-xl">
+        <div v-if="fetchedResources.resources" class="resource_box q-mt-lg q-mb-xl">
           <router-link  class="resource q-mt-md items-center" tag="div" :to="'/resource/' + resource.id" v-for="resource in fetchedResources.resources" :key="resource.id">
             <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
               <img class="resource_image" :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url">
