@@ -65,7 +65,7 @@ export default defineComponent({
     const { 
       result: fetchedResources, 
       loading: fetchResourcesLoading,
-      refetch: fetchResources } = useQuery(GET_RESOURCES, {limit: 10})
+      refetch: fetchResources } = useQuery(GET_RESOURCES, {limit: 30})
 
      const { 
       result: fetchedResourcesLength, 
@@ -79,7 +79,7 @@ export default defineComponent({
     })
 
     const loadMore = async () => {
-      limit.value = limit.value + 10
+      limit.value = limit.value + 30
       await fetchFilteredResources()
     }
 
