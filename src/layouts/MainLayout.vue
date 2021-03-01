@@ -152,7 +152,7 @@
         </template>
       </q-select>
       <q-btn color="primary" class="q-ml-md q-mt-md" @click="resetInputs">{{$t('reset')}}</q-btn>
-
+      <div class="q-ml-md q-mt-md text-grey">{{ $t('total_entries')}}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}</div>
       </q-list>      
     </q-drawer>
 
@@ -171,6 +171,7 @@ import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
 import Index from '../pages/Index.vue'
 import Resource from '../pages/Resource.vue'
+import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
 import qLang from '../i18n/index'
 
 export default defineComponent({
@@ -216,6 +217,11 @@ export default defineComponent({
     const { result: fetchedFormats,loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
     // Fetch tags query
     const { result: fetchedTags,loading: fetchTagsLoading, refetch: fetchTags } = useQuery(GET_TAGS)
+
+    // Fetch resources query
+     const { 
+      result: fetchedResourcesLength
+     } = useQuery(GET_RESOURCES_LENGTH, {})
    
    onMounted(async() => {
      await fetchLanguages()
@@ -275,6 +281,7 @@ export default defineComponent({
       selectedLanguages,
       fetchedLanguages,
       fetchLanguagesLoading,
+      fetchedResourcesLength,
       selectedFormats,
       selectedTags,
       fetchedTags,
