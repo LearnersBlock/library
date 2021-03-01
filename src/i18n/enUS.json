@@ -26,8 +26,13 @@
     "sample": "Sample",
     "uid": "UID",
     "languages": "Languages",
+    "Afrikaans": "Afrikaans",
+    "Arabic": "Arabic",
     "English": "English",
     "French": "French",
-    "Arabic": "Arabic",
+    "German": "German",
+    "Indonesian": "Indonesian",
+    "Nepalese": "Nepalese",
+    "Portuguese": "Portuguese",
     "Spanish": "Spanish"
 }
