@@ -20,7 +20,7 @@
               </div>
               <div dir="auto" class="text-h6 q-mt-md resource_description">{{ resource.description }}</div>
               <div class="resource_languages">
-                 <div><q-badge class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large" color="primary"  v-for="language in resource.languages" :key="language.id">
+                 <div><q-badge class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large" color="primary" v-for="language in resource.languages" :key="language.id">
                   {{ $t(language.language) }}
                 </q-badge>
                 </div>

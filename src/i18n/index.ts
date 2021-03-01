@@ -10,7 +10,7 @@ import qFr from 'quasar/lang/fr'
 export default {
   'ar': ar,
   'qAr': qAr,
-  'enUS': enUS,
+  'en-us': enUS,
   'qEnUS': qEnUS,
   'es': es,
   'qEs': qEs,
