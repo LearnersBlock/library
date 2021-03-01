@@ -7,7 +7,7 @@
     "search_options": "خيارات البحث",
     "published_date": "تاريخ النشر",
     "author": "مؤلف",
-    "size": "بحجم",
+    "size": "حجم",
     "host": "مضيف",
     "licenses": "التراخيص",
     "tags": "العلامات",
@@ -15,5 +15,6 @@
     "English": "الإنجليزية",
     "French": "فرنسي",
     "Arabic": "عربي",
-    "reset": "إعادة تعيين"
+    "reset": "إعادة تعيين",
+    "download": "تحميل"
 }
