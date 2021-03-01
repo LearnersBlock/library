@@ -199,6 +199,9 @@ export default defineComponent({
       }, {
         name: 'fr',
         label: 'French'
+      }, {
+        name: 'es',
+        label: 'Spanish'
       },
       {
         name: 'ar',
