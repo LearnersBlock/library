@@ -171,6 +171,7 @@ import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
 import Index from '../pages/Index.vue'
 import Resource from '../pages/Resource.vue'
+import qLang from '../i18n/index'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -187,25 +188,24 @@ export default defineComponent({
     const view = ref<any>(null)
     // Selected languages for select dropdown - IDs
     const selectedLanguages = ref<string[]>([])
-    // Selected formats - Audio, Video etc
+    // Selected formats
     const selectedFormats = ref<[]>([])
-    // Selected tags - EiE etc
+    // Selected tags
     const selectedTags = ref<string[]>([])
-    // Sample languages for i18n - Put as many as you like here
+    // Languages for i18n
     const languages = ref<[]>([
       {
         name: 'en-us',
-        label: 'English'
+        label: qLang.qEnUS.nativeName
       }, {
-        name: 'fr',
-        label: 'French'
+        name: 'ar',
+        label: qLang.qAr.nativeName
       }, {
         name: 'es',
-        label: 'Spanish'
-      },
-      {
-        name: 'ar',
-        label: 'Arabic'
+        label: qLang.qEs.nativeName
+      },{
+        name: 'fr',
+        label: qLang.qFr.nativeName
       }
     ] as any)
     // Selected language for i18n

@@ -1,11 +1,19 @@
+import ar from './ar.json'
+import qAr from 'quasar/lang/ar'
 import enUS from './enUS.json'
-import French from './fr.json'
-import Arabic from './ar.json'
-import Spanish from './es.json'
+import qEnUS from 'quasar/lang/en-us'
+import es from './es.json'
+import qEs from 'quasar/lang/es'
+import fr from './fr.json'
+import qFr from 'quasar/lang/fr'
 // Here you can define additional languages
 export default {
-  'en-us': enUS,
-  'fr': French,
-  'ar': Arabic,
-  'es': Spanish
+  'ar': ar,
+  'qAr': qAr,
+  'enUS': enUS,
+  'qEnUS': qEnUS,
+  'es': es,
+  'qEs': qEs,
+  'fr': fr,
+  'qFr': qFr
 }
