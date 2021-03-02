@@ -152,7 +152,7 @@
         </template>
       </q-select>
       <q-btn color="primary" class="q-ml-md q-mt-md" @click="resetInputs">{{$t('reset')}}</q-btn>
-      <div class="q-ml-md q-mt-md text-grey">{{ $t('total_entries')}}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}</div>
+      <div v-if="fetchedResourcesLength" class="q-ml-md q-mt-md text-grey">{{ $t('total_entries')}}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}</div>
       </q-list>      
     </q-drawer>
 
