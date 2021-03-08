@@ -25,7 +25,7 @@
                 </q-badge>
                 </div>
               </div>
-              <div v-if="resource.size" class="text-subtitle1 resource_size">{{$t('size')}} {{ resource.size }} GB</div>
+              <div v-if="resource.size" class="text-subtitle1 resource_size">{{$t('size')}}: {{ resource.size }} GB</div>
             </div>
           </router-link>
         </div>
