@@ -9,7 +9,6 @@ const httpLink = createHttpLink({
   uri: 'https://library-api.learnersblock.org/graphql', fetch
 })
 
-
 // Create the apollo client
 export const apolloClient = new ApolloClient({
   link: httpLink,

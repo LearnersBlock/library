@@ -5,4 +5,6 @@
 /.quasar
 /node_modules
 /src-ssr
-/src
+.eslintrc.js
+quasar.conf.js
+qLang.d.ts

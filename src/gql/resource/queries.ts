@@ -79,4 +79,3 @@ export const GET_RESOURCES_LENGTH = gql`
     }
   }
 `
-

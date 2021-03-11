@@ -60,7 +60,7 @@ module.exports = configure(function (ctx) {
       // Applies only if "transpile" is set to true.
       // transpileDependencies: [],
 
-      rtl: true, // https://quasar.dev/options/rtl-support
+      rtl: true // https://quasar.dev/options/rtl-support
       // preloadChunks: true,
       // showProgress: false,
       // gzip: true,
@@ -204,7 +204,7 @@ module.exports = configure(function (ctx) {
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
       nodeIntegration: true,
 
-      extendWebpack(/* cfg */) {
+      extendWebpack (/* cfg */) {
         // do something with Electron main process Webpack cfg
         // chainWebpack also available besides this extendWebpack
       }

@@ -40,8 +40,8 @@
 <script lang="ts">
 import { useQuery } from '@vue/apollo-composable'
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
-import { GET_RESOURCES } from '../gql/resource/queries'
-import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
+import { GET_RESOURCES, GET_RESOURCES_LENGTH } from '../gql/resource/queries'
+
 export default defineComponent({
   name: 'PageIndex',
   props: {
@@ -62,16 +62,17 @@ export default defineComponent({
     // Loading boolean in case the api is very fast, the UI still loads for a lil bit - better User Experience
     const limit = ref<number>(10)
     // Fetch resources query
-    const { 
-      result: fetchedResources, 
+    const {
+      result: fetchedResources,
       loading: fetchResourcesLoading,
-      refetch: fetchResources } = useQuery(GET_RESOURCES, {limit: 30})
+      refetch: fetchResources
+    } = useQuery(GET_RESOURCES, { limit: 30 })
 
-     const { 
-      result: fetchedResourcesLength, 
+    const {
+      result: fetchedResourcesLength,
       loading: fetchResourcesLengthLoading,
       refetch: fetchResourcesLength
-     } = useQuery(GET_RESOURCES_LENGTH, {})
+    } = useQuery(GET_RESOURCES_LENGTH, {})
 
     // On mount, enable loading and fetch resources
     onMounted(async () => {
@@ -86,25 +87,24 @@ export default defineComponent({
     // Enable loading and filter resources according to all inputs
     const fetchFilteredResources = async (
       keyword:string = props.keyword!,
-      formats: string[] = props.formats! as string[], 
+      formats: string[] = props.formats! as string[],
       languages: string[] = props.languages as string[],
-      tags: string[] = props.tags as string[] ) => {
-         await fetchResourcesLength(
-     {
-       keyword,
-       languages,
-       formats,
-       tags
-     }
-     )
-     await fetchResources({
-       keyword,
-       languages,
-       formats,
-       tags,
-       limit: limit.value
-     } as any)
-    
+      tags: string[] = props.tags as string[]) => {
+      await fetchResourcesLength(
+        {
+          keyword,
+          languages,
+          formats,
+          tags
+        }
+      )
+      await fetchResources({
+        keyword,
+        languages,
+        formats,
+        tags,
+        limit: limit.value
+      } as any)
     }
 
     return {
@@ -138,7 +138,7 @@ export default defineComponent({
     box-shadow: 0 .3rem 1rem .1rem rgba(0,0,0,.3);
     transform: translateY(-.1rem);
   }
-  
+
   &_image {
     height: auto;
     margin-right: 2rem;

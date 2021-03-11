@@ -11,14 +11,14 @@ import { GET_RESOURCES } from './gql/resource/queries'
 
 export default defineComponent({
   name: 'App',
-  setup() {
+  setup () {
     const apiIsUp = ref<boolean>(true)
     const { onError } = useQuery(GET_RESOURCES)
 
     onError(() => {
       setTimeout(() => {
         apiIsUp.value = false
-      },1000)
+      }, 1000)
     })
     return {
       apiIsUp
