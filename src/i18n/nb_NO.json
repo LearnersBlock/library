@@ -29,5 +29,8 @@
     "sample": "Prøve",
     "rsync_url_copied": "Rsync-nettadresse kopiert til utklippstavlen",
     "rsync": "Rsync",
-    "download": "Last ned"
+    "download": "Last ned",
+    "Portuguese": "Portugisisk",
+    "German": "Tysk",
+    "total_entries": "Totalt antall oppføringer"
 }
