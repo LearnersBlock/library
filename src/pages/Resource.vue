@@ -29,44 +29,44 @@
                 <div v-if="fetchedResource.resource.author" class="text-h6 q-mt-sm">
                     <a :href="fetchedResource.resource.author_website" target="_blank">{{ fetchedResource.resource.author }}
                     </a>
-                </div> 
-                <div class="q-mt-sm" v-else>{{'--'}}</div>  
+                </div>
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
                 <div class="text-h6 q-mt-sm resource_info-label">{{$t('languages')}}:</div>
                 <div v-if="fetchedResource.resource.languages && fetchedResource.resource.languages.length" class="q-mt-sm">
-                <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary" 
+                <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary"
                     v-for="language in fetchedResource.resource.languages" :key="language.id">
                         {{ $t(language.language) }}
                 </q-badge>
                 </div>
-                <div class="q-mt-sm" v-else>{{'--'}}</div> 
-                <div class="text-h6 q-mt-sm resource_info-label">{{$t('formats')}}:</div> 
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('formats')}}:</div>
                 <div v-if="fetchedResource.resource.formats && fetchedResource.resource.formats.length" class="q-mt-sm">
                     <q-badge class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language" color="primary"  v-for="format in fetchedResource.resource.formats" :key="format.id">
                     {{ format.type}}
-                </q-badge> 
-                </div> 
-                <div class="q-mt-sm" v-else>{{'--'}}</div>   
+                </q-badge>
+                </div>
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
                 <div class="text-h6 q-mt-sm resource_info-label">{{$t('size')}}:</div>
                 <div v-if="fetchedResource.resource.size" class="text-h6 q-mt-sm">{{ fetchedResource.resource.size }} GB</div>
-                <div class="q-mt-sm" v-else>{{'--'}}</div>  
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
                 <div class="text-h6 q-mt-sm resource_info-label">{{$t('host')}}:</div>
-                <div v-if="fetchedResource.resource.host" class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div> 
-                <div class="q-mt-sm" v-else>{{'--'}}</div>            
-                <div class="text-h6 q-mt-sm resource_info-label">{{$t('tags')}}:</div>   
+                <div v-if="fetchedResource.resource.host" class="text-h6 q-mt-sm">{{ fetchedResource.resource.host }}</div>
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
+                <div class="text-h6 q-mt-sm resource_info-label">{{$t('tags')}}:</div>
                 <div v-if="fetchedResource.resource.tags && fetchedResource.resource.tags.length" class="q-mt-sm">
                     <q-badge class="q-pa-md q-mr-sm q-mb-sm" color="primary"  v-for="tag in fetchedResource.resource.tags" :key="tag.id">
                             {{ tag.tag }}
                     </q-badge>
                 </div>
-                <div class="q-mt-sm" v-else>{{'--'}}</div>         
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
                 <div class="text-h6 q-mt-sm resource_info-label">{{$t('licenses')}}:</div>
                 <div v-if="fetchedResource.resource.licenses && fetchedResource.resource.licenses.length" class="q-mt-sm">
                     <q-badge class="q-pa-md q-mr-sm" color="primary"  v-for="license in fetchedResource.resource.licenses" :key="license.id">
                             {{ license.license}}
                     </q-badge>
-                </div> 
-                <div class="q-mt-sm" v-else>{{'--'}}</div>  
-            </div>    
+                </div>
+                <div class="q-mt-sm" v-else>{{'--'}}</div>
+            </div>
             <div class="q-pt-xl q-gutter-sm q-pl-xl q-pr-xl">
                 <q-btn-dropdown v-if="fetchedResource.resource.download_url || fetchedResource.resource.rsync"
                 glossy
@@ -89,11 +89,11 @@
                 </q-btn-dropdown>
                 <q-btn v-if="fetchedResource.resource.sample"
                     glossy
-                    split 
-                    rounded color="primary" 
-                    icon="visibility" 
-                    :label="$t('sample')" 
-                    @click="viewSample" 
+                    split
+                    rounded color="primary"
+                    icon="visibility"
+                    :label="$t('sample')"
+                    @click="viewSample"
                     >
                 </q-btn>
             </div>
@@ -103,37 +103,36 @@
 
 <script lang="ts">
 import { useQuery } from '@vue/apollo-composable'
-import { defineComponent, onMounted, ref } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import { GET_RESOURCE } from 'src/gql/resource/queries'
 import { copyToClipboard } from 'quasar'
 
 export default defineComponent({
-    setup (_,{root}) {
-  
+  setup (_, { root }) {
     // Fetch resources
-    const { result: fetchedResource, loading: fetchResourceLoading } = useQuery(GET_RESOURCE,{id: root.$route.params.id})
+    const { result: fetchedResource, loading: fetchResourceLoading } = useQuery(GET_RESOURCE, { id: root.$route.params.id })
 
-    // Bottom button functions 
-   const viewSample = () => {
-        window.open(fetchedResource.value.resource.sample);
-   }
+    // Bottom button functions
+    const viewSample = () => {
+      window.open(fetchedResource.value.resource.sample)
+    }
 
-   const downloadZip = () => {
-        window.open(fetchedResource.value.resource.download_url);
-   }
+    const downloadZip = () => {
+      window.open(fetchedResource.value.resource.download_url)
+    }
 
-   const copyRsync = () => {
-        copyToClipboard(fetchedResource.value.resource.rsync);
-   }
-        
+    const copyRsync = () => {
+      copyToClipboard(fetchedResource.value.resource.rsync)
+    }
+
     return {
-        fetchedResource,
-        fetchResourceLoading,
-        downloadZip,
-        viewSample,
-        copyRsync
+      fetchedResource,
+      fetchResourceLoading,
+      downloadZip,
+      viewSample,
+      copyRsync
     }
-    }
+  }
 })
 </script>
 
@@ -209,7 +208,6 @@ export default defineComponent({
         }
     }
 }
-
 
 .visit {
     position: absolute;

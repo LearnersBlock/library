@@ -27,7 +27,7 @@
             class="w-15 q-mx-auto q-pa-sm"
             filled
             square
-            color="dark" 
+            color="dark"
             bg-color="grey-3"
             v-model="selectedLanguage"
             :label="$t('switch_language')"
@@ -57,13 +57,13 @@
         {{$t('search_options')}}
         </q-item-label>
         <q-separator class="q-mt-md"/>
-   
-        <q-input 
-          outlined 
-          class="q-mt-lg q-mx-auto w-90"         
-          v-model="keyword" 
+
+        <q-input
+          outlined
+          class="q-mt-lg q-mx-auto w-90"
+          v-model="keyword"
           clearable
-          @keyup="searchResources" 
+          @keyup="searchResources"
           :label="$t('keywords')"/>
         <q-select
             class="w-90 q-mx-auto q-mt-md"
@@ -153,7 +153,7 @@
       </q-select>
       <q-btn color="primary" class="q-ml-md q-mt-md" @click="resetInputs">{{$t('reset')}}</q-btn>
       <div v-if="fetchedResourcesLength" class="q-ml-md q-mt-md text-grey">{{ $t('total_entries')}}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}</div>
-      </q-list>      
+      </q-list>
     </q-drawer>
 
     <q-page-container>
@@ -165,26 +165,20 @@
 <script lang="ts">
 
 import { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
-import { useQuery } from "@vue/apollo-composable"
+import { useQuery } from '@vue/apollo-composable'
 import { GET_LANGUAGES } from '../gql/language/queries'
 import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
-import Index from '../pages/Index.vue'
-import Resource from '../pages/Resource.vue'
 import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
 import qLang from '../i18n/index'
 
 export default defineComponent({
   name: 'MainLayout',
-  components: {
-    Index,
-    Resource
-  },
-  setup (_,{root}) {
+  setup (_, { root }) {
     // Drawer toggle
     const leftDrawerOpen = ref(false)
     // Keyword input
-    const keyword = ref<string>("")
+    const keyword = ref<string>('')
     // Router view refference in order call method from parent to child
     const view = ref<any>(null)
     // Selected languages for select dropdown - IDs
@@ -204,76 +198,75 @@ export default defineComponent({
       }, {
         name: 'es',
         label: qLang.qEs.nativeName
-      },{
+      }, {
         name: 'fr',
         label: qLang.qFr.nativeName
       }
     ] as any)
     // Selected language for i18n
-    const selectedLanguage = ref<string>("en-us")
+    const selectedLanguage = ref<string>('en-us')
     // Fetch languages query
-    const { result: fetchedLanguages,loading: fetchLanguagesLoading, refetch: fetchLanguages } = useQuery(GET_LANGUAGES)
+    const { result: fetchedLanguages, loading: fetchLanguagesLoading, refetch: fetchLanguages } = useQuery(GET_LANGUAGES)
     // Fetch formats query
-    const { result: fetchedFormats,loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
+    const { result: fetchedFormats, loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
     // Fetch tags query
-    const { result: fetchedTags,loading: fetchTagsLoading, refetch: fetchTags } = useQuery(GET_TAGS)
+    const { result: fetchedTags, loading: fetchTagsLoading, refetch: fetchTags } = useQuery(GET_TAGS)
 
     // Fetch resources query
-     const { 
+    const {
       result: fetchedResourcesLength
-     } = useQuery(GET_RESOURCES_LENGTH, {})
-   
-   onMounted(async() => {
-     await fetchLanguages()
-     await fetchFormats()
-     await fetchTags()
-   })
-   // If keyword input is cleared, then execute the query
-   watch(() => keyword.value,(newValue) => {
-     if(newValue === null) {
-       searchResources()
-     }
-   }) 
+    } = useQuery(GET_RESOURCES_LENGTH, {})
+
+    onMounted(async () => {
+      await fetchLanguages()
+      await fetchFormats()
+      await fetchTags()
+    })
+    // If keyword input is cleared, then execute the query
+    watch(() => keyword.value, (newValue) => {
+      if (newValue === null) {
+        searchResources()
+      }
+    })
 
     // Used to disable the drawer once the user goes to a specific resource
-   const isInIndex = computed(() => {
-     return root.$route.path === '/'
-   })
-   
-   // Method to call fetchFilteredResources from parent to child
-   const searchResources = () => {
-     view.value.fetchFilteredResources(keyword.value,selectedFormats.value,selectedLanguages.value,selectedTags.value) 
-   }
+    const isInIndex = computed(() => {
+      return root.$route.path === '/'
+    })
 
-  // Switch i18n language according to selectedLanguage input
-   const switchLanguage = () => {
-     if(selectedLanguage.value === 'ar') {
-         import(
+    // Method to call fetchFilteredResources from parent to child
+    const searchResources = () => {
+      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value)
+    }
+
+    // Switch i18n language according to selectedLanguage input
+    const switchLanguage = () => {
+      if (selectedLanguage.value === 'ar') {
+        import(
         /* webpackInclude: /(de|en-us)\.js$/ */
-        'quasar/lang/' + 'he'
+          'quasar/lang/' + 'he'
         ).then(lang => {
-        root.$q.lang.set(lang.default)
-      })
-     } else {
-      import(
+          root.$q.lang.set(lang.default)
+        })
+      } else {
+        import(
         /* webpackInclude: /(de|en-us)\.js$/ */
-        'quasar/lang/' + 'en-us'
+          'quasar/lang/' + 'en-us'
         ).then(lang => {
-        root.$q.lang.set(lang.default)
-     })
-     }
-   
-     root.$i18n.locale = selectedLanguage.value
-   }
+          root.$q.lang.set(lang.default)
+        })
+      }
 
-   const resetInputs = () => {
-     keyword.value = ""
-     selectedLanguages.value = []
-     selectedFormats.value = []
-     selectedTags.value = []
-     view.value.fetchFilteredResources(keyword.value,selectedFormats.value,selectedLanguages.value,selectedTags.value) 
+      root.$i18n.locale = selectedLanguage.value
+    }
 
-   }
+    const resetInputs = () => {
+      keyword.value = ''
+      selectedLanguages.value = []
+      selectedFormats.value = []
+      selectedTags.value = []
+      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value)
+    }
 
     return {
       leftDrawerOpen,

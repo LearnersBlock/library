@@ -8,12 +8,12 @@ import fr from './fr.json'
 import qFr from 'quasar/lang/fr'
 // Here you can define additional languages
 export default {
-  'ar': ar,
-  'qAr': qAr,
+  ar: ar,
+  qAr: qAr,
   'en-us': enUS,
-  'qEnUS': qEnUS,
-  'es': es,
-  'qEs': qEs,
-  'fr': fr,
-  'qFr': qFr
+  qEnUS: qEnUS,
+  es: es,
+  qEs: qEs,
+  fr: fr,
+  qFr: qFr
 }
