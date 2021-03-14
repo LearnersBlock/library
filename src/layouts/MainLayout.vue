@@ -16,27 +16,30 @@
           <img src="../assets/lb-logo.png">
         </q-avatar>
 
-        <q-toolbar-title class="josefin text-h5 q-mt-xs" >
-          <a class="text-white" style="text-decoration:none;" href="https://library.learnersblock.org" target="_self">
-          Learner's Block
+        <q-toolbar-title class="josefin text-h5 q-mt-xs">
+          <a
+            class="text-white"
+            style="text-decoration:none;"
+            href="https://library.learnersblock.org"
+            target="_self"
+          >
+            Learner's Block
           </a>
         </q-toolbar-title>
         <q-select
-            class="w-15 q-mx-auto q-pa-sm"
-            filled
-            square
-            color="dark"
-            bg-color="grey-3"
-            v-model="selectedLanguage"
-            :label="$t('switch_language')"
-            :options="languages"
-            :option-value="(lang) => lang.name"
-            emit-value
-            map-options
-            @input="switchLanguage"
-        >
-      </q-select>
-
+          class="w-15 q-mx-auto q-pa-sm"
+          filled
+          square
+          color="dark"
+          bg-color="grey-3"
+          v-model="selectedLanguage"
+          :label="$t('switch_language')"
+          :options="languages"
+          :option-value="(lang) => lang.name"
+          emit-value
+          map-options
+          @input="switchLanguage"
+        />
       </q-toolbar>
     </q-header>
 
@@ -52,9 +55,9 @@
           header
           class="text-grey-8 text-h5 text-center q-mt-md"
         >
-        {{$t('search_options')}}
+          {{ $t('search_options') }}
         </q-item-label>
-        <q-separator class="q-mt-md"/>
+        <q-separator class="q-mt-md" />
 
         <q-input
           outlined
@@ -62,100 +65,127 @@
           v-model="keyword"
           clearable
           @keyup="searchResources"
-          :label="$t('keywords')"/>
+          :label="$t('keywords')"
+        />
         <q-select
-            class="w-90 q-mx-auto q-mt-md"
-            outlined
-            v-if="fetchedLanguages"
-            v-model="selectedLanguages"
-            :label="$t('languages')"
-            :option-label="(lang) => lang.language"
-            :option-value="(lang) => lang.id"
-            :options="fetchedLanguages.languages"
-            @input="searchResources"
-            multiple
-            map-options
-            emit-value
+          class="w-90 q-mx-auto q-mt-md"
+          outlined
+          v-if="fetchedLanguages"
+          v-model="selectedLanguages"
+          :label="$t('languages')"
+          :option-label="(lang) => lang.language"
+          :option-value="(lang) => lang.id"
+          :options="fetchedLanguages.languages"
+          @input="searchResources"
+          multiple
+          map-options
+          emit-value
         >
-        <template v-slot:option="{ itemProps, itemEvents, opt, selected, toggleOption }">
-          <q-item
-            v-bind="itemProps"
-            v-on="itemEvents"
-          >
-            <q-item-section>
-              <q-item-label v-html="opt.language" ></q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-toggle :value="selected" @input="toggleOption(opt)" />
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
+          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+            <q-item
+              v-bind="itemProps"
+              v-on="itemEvents"
+            >
+              <q-item-section>
+                <q-item-label v-html="opt.language" />
+              </q-item-section>
+              <q-item-section side>
+                <q-toggle
+                  :value="selected"
+                  @input="toggleOption(opt)"
+                />
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
 
-         <q-select
-            class="w-90 q-mx-auto q-mt-md"
-            outlined
-            v-model="selectedTags"
-            v-if="fetchedTags"
-            :options="fetchedTags.tags"
-            :option-label="(tag) => tag.tag"
-            :option-value="(tag) => tag.id"
-            :label="$t('tags')"
-            @input="searchResources"
-            multiple
-            emit-value
-            map-options
+        <q-select
+          class="w-90 q-mx-auto q-mt-md"
+          outlined
+          v-model="selectedTags"
+          v-if="fetchedTags"
+          :options="fetchedTags.tags"
+          :option-label="(tag) => tag.tag"
+          :option-value="(tag) => tag.id"
+          :label="$t('tags')"
+          @input="searchResources"
+          multiple
+          emit-value
+          map-options
         >
-        <template v-slot:option="{ itemProps, itemEvents, opt, selected, toggleOption }">
-          <q-item
-            v-bind="itemProps"
-            v-on="itemEvents"
-          >
-            <q-item-section>
-              <q-item-label v-html="opt.tag" ></q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-toggle :value="selected" @input="toggleOption(opt)" />
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
+          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+            <q-item
+              v-bind="itemProps"
+              v-on="itemEvents"
+            >
+              <q-item-section>
+                <q-item-label v-html="opt.tag" />
+              </q-item-section>
+              <q-item-section side>
+                <q-toggle
+                  :value="selected"
+                  @input="toggleOption(opt)"
+                />
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
 
-      <q-select
-            class="w-90 q-mx-auto q-mt-md"
-            outlined
-            v-model="selectedFormats"
-            v-if="fetchedFormats"
-            :options="fetchedFormats.formats"
-            :option-label="(format) => format.type"
-            :option-value="(format) => format.id"
-            :label="$t('formats')"
-            @input="searchResources"
-            multiple
-            emit-value
-            map-options
+        <q-select
+          class="w-90 q-mx-auto q-mt-md"
+          outlined
+          v-model="selectedFormats"
+          v-if="fetchedFormats"
+          :options="fetchedFormats.formats"
+          :option-label="(format) => format.type"
+          :option-value="(format) => format.id"
+          :label="$t('formats')"
+          @input="searchResources"
+          multiple
+          emit-value
+          map-options
         >
-        <template v-slot:option="{ itemProps, itemEvents, opt, selected, toggleOption }">
-          <q-item
-            v-bind="itemProps"
-            v-on="itemEvents"
-          >
-            <q-item-section>
-              <q-item-label v-html="opt.type" ></q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-toggle :value="selected" @input="toggleOption(opt)" />
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
-      <q-btn color="primary" class="q-ml-md q-mt-md" @click="resetInputs">{{$t('reset')}}</q-btn>
-      <div v-if="fetchedResourcesLength" class="q-ml-md q-mt-md text-grey">{{ $t('total_entries')}}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}</div>
+          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+            <q-item
+              v-bind="itemProps"
+              v-on="itemEvents"
+            >
+              <q-item-section>
+                <q-item-label v-html="opt.type" />
+              </q-item-section>
+              <q-item-section side>
+                <q-toggle
+                  :value="selected"
+                  @input="toggleOption(opt)"
+                />
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+        <q-btn
+          color="primary"
+          class="q-ml-md q-mt-md"
+          @click="resetInputs"
+        >
+          {{ $t('reset') }}
+        </q-btn>
+        <div
+          v-if="fetchedResourcesLength"
+          class="q-ml-md q-mt-md text-grey"
+        >
+          {{ $t('total_entries') }}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}
+        </div>
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view ref="view" :keyword="keyword" :formats="selectedFormats" :tags="selectedTags" :languages="selectedLanguages"></router-view>
+      <router-view
+        ref="view"
+        :keyword="keyword"
+        :formats="selectedFormats"
+        :tags="selectedTags"
+        :languages="selectedLanguages"
+      />
     </q-page-container>
   </q-layout>
 </template>

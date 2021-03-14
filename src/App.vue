@@ -1,7 +1,12 @@
 <template>
   <div id="q-app row items-center justify-evenly">
     <router-view v-if="apiIsUp" />
-    <div v-else class="text-h2 q-mt-xl q-ml-xl">{{$t('under_maintenance')}}</div>
+    <div
+      v-else
+      class="text-h2 q-mt-xl q-ml-xl"
+    >
+      {{ $t('under_maintenance') }}
+    </div>
   </div>
 </template>
 <script lang="ts">
