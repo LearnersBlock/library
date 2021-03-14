@@ -6,11 +6,11 @@ import es from './es.json'
 import qEs from 'quasar/lang/es'
 import fr from './fr.json'
 import qFr from 'quasar/lang/fr'
-// Here you can define additional languages
+
 export default {
+  'en-us': enUS,
   ar: ar,
   qAr: qAr,
-  'en-us': enUS,
   qEnUS: qEnUS,
   es: es,
   qEs: qEs,

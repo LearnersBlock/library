@@ -1,39 +1,89 @@
 <template ref="indexPage">
   <q-page class="row items-center justify-evenly">
-      <q-spinner
-        color="primary"
-        size="10%"
-        v-if="fetchResourcesLoading"
-      />
-      <div v-if="fetchedResources && !fetchResourcesLoading" class="resource_container">
-        <div v-if="fetchedResources.resources" class="resource_box q-mt-lg q-mb-xl">
-          <router-link  class="resource q-mt-md items-center" tag="div" :to="'/resource/' + resource.id" v-for="resource in fetchedResources.resources" :key="resource.id">
-            <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
-              <img class="resource_image" :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url">
+    <q-spinner
+      color="primary"
+      size="10%"
+      v-if="fetchResourcesLoading"
+    />
+    <div
+      v-if="fetchedResources && !fetchResourcesLoading"
+      class="resource_container"
+    >
+      <div
+        v-if="fetchedResources.resources"
+        class="resource_box q-mt-lg q-mb-xl"
+      >
+        <router-link
+          class="resource q-mt-md items-center"
+          tag="div"
+          :to="'/resource/' + resource.id"
+          v-for="resource in fetchedResources.resources"
+          :key="resource.id"
+        >
+          <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
+            <img
+              class="resource_image"
+              :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url"
+            >
+          </div>
+          <div v-else>
+            <img
+              class="resource_image"
+              :src="resource.logo ? 'https://library-api.learnersblock.org' + resource.logo.url : require('../assets/default.jpg')"
+            >
+          </div>
+          <div class="resource_info">
+            <div
+              dir="auto"
+              class="text-h3 resource_name josefin sans"
+            >
+              {{ resource.name }}
             </div>
-            <div v-else>
-              <img class="resource_image" :src="resource.logo ? 'https://library-api.learnersblock.org' + resource.logo.url : require('../assets/default.jpg')">
+            <div
+              dir="auto"
+              class="text-h6 q-mt-md resource_description"
+            >
+              {{ resource.description }}
             </div>
-            <div class="resource_info">
-              <div dir="auto" class="text-h3 resource_name josefin sans">
-                {{ resource.name }}
-              </div>
-              <div dir="auto" class="text-h6 q-mt-md resource_description">{{ resource.description }}</div>
-              <div class="resource_languages">
-                 <div><q-badge class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large" color="primary" v-for="language in resource.languages" :key="language.id">
+            <div class="resource_languages">
+              <div>
+                <q-badge
+                  class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large"
+                  color="primary"
+                  v-for="language in resource.languages"
+                  :key="language.id"
+                >
                   {{ $t(language.language) }}
                 </q-badge>
-                </div>
               </div>
-              <div v-if="resource.size" class="text-subtitle1 resource_size">{{$t('size')}}: {{ resource.size }} GB</div>
             </div>
-          </router-link>
-        </div>
-        <div v-else class="text-h3 text-center text-grey">{{$t('no_results_found')}}</div>
-        <div class="text-center">
-        <q-btn v-if="fetchedResources.resources.length && !fetchResourcesLoading && fetchedResourcesLength" :disabled="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount" color="grey-6" @click="loadMore" class="resource_button q-mb-xl">{{$t('load_more')}}</q-btn>
+            <div
+              v-if="resource.size"
+              class="text-subtitle1 resource_size"
+            >
+              {{ $t('size') }}: {{ resource.size }} GB
+            </div>
+          </div>
+        </router-link>
       </div>
+      <div
+        v-else
+        class="text-h3 text-center text-grey"
+      >
+        {{ $t('no_results_found') }}
       </div>
+      <div class="text-center">
+        <q-btn
+          v-if="fetchedResources.resources.length && !fetchResourcesLoading && fetchedResourcesLength"
+          :disabled="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount"
+          color="grey-6"
+          @click="loadMore"
+          class="resource_button q-mb-xl"
+        >
+          {{ $t('load_more') }}
+        </q-btn>
+      </div>
+    </div>
   </q-page>
 </template>
 
