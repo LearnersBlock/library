@@ -3,6 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-btn
+
           flat
           dense
           round
@@ -12,9 +13,12 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-avatar>
-          <img src="../assets/lb-logo.png">
-        </q-avatar>
+        <div class="q-ml-md mt-5 q-mt-sm">
+          <img
+            src="../assets/lb-logo-white-full.svg"
+            alt=""
+          >
+        </div>
 
         <q-toolbar-title class="josefin text-h5 q-mt-xs">
           <a
@@ -22,9 +26,7 @@
             style="text-decoration:none;"
             href="https://library.learnersblock.org"
             target="_self"
-          >
-            Learner's Block
-          </a>
+          />
         </q-toolbar-title>
         <q-select
           class="w-15 q-mx-auto q-pa-sm"
