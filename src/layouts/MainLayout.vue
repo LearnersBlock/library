@@ -13,7 +13,7 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <div class="ml-1">
+        <div class="q-ml-md q-mt-sm">
           <a href="/">
             <img
               alt=""
