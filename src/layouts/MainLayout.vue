@@ -13,11 +13,13 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <div class="q-ml-md mt-5 q-mt-sm">
-          <img
-            src="../assets/lb-logo-white-full.svg"
-            alt=""
-          >
+        <div class="ml-1">
+          <a href="/">
+            <img
+              alt=""
+              src="../assets/lb-logo-white-full.svg"
+            >
+          </a>
         </div>
 
         <q-toolbar-title class="josefin text-h5 q-mt-xs">
