@@ -202,7 +202,6 @@ import { GET_LANGUAGES } from '../gql/language/queries'
 import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
 import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
-import qLang from '../i18n/index'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -223,16 +222,16 @@ export default defineComponent({
     const languages = ref<[]>([
       {
         name: 'en-us',
-        label: qLang.qEnUS.nativeName
+        label: 'English'
       }, {
         name: 'ar',
-        label: qLang.qAr.nativeName
+        label: 'اَلْعَرَبِيَّةُ'
       }, {
         name: 'es',
-        label: qLang.qEs.nativeName
+        label: 'Español'
       }, {
         name: 'fr',
-        label: qLang.qFr.nativeName
+        label: 'Français'
       }
     ] as any)
     // Selected language for i18n
