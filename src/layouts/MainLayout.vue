@@ -232,7 +232,16 @@ export default defineComponent({
       }, {
         name: 'fr',
         label: 'Français'
+      },
+      {
+        name: 'ptBR',
+        label: 'Português'
+      },
+      {
+        name: 'tr',
+        label: 'Türkçe'
       }
+
     ] as any)
     // Selected language for i18n
     const selectedLanguage = ref<string>('en-us')
