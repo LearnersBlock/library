@@ -293,7 +293,7 @@
 
 <script lang="ts">
 import Axios from 'app/node_modules/axios'
-import { Cookies, copyToClipboard } from 'quasar'
+import { copyToClipboard } from 'quasar'
 import { useQuery } from '@vue/apollo-composable'
 import { defineComponent, ref } from '@vue/composition-api'
 import { GET_RESOURCE } from 'src/gql/resource/queries'
@@ -310,10 +310,6 @@ export default defineComponent({
     const downloadSpeed = ref<string>('')
     const downloadTransferred = ref<string>('')
     const onDevice = ref<any>(process.env.ONDEVICE)
-
-    // Set Cookies
-    const token = Cookies.get('access_token_cookie')
-    Axios.defaults.headers.common.Authorization = `Bearer ${token}`
 
     // Bottom button functions
     const viewSample = () => {
