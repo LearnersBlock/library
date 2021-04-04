@@ -258,6 +258,10 @@ export default defineComponent({
     } = useQuery(GET_RESOURCES_LENGTH, {})
 
     onMounted(async () => {
+      if (localStorage.getItem('lang')) {
+        root.$i18n.locale = JSON.parse(localStorage.getItem('lang') || '{}')
+      }
+
       await fetchLanguages()
       await fetchFormats()
       await fetchTags()
