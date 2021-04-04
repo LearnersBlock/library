@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Cookies } from 'quasar'
 import { route } from 'quasar/wrappers'
 import VueRouter from 'vue-router'
 import routes from './routes'
@@ -23,6 +24,10 @@ export default route(function ({ Vue }) {
   })
 
   axios.defaults.withCredentials = true
+
+  const token = Cookies.get('access_token_cookie')
+
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
 
   return Router
 })
