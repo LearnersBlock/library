@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { route } from 'quasar/wrappers'
 import VueRouter from 'vue-router'
 import routes from './routes'
@@ -20,6 +21,8 @@ export default route(function ({ Vue }) {
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
   })
+
+  axios.defaults.withCredentials = true
 
   return Router
 })
