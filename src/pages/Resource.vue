@@ -243,6 +243,13 @@
               text-color="black"
               :label="$t('download_complete')"
             />
+
+            <q-badge
+              v-if="checkingFiles"
+              color="white"
+              text-color="black"
+              :label="$t('checking_files')"
+            />
           </div>
         </q-linear-progress>
       </div>
@@ -304,11 +311,12 @@ export default defineComponent({
     const { result: fetchedResource, loading: fetchResourceLoading } = useQuery(GET_RESOURCE, { id: root.$route.params.id })
 
     // Fetch RSync hostname status
-    const hostname = ref<any>(window.location.hostname)
-    const exitLoop = ref<boolean>(true)
+    const checkingFiles = ref<boolean>(false)
     const downloadProgress = ref<number>(0)
     const downloadSpeed = ref<string>('')
     const downloadTransferred = ref<string>('')
+    const exitLoop = ref<boolean>(true)
+    const hostname = ref<any>(window.location.hostname)
     const onDevice = ref<any>(process.env.ONDEVICE)
 
     // Bottom button functions
@@ -341,12 +349,13 @@ export default defineComponent({
               root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
               stopRsync()
               return
-            }
-
-            if (response.data.complete === true) {
+            } else if (response.data.progress === 'checking_files') {
+              checkingFiles.value = true
+            } else if (response.data.complete === true) {
               root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
               stopRsync()
             } else {
+              checkingFiles.value = false
               downloadProgress.value = response.data.progress + 0.001
               downloadSpeed.value = response.data.speed
               downloadTransferred.value = response.data.transferred
@@ -361,7 +370,8 @@ export default defineComponent({
     async function stopRsync () {
       exitLoop.value = true
       await delay(1500)
-      downloadProgress.value = 1
+      checkingFiles.value = false
+      downloadProgress.value = 1.1
       downloadSpeed.value = ''
       downloadTransferred.value = ''
     }
@@ -371,6 +381,7 @@ export default defineComponent({
     }
 
     return {
+      checkingFiles,
       copyRsync,
       downloadToBlock,
       downloadProgress,
