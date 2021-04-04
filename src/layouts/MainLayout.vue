@@ -31,6 +31,7 @@
           />
         </q-toolbar-title>
         <q-select
+          v-if="!onDevice"
           class="w-15 q-mx-auto q-pa-sm"
           filled
           square
@@ -218,6 +219,8 @@ export default defineComponent({
     const selectedFormats = ref<[]>([])
     // Selected tags
     const selectedTags = ref<string[]>([])
+    // Read .env file for page state
+    const onDevice = ref<any>(process.env.ONDEVICE)
     // Languages for i18n
     const languages = ref<[]>([
       {
@@ -251,13 +254,19 @@ export default defineComponent({
     const { result: fetchedFormats, loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
     // Fetch tags query
     const { result: fetchedTags, loading: fetchTagsLoading, refetch: fetchTags } = useQuery(GET_TAGS)
-
+    // Fetch language cookie
+    const langCookie = ref<any>(root.$q.localStorage.getItem('lang'))
     // Fetch resources query
     const {
       result: fetchedResourcesLength
     } = useQuery(GET_RESOURCES_LENGTH, {})
 
     onMounted(async () => {
+      console.log(langCookie.value)
+      if (langCookie.value) {
+        root.$i18n.locale = langCookie.value
+      }
+
       await fetchLanguages()
       await fetchFormats()
       await fetchTags()
@@ -309,24 +318,25 @@ export default defineComponent({
     }
 
     return {
-      leftDrawerOpen,
-      keyword,
-      selectedLanguages,
       fetchedLanguages,
+      fetchFormatsLoading,
       fetchLanguagesLoading,
       fetchedResourcesLength,
-      selectedFormats,
-      selectedTags,
       fetchedTags,
       fetchTagsLoading,
       fetchedFormats,
+      isInIndex,
+      keyword,
+      languages,
+      leftDrawerOpen,
+      onDevice,
+      resetInputs,
+      selectedLanguages,
+      selectedFormats,
+      selectedTags,
       selectedLanguage,
       searchResources,
       switchLanguage,
-      languages,
-      resetInputs,
-      fetchFormatsLoading,
-      isInIndex,
       view
     }
   }

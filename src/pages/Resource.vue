@@ -196,7 +196,61 @@
           {{ '--' }}
         </div>
       </div>
-      <div class="q-pt-xl q-gutter-sm q-pl-xl q-pr-xl">
+      <q-spinner
+        color="primary"
+        size="3em"
+        v-if="!exitLoop"
+      />
+
+      <div v-if="onDevice">
+        <q-btn
+          class="q-mt-lg q-mb-lg"
+          glossy
+          rounded
+          color="primary"
+          icon="download"
+          :label="exitLoop ? $t('download'): $t('cancel')"
+          @click="downloadToBlock"
+        />
+
+        <q-btn
+          class="q-mt-lg q-ml-sm q-mb-lg"
+          v-if="fetchedResource.resource.sample"
+          glossy
+          split
+          rounded
+          color="primary"
+          icon="visibility"
+          :label="$t('sample')"
+          @click="viewSample"
+        />
+        <q-linear-progress
+          v-if="downloadProgress"
+          size="25px"
+          :value="downloadProgress"
+          color="primary"
+        >
+          <div class="absolute-full flex flex-center">
+            <q-badge
+              v-if="downloadProgress < 1"
+              color="white"
+              text-color="black"
+              :label=" $t('transferred') + ': ' + downloadTransferred + ' - ' + $t('download_speed') + ': ' + downloadSpeed"
+            />
+            <q-badge
+              v-if="downloadProgress > 1"
+              color="white"
+              text-color="black"
+              :label="$t('download_complete')"
+            />
+          </div>
+        </q-linear-progress>
+      </div>
+
+      <div
+        v-else
+        class="q-mt-lg "
+      >
         <q-btn-dropdown
           v-if="fetchedResource.resource.download_url || fetchedResource.resource.rsync"
           glossy
@@ -222,6 +276,7 @@
           </q-list>
         </q-btn-dropdown>
         <q-btn
+          class="q-ml-sm"
           v-if="fetchedResource.resource.sample"
           glossy
           split
@@ -237,8 +292,9 @@
 </template>
 
 <script lang="ts">
+import Axios from 'app/node_modules/axios'
 import { useQuery } from '@vue/apollo-composable'
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
 import { GET_RESOURCE } from 'src/gql/resource/queries'
 import { copyToClipboard } from 'quasar'
 
@@ -247,13 +303,69 @@ export default defineComponent({
     // Fetch resources
     const { result: fetchedResource, loading: fetchResourceLoading } = useQuery(GET_RESOURCE, { id: root.$route.params.id })
 
+    // Fetch RSync hostname status
+    const hostname = ref<any>(window.location.hostname)
+    const exitLoop = ref<boolean>(true)
+    const downloadProgress = ref<number>(0)
+    const downloadSpeed = ref<string>('')
+    const downloadTransferred = ref<string>('')
+    const onDevice = ref<any>(process.env.ONDEVICE)
+
     // Bottom button functions
     const viewSample = () => {
       window.open(fetchedResource.value.resource.sample)
     }
 
+    function delay (ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
     const downloadZip = () => {
       window.open(fetchedResource.value.resource.download_url)
+    }
+
+    const downloadToBlock = async () => {
+      try {
+        if (exitLoop.value === false) {
+          await Axios.get(`http://${hostname.value}:9090/v1/rsync/stop`)
+          stopRsync()
+        } else {
+          Axios.post(`http://${hostname.value}:9090/v1/rsync/fetch`, { rsync_url: fetchedResource.value.resource.rsync })
+          downloadProgress.value = 0.001
+          exitLoop.value = false
+          while (exitLoop.value === false) {
+            await delay(1500)
+            const response = await Axios.get(`http://${hostname.value}:9090/v1/rsync/status`)
+
+            if (response.data.progress === 'space-error') {
+              root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
+              stopRsync()
+              return
+            }
+
+            if (response.data.complete === true) {
+              root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
+              stopRsync()
+            } else {
+              downloadProgress.value = response.data.progress + 0.001
+              downloadSpeed.value = response.data.speed
+              downloadTransferred.value = response.data.transferred
+            }
+          }
+        }
+      } catch (e) {
+        root.$q.notify({ type: 'negative', message: e })
+        console.log(e)
+        stopRsync()
+      }
+    }
+
+    async function stopRsync () {
+      exitLoop.value = true
+      await delay(1500)
+      downloadProgress.value = 1
+      downloadSpeed.value = ''
+      downloadTransferred.value = ''
     }
 
     const copyRsync = () => {
@@ -261,11 +373,18 @@ export default defineComponent({
     }
 
     return {
+      copyRsync,
+      downloadToBlock,
+      downloadProgress,
+      downloadSpeed,
+      downloadTransferred,
+      downloadZip,
+      exitLoop,
       fetchedResource,
       fetchResourceLoading,
-      downloadZip,
-      viewSample,
-      copyRsync
+      hostname,
+      onDevice,
+      viewSample
     }
   }
 })
