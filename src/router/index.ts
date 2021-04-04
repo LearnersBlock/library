@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { Cookies } from 'quasar'
+import { i18n } from 'src/boot/i18n'
+import { Cookies, Notify } from 'quasar'
 import { route } from 'quasar/wrappers'
 import VueRouter from 'vue-router'
 import routes from './routes'
@@ -27,6 +28,20 @@ export default route(function ({ Vue }) {
 
   const token = Cookies.get('csrf_access_token')
   axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+
+  axios.interceptors.response.use(function (response) {
+    return response
+  }, function (error) {
+    if (error.response) {
+      if (error.response.status === 401 || error.response.status === 421 || error.code === 'ECONNABORTED') {
+        Notify.create({
+          type: 'negative',
+          message: i18n.tc('not_logged_in')
+
+        })
+      }
+    }
+  })
 
   return Router
 })

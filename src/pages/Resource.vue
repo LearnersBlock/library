@@ -354,8 +354,6 @@ export default defineComponent({
           }
         }
       } catch (e) {
-        root.$q.notify({ type: 'negative', message: e })
-        console.log(e)
         stopRsync()
       }
     }
