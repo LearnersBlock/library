@@ -262,7 +262,6 @@ export default defineComponent({
     } = useQuery(GET_RESOURCES_LENGTH, {})
 
     onMounted(async () => {
-      console.log(langCookie.value)
       if (langCookie.value) {
         root.$i18n.locale = langCookie.value
       }
