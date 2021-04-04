@@ -53,7 +53,7 @@ module.exports = configure(function (ctx) {
     build: {
       env: require('dotenv').config().parsed,
       vueRouterMode: 'history', // available values: 'hash', 'history'
-      publicPath: process.env.ONDEVICE === 'TRUE' ? '/upload-website' : '/',
+      publicPath: process.env.ONDEVICE === 'TRUE' ? '/upload-library' : '/',
 
       // transpile: false,
 
