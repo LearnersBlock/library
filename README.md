@@ -1,6 +1,6 @@
 # Learner's Block Library
 
-This code and repository provides for https://library.learnersblock.org. 
+This code and repository provides for https://library.learnersblock.org as well as the source code for Library access on the [Learner's Block](https://github.com/LearnersBlock/learners-block).
 
 Contributions are welcome, please see the open issues and Good First Issues tag for guidance. 
 
@@ -15,13 +15,17 @@ The backend for this site is served by [Strapi](https://strapi.io). Please see t
 ## Install the dependencies
 yarn install
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Start the app in development mode.
+The code will build for use on the Learner's Block when a .env file exists at the root containing `ONDEVICE=TRUE` at build time. If the file is missing, it will start in web mode for library.learnersblock.org.
+
 quasar dev
 
 ### Lint the files
 yarn run lint
 
 ### Build the app for production
+The code will build for use on the Learner's Block when a .env file exists at the root containing `ONDEVICE=TRUE` at build time. If the file is missing, it will start in web mode for library.learnersblock.org.
+
 quasar build
 
 ### Customize the configuration
