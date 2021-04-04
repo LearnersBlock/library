@@ -251,15 +251,17 @@ export default defineComponent({
     const { result: fetchedFormats, loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
     // Fetch tags query
     const { result: fetchedTags, loading: fetchTagsLoading, refetch: fetchTags } = useQuery(GET_TAGS)
-
+    // Fetch language cookie
+    const langCookie = ref<any>(root.$q.localStorage.getItem('lang'))
     // Fetch resources query
     const {
       result: fetchedResourcesLength
     } = useQuery(GET_RESOURCES_LENGTH, {})
 
     onMounted(async () => {
-      if (localStorage.getItem('lang')) {
-        root.$i18n.locale = JSON.parse(localStorage.getItem('lang') || '{}')
+      console.log(langCookie.value)
+      if (langCookie.value) {
+        root.$i18n.locale = langCookie.value
       }
 
       await fetchLanguages()
