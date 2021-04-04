@@ -9,6 +9,21 @@
       v-if="fetchedResources && !fetchResourcesLoading"
       class="resource_container"
     >
+      <q-btn
+        v-if="onDevice"
+        @click="$router.replace('/')"
+        rounded
+        color="white"
+        text-color="primary"
+        class="ml-3 mt-9 text-subtitle2 text-weight-bold"
+      >
+        <span class="material-icons mr-1 mb-.5">
+          arrow_back_ios
+        </span>
+        <div class="mt-0.5">
+          {{ $t('home') }}
+        </div>
+      </q-btn>
       <div
         v-if="fetchedResources.resources"
         class="resource_box q-mt-lg q-mb-xl"
@@ -109,6 +124,8 @@ export default defineComponent({
     }
   },
   setup (props) {
+    // Read .env file for page state
+    const onDevice = ref<any>(process.env.ONDEVICE)
     // Loading boolean in case the api is very fast, the UI still loads for a lil bit - better User Experience
     const limit = ref<number>(10)
     // Fetch resources query
@@ -164,7 +181,8 @@ export default defineComponent({
       fetchedResourcesLength,
       fetchResourcesLengthLoading,
       limit,
-      loadMore
+      loadMore,
+      onDevice
     }
   }
 })
