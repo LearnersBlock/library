@@ -209,7 +209,7 @@
           rounded
           color="primary"
           icon="download"
-          :label="exitLoop ? $t('download'): 'Cancel'"
+          :label="exitLoop ? $t('download'): $t('cancel')"
           @click="downloadToBlock"
         />
 
@@ -235,13 +235,13 @@
               v-if="downloadProgress < 1"
               color="white"
               text-color="black"
-              :label="'Transferred: ' + downloadTransferred + ' - Download Speed ' + downloadSpeed"
+              :label=" $t('transferred') + ': ' + downloadTransferred + ' - ' + $t('download_speed') + ': ' + downloadSpeed"
             />
             <q-badge
               v-if="downloadProgress > 1"
               color="white"
               text-color="black"
-              label="Download Complete"
+              :label="$t('download_complete')"
             />
           </div>
         </q-linear-progress>
@@ -338,13 +338,13 @@ export default defineComponent({
             const response = await Axios.get(`http://${hostname.value}:9090/v1/rsync/status`)
 
             if (response.data.progress === 'space-error') {
-              root.$q.notify({ type: 'negative', message: 'Your Block is out of space.' })
+              root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
               stopRsync()
               return
             }
 
             if (response.data.complete === true) {
-              root.$q.notify({ type: 'positive', message: 'Download Complete' })
+              root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
               stopRsync()
             } else {
               downloadProgress.value = response.data.progress + 0.001
