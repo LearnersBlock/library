@@ -31,6 +31,7 @@
           />
         </q-toolbar-title>
         <q-select
+          v-if="!onDevice"
           class="w-15 q-mx-auto q-pa-sm"
           filled
           square
@@ -218,6 +219,8 @@ export default defineComponent({
     const selectedFormats = ref<[]>([])
     // Selected tags
     const selectedTags = ref<string[]>([])
+    // Read .env file for page state
+    const onDevice = ref<any>(process.env.ONDEVICE)
     // Languages for i18n
     const languages = ref<[]>([
       {
@@ -315,24 +318,25 @@ export default defineComponent({
     }
 
     return {
-      leftDrawerOpen,
-      keyword,
-      selectedLanguages,
       fetchedLanguages,
+      fetchFormatsLoading,
       fetchLanguagesLoading,
       fetchedResourcesLength,
-      selectedFormats,
-      selectedTags,
       fetchedTags,
       fetchTagsLoading,
       fetchedFormats,
+      isInIndex,
+      keyword,
+      languages,
+      leftDrawerOpen,
+      onDevice,
+      resetInputs,
+      selectedLanguages,
+      selectedFormats,
+      selectedTags,
       selectedLanguage,
       searchResources,
       switchLanguage,
-      languages,
-      resetInputs,
-      fetchFormatsLoading,
-      isInIndex,
       view
     }
   }
