@@ -207,11 +207,23 @@
           class="q-mt-lg q-mb-lg"
           glossy
           rounded
+          :disable="!fetchedResource.resource.rsync"
+          :disabled="!fetchedResource.resource.rsync"
           color="primary"
           icon="download"
           :label="exitLoop ? $t('download'): $t('cancel')"
           @click="downloadToBlock"
         />
+
+        <q-tooltip
+          v-if="!fetchedResource.resource.rsync"
+          anchor="top middle"
+          self="center middle"
+          :offset="[10, 10]"
+          content-style="font-size: 16px"
+        >
+          {{ $t('resource_not_available') }}
+        </q-tooltip>
 
         <q-btn
           class="q-mt-lg q-ml-sm q-mb-lg"

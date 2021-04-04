@@ -33,6 +33,7 @@
 	"not_logged_in": "You are not logged in. Try logging back in to the settings panel and try again.",
 	"published_date": "Published Date",
 	"reset": "Reset",
+	"resource_not_available": "This resource is not available for direct download to your Block. Try visiting 'library.learnersblock.org' and downloading the resource your device first.",
 	"results_found": "results found",
 	"rsync": "Copy RSync URL to Clipboard",
 	"rsync_url": "Rsync URL",
