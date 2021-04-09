@@ -39,5 +39,14 @@
     "keywords": "Anahtar Kelimeler",
     "size": "Boyut",
     "download": "İndir",
-    "Rohingya": "Rohingyaca"
+    "Rohingya": "Rohingyaca",
+    "resource_not_available": "Bu kaynak, Bloğunuza doğrudan indirilemez. Önce 'library.learnersblock.org' adresini ziyaret etmeyi ve kaynağı aygıtınıza indirmeyi deneyin.",
+    "transferred": "Aktarıldı",
+    "not_logged_in": "Oturum açmadınız. Ayarlar paneline yeniden giriş yapmayı deneyin ve yeniden deneyin.",
+    "no_space": "Bloğunuzda boş alan yok.",
+    "download_speed": "İndirme hızı",
+    "download_complete": "İndirme Tamamlandı",
+    "cancel": "Vazgeç",
+    "error": "Bir hata oluştu",
+    "checking_files": "Dosyalar denetleniyor..."
 }
