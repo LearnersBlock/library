@@ -207,8 +207,8 @@
           class="q-mt-lg q-mb-lg"
           glossy
           rounded
-          :disable="!fetchedResource.resource.rsync"
-          :disabled="!fetchedResource.resource.rsync"
+          :disable="!fetchedResource.resource.rsync && !fetchedResource.resource.download_url"
+          :disabled="!fetchedResource.resource.rsync && !fetchedResource.resource.download_url"
           color="primary"
           icon="download"
           :label="exitLoop ? $t('download'): $t('cancel')"
@@ -216,7 +216,7 @@
         />
 
         <q-tooltip
-          v-if="!fetchedResource.resource.rsync"
+          v-if="!fetchedResource.resource.rsync && !fetchedResource.resource.download_url"
           anchor="top middle"
           self="center middle"
           :offset="[10, 10]"
@@ -237,20 +237,26 @@
           @click="viewSample"
         />
         <q-linear-progress
-          v-if="downloadProgress"
+          v-if="downloadStarted"
           size="25px"
           :value="downloadProgress"
           color="primary"
         >
           <div class="absolute-full flex flex-center">
             <q-badge
-              v-if="downloadProgress < 1"
+              v-if="fetchedResource.resource.rsync && downloadTransferred && downloadSpeed"
               color="white"
               text-color="black"
-              :label=" $t('transferred') + ': ' + downloadTransferred + ' - ' + $t('download_speed') + ': ' + downloadSpeed"
+              :label="$t('transferred') + ': ' + downloadTransferred + ' - ' + $t('download_speed') + ': ' + downloadSpeed"
             />
             <q-badge
-              v-if="downloadProgress > 1"
+              v-if="!fetchedResource.resource.rsync && !downloadProgress == '' && downloadProgress < 2"
+              color="white"
+              text-color="black"
+              :label="(downloadProgress*100).toFixed(2) + '%'"
+            />
+            <q-badge
+              v-if="downloadProgress == 2"
               color="white"
               text-color="black"
               :label="$t('download_complete')"
@@ -324,9 +330,10 @@ export default defineComponent({
 
     // Fetch RSync hostname status
     const checkingFiles = ref<boolean>(false)
-    const downloadProgress = ref<number>(0)
-    const downloadSpeed = ref<string>('')
-    const downloadTransferred = ref<string>('')
+    const downloadProgress = ref<any>()
+    const downloadStarted = ref<boolean>(false)
+    const downloadSpeed = ref<any>()
+    const downloadTransferred = ref<any>()
     const exitLoop = ref<boolean>(true)
     const hostname = ref<any>(window.location.hostname)
     const onDevice = ref<any>(process.env.ONDEVICE)
@@ -345,47 +352,97 @@ export default defineComponent({
     }
 
     const downloadToBlock = async () => {
-      try {
-        if (exitLoop.value === false) {
-          await Axios.get(`http://${hostname.value}:9090/v1/rsync/stop`)
-          stopRsync()
-        } else {
-          Axios.post(`http://${hostname.value}:9090/v1/rsync/fetch`, { rsync_url: fetchedResource.value.resource.rsync })
-          downloadProgress.value = 0.001
-          exitLoop.value = false
-          while (exitLoop.value === false) {
-            await delay(1500)
-            const response = await Axios.get(`http://${hostname.value}:9090/v1/rsync/status`)
+      downloadStarted.value = true
+      if (!fetchedResource.value.resource.rsync) {
+        try {
+          if (exitLoop.value === false) {
+            Axios.get(`http://${hostname.value}:9090/v1/download/stop`)
+            stopDownload()
+          } else {
+            Axios.post(`http://${hostname.value}:9090/v1/download/fetch`, { download_url: fetchedResource.value.resource.download_url })
+            exitLoop.value = false
+            while (exitLoop.value === false) {
+              await delay(1500)
+              const response = await Axios.get(`http://${hostname.value}:9090/v1/download/status`)
 
-            if (response.data.progress === 'space-error') {
-              root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
-              stopRsync()
-              return
-            } else if (response.data.progress === 'checking_files') {
-              checkingFiles.value = true
-            } else if (response.data.complete === true) {
-              root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
-              stopRsync()
-            } else {
-              checkingFiles.value = false
-              downloadProgress.value = response.data.progress + 0.001
-              downloadSpeed.value = response.data.speed
-              downloadTransferred.value = response.data.transferred
+              if (response.data.progress === 'space-error') {
+                root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
+                stopDownload()
+                return
+              } else if (response.data.progress === 'error') {
+                root.$q.notify({ type: 'negative', message: root.$tc('error') })
+                stopDownload()
+                return
+              } else if (response.data.progress === 1) {
+                root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
+                downloadProgress.value = 2
+                stopDownload()
+                return
+              } else {
+                checkingFiles.value = false
+                downloadProgress.value = response.data.progress
+              }
             }
           }
+        } catch (e) {
+          stopDownload()
         }
-      } catch (e) {
-        stopRsync()
+      } else {
+        try {
+          if (exitLoop.value === false) {
+            Axios.get(`http://${hostname.value}:9090/v1/rsync/stop`)
+            stopRsync()
+          } else {
+            Axios.post(`http://${hostname.value}:9090/v1/rsync/fetch`, { rsync_url: fetchedResource.value.resource.rsync })
+            exitLoop.value = false
+            while (exitLoop.value === false) {
+              await delay(1500)
+              const response = await Axios.get(`http://${hostname.value}:9090/v1/rsync/status`)
+              if (response.data.progress === 'space-error') {
+                root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
+                stopRsync()
+                return
+              } else if (response.data.progress === 'error') {
+                root.$q.notify({ type: 'negative', message: root.$tc('error') })
+                stopRsync()
+                return
+              } else if (response.data.progress === 'checking-files') {
+                checkingFiles.value = true
+              } else if (response.data.progress === 'complete') {
+                root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
+                downloadProgress.value = 2
+                stopRsync()
+                return
+              } else {
+                checkingFiles.value = false
+                downloadProgress.value = response.data.progress
+                downloadSpeed.value = response.data.speed
+                downloadTransferred.value = response.data.transferred
+              }
+            }
+          }
+        } catch (e) {
+          stopRsync()
+        }
       }
+    }
+
+    async function stopDownload () {
+      exitLoop.value = true
+      checkingFiles.value = false
+      downloadSpeed.value = 0
+      downloadTransferred.value = 0
+      await delay(1500)
+      downloadProgress.value = 2
     }
 
     async function stopRsync () {
       exitLoop.value = true
-      await delay(1500)
       checkingFiles.value = false
-      downloadProgress.value = 1.1
       downloadSpeed.value = ''
       downloadTransferred.value = ''
+      await delay(1500)
+      downloadProgress.value = 2
     }
 
     const copyRsync = () => {
@@ -398,6 +455,7 @@ export default defineComponent({
       downloadToBlock,
       downloadProgress,
       downloadSpeed,
+      downloadStarted,
       downloadTransferred,
       downloadZip,
       exitLoop,

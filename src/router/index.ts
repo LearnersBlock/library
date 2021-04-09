@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { i18n } from 'src/boot/i18n'
-import { Cookies, Notify } from 'quasar'
+import { Cookies } from 'quasar'
 import { route } from 'quasar/wrappers'
 import VueRouter from 'vue-router'
 import routes from './routes'
@@ -34,11 +33,7 @@ export default route(function ({ Vue }) {
   }, function (error) {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 421 || error.code === 'ECONNABORTED') {
-        Notify.create({
-          type: 'negative',
-          message: i18n.tc('not_logged_in')
-
-        })
+        location.href = '/settings/'
       }
     }
   })
