@@ -244,16 +244,22 @@
         >
           <div class="absolute-full flex flex-center">
             <q-badge
-              v-if="fetchedResource.resource.rsync && downloadTransferred && downloadSpeed"
+              v-if="fetchedResource.resource.rsync && downloadTransferred && downloadSpeed && downloadProgress < 2"
               color="white"
               text-color="black"
               :label="$t('transferred') + ': ' + downloadTransferred + ' - ' + $t('download_speed') + ': ' + downloadSpeed"
             />
             <q-badge
-              v-if="!fetchedResource.resource.rsync && !downloadProgress == '' && downloadProgress < 2"
+              v-if="!fetchedResource.resource.rsync && downloadProgress < 2"
               color="white"
               text-color="black"
-              :label="(downloadProgress*100).toFixed(2) + '%'"
+              :label="(downloadProgress*100).toFixed(2) + '% '"
+            />
+            <q-badge
+              v-if="!fetchedResource.resource.rsync && downloadProgress < 2"
+              color="white"
+              text-color="black"
+              :label="(downloadedMb).toFixed(2) + 'Mb'"
             />
             <q-badge
               v-if="downloadProgress == 2"
@@ -330,6 +336,7 @@ export default defineComponent({
 
     // Fetch RSync hostname status
     const checkingFiles = ref<boolean>(false)
+    const downloadedMb = ref<number>()
     const downloadProgress = ref<any>()
     const downloadStarted = ref<boolean>(false)
     const downloadSpeed = ref<any>()
@@ -381,6 +388,7 @@ export default defineComponent({
               } else {
                 checkingFiles.value = false
                 downloadProgress.value = response.data.progress
+                downloadedMb.value = response.data.MBytes
               }
             }
           }
@@ -391,7 +399,7 @@ export default defineComponent({
         try {
           if (exitLoop.value === false) {
             Axios.get(`http://${hostname.value}:9090/v1/rsync/stop`)
-            stopRsync()
+            stopDownload()
           } else {
             Axios.post(`http://${hostname.value}:9090/v1/rsync/fetch`, { rsync_url: fetchedResource.value.resource.rsync })
             exitLoop.value = false
@@ -400,18 +408,18 @@ export default defineComponent({
               const response = await Axios.get(`http://${hostname.value}:9090/v1/rsync/status`)
               if (response.data.progress === 'space-error') {
                 root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
-                stopRsync()
+                stopDownload()
                 return
               } else if (response.data.progress === 'error') {
                 root.$q.notify({ type: 'negative', message: root.$tc('error') })
-                stopRsync()
+                stopDownload()
                 return
               } else if (response.data.progress === 'checking-files') {
                 checkingFiles.value = true
               } else if (response.data.progress === 'complete') {
                 root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
                 downloadProgress.value = 2
-                stopRsync()
+                stopDownload()
                 return
               } else {
                 checkingFiles.value = false
@@ -422,7 +430,7 @@ export default defineComponent({
             }
           }
         } catch (e) {
-          stopRsync()
+          stopDownload()
         }
       }
     }
@@ -436,15 +444,6 @@ export default defineComponent({
       downloadProgress.value = 2
     }
 
-    async function stopRsync () {
-      exitLoop.value = true
-      checkingFiles.value = false
-      downloadSpeed.value = ''
-      downloadTransferred.value = ''
-      await delay(1500)
-      downloadProgress.value = 2
-    }
-
     const copyRsync = () => {
       copyToClipboard(fetchedResource.value.resource.rsync)
     }
@@ -452,10 +451,11 @@ export default defineComponent({
     return {
       checkingFiles,
       copyRsync,
-      downloadToBlock,
+      downloadedMb,
       downloadProgress,
       downloadSpeed,
       downloadStarted,
+      downloadToBlock,
       downloadTransferred,
       downloadZip,
       exitLoop,
