@@ -11,7 +11,7 @@
     >
       <q-btn
         v-if="onDevice"
-        @click="$router.replace('/')"
+        @click="redirect"
         rounded
         color="white"
         text-color="primary"
@@ -174,6 +174,10 @@ export default defineComponent({
       } as any)
     }
 
+    function redirect () {
+      location.href = '/'
+    }
+
     return {
       fetchedResources,
       fetchFilteredResources,
@@ -182,7 +186,8 @@ export default defineComponent({
       fetchResourcesLengthLoading,
       limit,
       loadMore,
-      onDevice
+      onDevice,
+      redirect
     }
   }
 })
