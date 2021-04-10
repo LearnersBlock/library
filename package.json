@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.9",
-    "@quasar/extras": "^1.10.1",
+    "@quasar/extras": "^1.10.2",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
     "@vue/composition-api": "^1.0.0-rc.5",
     "axios": "^0.21.1",
@@ -19,11 +19,11 @@
     "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
     "node-fetch": "^2.6.1",
-    "quasar": "^1.15.9",
+    "quasar": "^1.15.10",
     "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
-    "@quasar/app": "^2.2.3",
+    "@quasar/app": "^2.2.4",
     "@types/node": "^14.14.33",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
