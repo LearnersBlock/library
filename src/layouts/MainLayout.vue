@@ -219,7 +219,7 @@ export default defineComponent({
     const selectedFormats = ref<[]>([])
     // Selected tags
     const selectedTags = ref<string[]>([])
-    // Read .env file for page state
+    // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
     // Languages for i18n
     const languages = ref<[]>([

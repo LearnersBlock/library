@@ -21,7 +21,7 @@
           arrow_back_ios
         </span>
         <div class="mt-0.5">
-          {{ $t('home') }}
+          {{ $t('settings') }}
         </div>
       </q-btn>
       <div
@@ -124,7 +124,7 @@ export default defineComponent({
     }
   },
   setup (props) {
-    // Read .env file for page state
+    // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
     // Loading boolean in case the api is very fast, the UI still loads for a lil bit - better User Experience
     const limit = ref<number>(10)
