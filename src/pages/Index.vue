@@ -175,7 +175,7 @@ export default defineComponent({
     }
 
     function redirect () {
-      location.href = '/'
+      location.href = '/settings'
     }
 
     return {
