@@ -1,9 +1,8 @@
 import axios from 'axios'
-import { i18n } from 'src/boot/i18n'
-import { Cookies, Notify } from 'quasar'
 import { route } from 'quasar/wrappers'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import { SessionStorage } from 'quasar'
 
 /*
  * If not building with SSR mode, you can
@@ -26,19 +25,19 @@ export default route(function ({ Vue }) {
 
   axios.defaults.withCredentials = true
 
-  const token = Cookies.get('csrf_access_token')
-  axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+  try {
+    const token = SessionStorage.getItem('learners-block-token')
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+  } catch (e) {
+    location.href = '/settings/'
+  }
 
   axios.interceptors.response.use(function (response) {
     return response
   }, function (error) {
     if (error.response) {
       if (error.response.status === 401 || error.response.status === 421 || error.code === 'ECONNABORTED') {
-        Notify.create({
-          type: 'negative',
-          message: i18n.tc('not_logged_in')
-
-        })
+        location.href = '/settings/'
       }
     }
   })

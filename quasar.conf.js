@@ -88,7 +88,9 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: 8080,
+      host: '0.0.0.0',
+      public: '0.0.0.0:8081/upload-library',
+      port: 8081,
       open: true // opens browser window automatically
     },
 
@@ -117,7 +119,7 @@ module.exports = configure(function (ctx) {
 
       // Quasar plugins
       plugins: ['LocalStorage', 
-        'Cookies',
+        'SessionStorage',
         'Notify']
     },
 
@@ -135,9 +137,9 @@ module.exports = configure(function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'Quasar App',
-        short_name: 'Quasar App',
-        description: 'A Quasar Framework app',
+        name: 'lb-library',
+        short_name: 'lb-library',
+        description: 'LB Library',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -202,7 +204,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'language-app'
+        appId: 'lb-library'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
