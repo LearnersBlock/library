@@ -117,7 +117,7 @@ module.exports = configure(function (ctx) {
 
       // Quasar plugins
       plugins: ['LocalStorage', 
-        'Cookies',
+        'SessionStorage',
         'Notify']
     },
 

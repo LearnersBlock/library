@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { Cookies } from 'quasar'
 import { route } from 'quasar/wrappers'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import { SessionStorage } from 'quasar'
 
 /*
  * If not building with SSR mode, you can
@@ -25,8 +25,12 @@ export default route(function ({ Vue }) {
 
   axios.defaults.withCredentials = true
 
-  const token = Cookies.get('csrf_access_token')
-  axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+  try {
+    const token = SessionStorage.getItem('learners-block-token')
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+  } catch (e) {
+    location.href = '/settings/'
+  }
 
   axios.interceptors.response.use(function (response) {
     return response
