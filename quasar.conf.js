@@ -89,7 +89,7 @@ module.exports = configure(function (ctx) {
     devServer: {
       https: false,
       host: '0.0.0.0',
-      public: '0.0.0.0:8081',
+      public: '0.0.0.0:8081/upload-library',
       port: 8081,
       open: true // opens browser window automatically
     },
