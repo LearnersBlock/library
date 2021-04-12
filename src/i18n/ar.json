@@ -40,5 +40,7 @@
     "load_more": "حمّل المزيد",
     "copy_to_clipboard": "نسخ إلى الحافظة",
     "under_maintenance": "تحت الصيانة",
-    "home": "الصفحة الرئيسية"
+    "home": "الصفحة الرئيسية",
+    "settings": "الإعدادات",
+    "cancel": "إلغاء"
 }
