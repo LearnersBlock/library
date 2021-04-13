@@ -104,7 +104,7 @@
           </template>
         </q-select>
 
-<q-select
+        <q-select
           class="w-90 q-mx-auto q-mt-md"
           outlined
           v-model="selectedLevels"
@@ -275,7 +275,7 @@ export default defineComponent({
         label: 'Français'
       },
       {
-        name: 'ptBR',
+        name: 'pt-BR',
         label: 'Português'
       },
       {
@@ -344,23 +344,12 @@ export default defineComponent({
 
     // Switch i18n language according to selectedLanguage input
     const switchLanguage = () => {
-      if (selectedLanguage.value === 'ar') {
-        import(
-        /* webpackInclude: /(de|en-us)\.js$/ */
-          'quasar/lang/' + 'he'
-        ).then(lang => {
-          root.$q.lang.set(lang.default)
-        })
-      } else {
-        import(
-        /* webpackInclude: /(de|en-us)\.js$/ */
-          'quasar/lang/' + 'en-us'
-        ).then(lang => {
-          root.$q.lang.set(lang.default)
-        })
-      }
-
-      root.$i18n.locale = selectedLanguage.value
+      import(
+        /* webpackInclude: /(de|en-US|ar|fr|pt-BR|es|tr)\.js$/ */
+        'quasar/lang/' + selectedLanguage.value
+      ).then((lang) => {
+        root.$q.lang.set(lang.default)
+      })
     }
 
     const resetInputs = () => {
