@@ -2,7 +2,7 @@ import ar from './ar.json'
 import enUS from './enUS.json'
 import es from './es.json'
 import fr from './fr.json'
-import ptBR from './pt_BR.json'
+import ptBR from './pt-BR.json'
 import tr from './tr.json'
 
 // Here you can define additional languages
@@ -11,6 +11,6 @@ export default {
   'en-us': enUS,
   es: es,
   fr: fr,
-  ptBR: ptBR,
+  'pt-BR': ptBR,
   tr: tr
 }
