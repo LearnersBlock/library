@@ -82,7 +82,7 @@
         </router-link>
       </div>
       <div
-        v-else
+        v-if="fetchedResources.resources == '' && !fetchResourcesLoading"
         class="text-h3 text-center text-grey"
       >
         {{ $t('no_results_found') }}
