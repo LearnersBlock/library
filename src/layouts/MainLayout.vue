@@ -69,7 +69,7 @@
           class="q-mt-lg q-mx-auto w-90"
           v-model="keyword"
           clearable
-          @keyup="searchResources"
+          @keyup="searchResourcesString"
           :label="$t('keywords')"
         />
         <q-select
@@ -219,6 +219,8 @@ export default defineComponent({
     const selectedFormats = ref<[]>([])
     // Selected tags
     const selectedTags = ref<string[]>([])
+    // Searching a new string
+    const searching = ref<boolean>(false)
     // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
     // Languages for i18n
@@ -277,14 +279,28 @@ export default defineComponent({
       }
     })
 
+    function delay (ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
     // Used to disable the drawer once the user goes to a specific resource
     const isInIndex = computed(() => {
       return root.$route.path === '/'
     })
 
     // Method to call fetchFilteredResources from parent to child
-    const searchResources = () => {
+    const searchResources = async () => {
       view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value)
+    }
+
+    // Method to call fetchFilteredResources from parent to child
+    const searchResourcesString = async () => {
+      if (!searching.value) {
+        searching.value = true
+        await delay(1000)
+        view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value)
+        searching.value = false
+      }
     }
 
     // Switch i18n language according to selectedLanguage input
@@ -335,6 +351,7 @@ export default defineComponent({
       selectedTags,
       selectedLanguage,
       searchResources,
+      searchResourcesString,
       switchLanguage,
       view
     }

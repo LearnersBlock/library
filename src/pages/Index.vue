@@ -109,6 +109,7 @@
 import { useQuery } from '@vue/apollo-composable'
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
 import { GET_RESOURCES, GET_RESOURCES_LENGTH } from '../gql/resource/queries'
+import { Loading } from 'quasar'
 
 export default defineComponent({
   name: 'PageIndex',
@@ -161,6 +162,7 @@ export default defineComponent({
       formats: string[] = props.formats! as string[],
       languages: string[] = props.languages as string[],
       tags: string[] = props.tags as string[]) => {
+      Loading.show()
       await fetchResourcesLength(
         {
           keyword,
@@ -176,6 +178,7 @@ export default defineComponent({
         tags,
         limit: limit.value
       } as any)
+      Loading.hide()
     }
 
     function redirect () {
