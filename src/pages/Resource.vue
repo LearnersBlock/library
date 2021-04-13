@@ -159,12 +159,34 @@
           class="q-mt-sm"
         >
           <q-badge
-            class="q-pa-md q-mr-sm q-mb-sm"
+            class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
             color="primary"
             v-for="tag in fetchedResource.resource.tags"
             :key="tag.id"
           >
             {{ tag.tag }}
+          </q-badge>
+        </div>
+        <div
+          class="q-mt-sm"
+          v-else
+        >
+          {{ '--' }}
+        </div>
+        <div class="text-h6 q-mt-sm resource_info-label">
+          {{ $t('level') }}:
+        </div>
+        <div
+          v-if="fetchedResource.resource.levels && fetchedResource.resource.levels.length"
+          class="q-mt-sm"
+        >
+          <q-badge
+            class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
+            color="primary"
+            v-for="level in fetchedResource.resource.levels"
+            :key="level.id"
+          >
+            {{ level.level }}
           </q-badge>
         </div>
         <div

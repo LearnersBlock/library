@@ -69,7 +69,7 @@
           class="q-mt-lg q-mx-auto w-90"
           v-model="keyword"
           clearable
-          @keyup="searchResources"
+          @keyup="searchResourcesString"
           :label="$t('keywords')"
         />
         <q-select
@@ -93,6 +93,38 @@
             >
               <q-item-section>
                 <q-item-label v-html="opt.language" />
+              </q-item-section>
+              <q-item-section side>
+                <q-toggle
+                  :value="selected"
+                  @input="toggleOption(opt)"
+                />
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+
+<q-select
+          class="w-90 q-mx-auto q-mt-md"
+          outlined
+          v-model="selectedLevels"
+          v-if="fetchedLevels"
+          :options="fetchedLevels.levels"
+          :option-label="(level) => level.level"
+          :option-value="(level) => level.id"
+          :label="$t('level')"
+          @input="searchResources"
+          multiple
+          emit-value
+          map-options
+        >
+          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+            <q-item
+              v-bind="itemProps"
+              v-on="itemEvents"
+            >
+              <q-item-section>
+                <q-item-label v-html="opt.level" />
               </q-item-section>
               <q-item-section side>
                 <q-toggle
@@ -189,6 +221,7 @@
         :keyword="keyword"
         :formats="selectedFormats"
         :tags="selectedTags"
+        :levels="selectedLevels"
         :languages="selectedLanguages"
       />
     </q-page-container>
@@ -202,6 +235,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { GET_LANGUAGES } from '../gql/language/queries'
 import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
+import { GET_LEVELS } from '../gql/level/queries'
 import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
 
 export default defineComponent({
@@ -219,7 +253,11 @@ export default defineComponent({
     const selectedFormats = ref<[]>([])
     // Selected tags
     const selectedTags = ref<string[]>([])
-    // Read .env file for page state
+    // Selected level
+    const selectedLevels = ref<string[]>([])
+    // Searching a new string
+    const searching = ref<boolean>(false)
+    // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
     // Languages for i18n
     const languages = ref<[]>([
@@ -254,6 +292,8 @@ export default defineComponent({
     const { result: fetchedFormats, loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
     // Fetch tags query
     const { result: fetchedTags, loading: fetchTagsLoading, refetch: fetchTags } = useQuery(GET_TAGS)
+    // Fetch level query
+    const { result: fetchedLevels, loading: fetchLevelsLoading, refetch: fetchLevels } = useQuery(GET_LEVELS)
     // Fetch language cookie
     const langCookie = ref<any>(root.$q.localStorage.getItem('lang'))
     // Fetch resources query
@@ -269,6 +309,7 @@ export default defineComponent({
       await fetchLanguages()
       await fetchFormats()
       await fetchTags()
+      await fetchLevels()
     })
     // If keyword input is cleared, then execute the query
     watch(() => keyword.value, (newValue) => {
@@ -277,14 +318,28 @@ export default defineComponent({
       }
     })
 
+    function delay (ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
     // Used to disable the drawer once the user goes to a specific resource
     const isInIndex = computed(() => {
       return root.$route.path === '/'
     })
 
     // Method to call fetchFilteredResources from parent to child
-    const searchResources = () => {
-      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value)
+    const searchResources = async () => {
+      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+    }
+
+    // Method to call fetchFilteredResources from parent to child
+    const searchResourcesString = async () => {
+      if (!searching.value) {
+        searching.value = true
+        await delay(1000)
+        view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+        searching.value = false
+      }
     }
 
     // Switch i18n language according to selectedLanguage input
@@ -313,7 +368,8 @@ export default defineComponent({
       selectedLanguages.value = []
       selectedFormats.value = []
       selectedTags.value = []
-      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value)
+      selectedLevels.value = []
+      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
     }
 
     return {
@@ -323,6 +379,8 @@ export default defineComponent({
       fetchedResourcesLength,
       fetchedTags,
       fetchTagsLoading,
+      fetchedLevels,
+      fetchLevelsLoading,
       fetchedFormats,
       isInIndex,
       keyword,
@@ -333,8 +391,10 @@ export default defineComponent({
       selectedLanguages,
       selectedFormats,
       selectedTags,
+      selectedLevels,
       selectedLanguage,
       searchResources,
+      searchResourcesString,
       switchLanguage,
       view
     }

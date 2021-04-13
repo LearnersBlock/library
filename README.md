@@ -13,20 +13,20 @@ Resources stored on this database are not managed through this repository, they 
 The backend for this site is served by [Strapi](https://strapi.io). Please see the [template repository](https://github.com/LearnersBlock/library-backend-template) for details on building a development backend. 
 
 ## Install the dependencies
-yarn install
+`yarn install`
 
 ### Start the app in development mode.
-The code will build for use on the Learner's Block when a .env file exists at the root containing `ONDEVICE=TRUE` at build time. If the file is missing, it will start in web mode for library.learnersblock.org.
+The code will build for use on the Learner's Block when the `ONDEVICE=TRUE` variable exists in the build environment. If the variable is missing, it will start in web mode for library.learnersblock.org.
 
-quasar dev
+`quasar dev`
 
 ### Lint the files
 yarn run lint
 
 ### Build the app for production
-The code will build for use on the Learner's Block when a .env file exists at the root containing `ONDEVICE=TRUE` at build time. If the file is missing, it will start in web mode for library.learnersblock.org.
+The code will build for use on the Learner's Block when the `ONDEVICE=TRUE` variable exists in the build environment. If the variable is missing, it will start in web mode for library.learnersblock.org.
 
-quasar build
+`quasar build`
 
 ### Customize the configuration
 See [configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

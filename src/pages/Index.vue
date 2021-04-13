@@ -21,7 +21,7 @@
           arrow_back_ios
         </span>
         <div class="mt-0.5">
-          {{ $t('home') }}
+          {{ $t('settings') }}
         </div>
       </q-btn>
       <div
@@ -82,12 +82,15 @@
         </router-link>
       </div>
       <div
-        v-else
+        v-if="fetchedResources.resources == '' && !fetchResourcesLoading"
         class="text-h3 text-center text-grey"
       >
         {{ $t('no_results_found') }}
       </div>
-      <div class="text-center">
+      <div
+        v-if="!disableButton"
+        class="text-center"
+      >
         <q-btn
           v-if="fetchedResources.resources.length && !fetchResourcesLoading && fetchedResourcesLength"
           :disabled="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount"
@@ -106,6 +109,7 @@
 import { useQuery } from '@vue/apollo-composable'
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
 import { GET_RESOURCES, GET_RESOURCES_LENGTH } from '../gql/resource/queries'
+import { Loading } from 'quasar'
 
 export default defineComponent({
   name: 'PageIndex',
@@ -116,6 +120,9 @@ export default defineComponent({
     tags: {
       type: Array
     },
+    levels: {
+      type: Array
+    },
     keyword: {
       type: String
     },
@@ -124,16 +131,17 @@ export default defineComponent({
     }
   },
   setup (props) {
-    // Read .env file for page state
+    // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
     // Loading boolean in case the api is very fast, the UI still loads for a lil bit - better User Experience
-    const limit = ref<number>(10)
+    const limit = ref<number>(250)
+    const disableButton = ref<boolean>(true)
     // Fetch resources query
     const {
       result: fetchedResources,
       loading: fetchResourcesLoading,
       refetch: fetchResources
-    } = useQuery(GET_RESOURCES, { limit: 30 })
+    } = useQuery(GET_RESOURCES, { limit: 250 })
 
     const {
       result: fetchedResourcesLength,
@@ -156,13 +164,16 @@ export default defineComponent({
       keyword:string = props.keyword!,
       formats: string[] = props.formats! as string[],
       languages: string[] = props.languages as string[],
-      tags: string[] = props.tags as string[]) => {
+      tags: string[] = props.tags as string[],
+      levels: string[] = props.levels as string[]) => {
+      Loading.show()
       await fetchResourcesLength(
         {
           keyword,
           languages,
           formats,
-          tags
+          tags,
+          levels
         }
       )
       await fetchResources({
@@ -170,8 +181,10 @@ export default defineComponent({
         languages,
         formats,
         tags,
+        levels,
         limit: limit.value
       } as any)
+      Loading.hide()
     }
 
     function redirect () {
@@ -179,6 +192,7 @@ export default defineComponent({
     }
 
     return {
+      disableButton,
       fetchedResources,
       fetchFilteredResources,
       fetchResourcesLoading,

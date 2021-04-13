@@ -49,5 +49,7 @@
     "uid": "UID",
     "under_maintenance": "Under Maintenance",
     "url": "Download URL",
-    "home": "Home"
+    "home": "Home",
+    "settings": "Settings",
+    "level": "Level"
 }
