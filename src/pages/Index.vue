@@ -120,6 +120,9 @@ export default defineComponent({
     tags: {
       type: Array
     },
+    levels: {
+      type: Array
+    },
     keyword: {
       type: String
     },
@@ -161,14 +164,16 @@ export default defineComponent({
       keyword:string = props.keyword!,
       formats: string[] = props.formats! as string[],
       languages: string[] = props.languages as string[],
-      tags: string[] = props.tags as string[]) => {
+      tags: string[] = props.tags as string[],
+      levels: string[] = props.levels as string[]) => {
       Loading.show()
       await fetchResourcesLength(
         {
           keyword,
           languages,
           formats,
-          tags
+          tags,
+          levels
         }
       )
       await fetchResources({
@@ -176,6 +181,7 @@ export default defineComponent({
         languages,
         formats,
         tags,
+        levels,
         limit: limit.value
       } as any)
       Loading.hide()
