@@ -346,15 +346,20 @@
 
 <script lang="ts">
 import Axios from 'app/node_modules/axios'
-import { copyToClipboard } from 'quasar'
+import { copyToClipboard, useQuasar } from 'quasar'
 import { useQuery } from '@vue/apollo-composable'
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref } from 'vue'
 import { GET_RESOURCE } from 'src/gql/resource/queries'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
-  setup (_, { root }) {
+  setup () {
+    const $q = useQuasar()
+    const { t } = useI18n()
+    const route = useRoute()
     // Fetch resources
-    const { result: fetchedResource, loading: fetchResourceLoading } = useQuery(GET_RESOURCE, { id: root.$route.params.id })
+    const { result: fetchedResource, loading: fetchResourceLoading } = useQuery(GET_RESOURCE, { id: route.params.id })
 
     // Fetch RSync hostname status
     const checkingFiles = ref<boolean>(false)
@@ -395,15 +400,15 @@ export default defineComponent({
               const response = await Axios.get(`http://${hostname.value}:9090/v1/download/status`)
 
               if (response.data.progress === 'space-error') {
-                root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
+                $q.notify({ type: 'negative', message: t('no_space') })
                 stopDownload()
                 return
               } else if (response.data.progress === 'error') {
-                root.$q.notify({ type: 'negative', message: root.$tc('error') })
+                $q.notify({ type: 'negative', message: t('error') })
                 stopDownload()
                 return
               } else if (response.data.progress === 1) {
-                root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
+                $q.notify({ type: 'positive', message: t('download_complete') })
                 downloadProgress.value = 2
                 stopDownload()
                 return
@@ -429,17 +434,17 @@ export default defineComponent({
               await delay(1500)
               const response = await Axios.get(`http://${hostname.value}:9090/v1/rsync/status`)
               if (response.data.progress === 'space-error') {
-                root.$q.notify({ type: 'negative', message: root.$tc('no_space') })
+                $q.notify({ type: 'negative', message: t('no_space') })
                 stopDownload()
                 return
               } else if (response.data.progress === 'error') {
-                root.$q.notify({ type: 'negative', message: root.$tc('error') })
+                $q.notify({ type: 'negative', message: t('error') })
                 stopDownload()
                 return
               } else if (response.data.progress === 'checking-files') {
                 checkingFiles.value = true
               } else if (response.data.progress === 'complete') {
-                root.$q.notify({ type: 'positive', message: root.$tc('download_complete') })
+                $q.notify({ type: 'positive', message: t('download_complete') })
                 downloadProgress.value = 2
                 stopDownload()
                 return

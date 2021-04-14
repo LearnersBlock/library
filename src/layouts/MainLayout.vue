@@ -230,17 +230,23 @@
 
 <script lang="ts">
 
-import { computed, defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { GET_LANGUAGES } from '../gql/language/queries'
 import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
 import { GET_LEVELS } from '../gql/level/queries'
 import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
+import { useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'MainLayout',
-  setup (_, { root }) {
+  setup () {
+    const $q = useQuasar()
+    const { locale } = useI18n({ useScope: 'global' })
+    const $router = useRouter()
     // Drawer toggle
     const leftDrawerOpen = ref(false)
     // Keyword input
@@ -262,7 +268,7 @@ export default defineComponent({
     // Languages for i18n
     const languages = ref<[]>([
       {
-        name: 'en-us',
+        name: 'en-US',
         label: 'English'
       }, {
         name: 'ar',
@@ -285,7 +291,7 @@ export default defineComponent({
 
     ] as any)
     // Selected language for i18n
-    const selectedLanguage = ref<string>('en-us')
+    const selectedLanguage = ref<string>('en-US')
     // Fetch languages query
     const { result: fetchedLanguages, loading: fetchLanguagesLoading, refetch: fetchLanguages } = useQuery(GET_LANGUAGES)
     // Fetch formats query
@@ -295,7 +301,7 @@ export default defineComponent({
     // Fetch level query
     const { result: fetchedLevels, loading: fetchLevelsLoading, refetch: fetchLevels } = useQuery(GET_LEVELS)
     // Fetch language cookie
-    const langCookie = ref<any>(root.$q.localStorage.getItem('lang'))
+    const langCookie = ref<any>($q.localStorage.getItem('lang'))
     // Fetch resources query
     const {
       result: fetchedResourcesLength
@@ -303,7 +309,7 @@ export default defineComponent({
 
     onMounted(async () => {
       if (langCookie.value) {
-        root.$i18n.locale = langCookie.value
+        locale.value = langCookie.value
       }
 
       await fetchLanguages()
@@ -324,7 +330,7 @@ export default defineComponent({
 
     // Used to disable the drawer once the user goes to a specific resource
     const isInIndex = computed(() => {
-      return root.$route.path === '/'
+      return $router.currentRoute.value.path === '/'
     })
 
     // Method to call fetchFilteredResources from parent to child
@@ -348,7 +354,7 @@ export default defineComponent({
         /* webpackInclude: /(de|en-US|ar|fr|pt-BR|es|tr)\.js$/ */
         'quasar/lang/' + selectedLanguage.value
       ).then((lang) => {
-        root.$q.lang.set(lang.default)
+        $q.lang.set(lang.default)
       })
     }
 

@@ -29,7 +29,7 @@
         class="resource_box q-mt-lg q-mb-xl"
       >
         <router-link
-          class="resource q-mt-md items-center"
+          class="resource q-mt-md items-center text-black "
           tag="div"
           :to="'/resource/' + resource.id"
           v-for="resource in fetchedResources.resources"
@@ -106,8 +106,9 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable vue/require-default-prop */
 import { useQuery } from '@vue/apollo-composable'
-import { defineComponent, onMounted, ref } from '@vue/composition-api'
+import { defineComponent, onMounted, ref } from 'vue'
 import { GET_RESOURCES, GET_RESOURCES_LENGTH } from '../gql/resource/queries'
 import { Loading } from 'quasar'
 
@@ -207,7 +208,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .resource {
   box-shadow: 0 .3rem 1rem .1rem rgba(0,0,0,.2);
   padding: 2rem;
@@ -216,6 +217,7 @@ export default defineComponent({
   cursor: pointer;
   border-radius: .3rem;
   transition: all .15s ease-in-out;
+  text-decoration: none;
   @media only screen and (max-width: 960px) {
     flex-direction: column;
     text-align: center;
