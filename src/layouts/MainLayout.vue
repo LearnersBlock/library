@@ -237,7 +237,7 @@ import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
 import { GET_LEVELS } from '../gql/level/queries'
 import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
-import { useQuasar } from 'quasar'
+import { Quasar, useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
@@ -310,6 +310,7 @@ export default defineComponent({
     onMounted(async () => {
       if (langCookie.value) {
         locale.value = langCookie.value
+        Quasar.lang.set(langCookie.value)
       }
 
       await fetchLanguages()
