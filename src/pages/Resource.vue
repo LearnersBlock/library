@@ -230,7 +230,6 @@
           glossy
           rounded
           :disable="!fetchedResource.resource.rsync && !fetchedResource.resource.download_url"
-          :disabled="!fetchedResource.resource.rsync && !fetchedResource.resource.download_url"
           color="primary"
           icon="download"
           :label="exitLoop ? $t('download'): $t('cancel')"
@@ -242,7 +241,7 @@
           anchor="top middle"
           self="center middle"
           :offset="[10, 10]"
-          content-style="font-size: 16px"
+          style="font-size: 16px"
         >
           {{ $t('resource_not_available') }}
         </q-tooltip>
@@ -313,7 +312,7 @@
           icon="download"
           rounded
           :label="$t('download')"
-          :disabled="!fetchedResource.resource.download_url"
+          :disable-main-btn="!fetchedResource.resource.download_url"
           :disable-dropdown="!fetchedResource.resource.rsync"
         >
           <q-list>

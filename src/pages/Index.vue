@@ -1,5 +1,8 @@
 <template ref="indexPage">
   <q-page class="row items-center justify-evenly">
+    <div v-if="!apiIsUp">
+      {{ $t('under_maintenance') }}
+    </div>
     <q-spinner
       color="primary"
       size="10%"
@@ -93,7 +96,7 @@
       >
         <q-btn
           v-if="fetchedResources.resources.length && !fetchResourcesLoading && fetchedResourcesLength"
-          :disabled="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount"
+          :disable="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount"
           color="grey-6"
           @click="loadMore"
           class="resource_button q-mb-xl"
@@ -132,6 +135,11 @@ export default defineComponent({
     }
   },
   setup (props) {
+    const apiIsUp = ref<boolean>(true)
+    const { onError } = useQuery(GET_RESOURCES, { limit: 1 })
+    onError(() => {
+      apiIsUp.value = false
+    })
     // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
     // Loading boolean in case the api is very fast, the UI still loads for a lil bit - better User Experience
@@ -143,7 +151,6 @@ export default defineComponent({
       loading: fetchResourcesLoading,
       refetch: fetchResources
     } = useQuery(GET_RESOURCES, { limit: 250 })
-
     const {
       result: fetchedResourcesLength,
       loading: fetchResourcesLengthLoading,
@@ -193,6 +200,7 @@ export default defineComponent({
     }
 
     return {
+      apiIsUp,
       disableButton,
       fetchedResources,
       fetchFilteredResources,

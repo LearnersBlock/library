@@ -43,7 +43,7 @@
           :option-value="(lang) => lang.name"
           emit-value
           map-options
-          @input="switchLanguage"
+          @update:model-value="switchLanguage"
         />
       </q-toolbar>
     </q-header>
@@ -53,7 +53,7 @@
       show-if-above
       v-if="isInIndex"
       bordered
-      content-class="bg-white"
+      class="bg-white"
     >
       <q-list>
         <q-item-label
@@ -81,7 +81,7 @@
           :option-label="(lang) => lang.language"
           :option-value="(lang) => lang.id"
           :options="fetchedLanguages.languages"
-          @input="searchResources"
+          @update:model-value="searchResources"
           multiple
           map-options
           emit-value
@@ -96,8 +96,8 @@
               </q-item-section>
               <q-item-section side>
                 <q-toggle
-                  :value="selected"
-                  @input="toggleOption(opt)"
+                  :model-value="selected"
+                  @update:model-value="toggleOption(opt)"
                 />
               </q-item-section>
             </q-item>
@@ -113,7 +113,7 @@
           :option-label="(level) => level.level"
           :option-value="(level) => level.id"
           :label="$t('level')"
-          @input="searchResources"
+          @update:model-value="searchResources"
           multiple
           emit-value
           map-options
@@ -128,8 +128,8 @@
               </q-item-section>
               <q-item-section side>
                 <q-toggle
-                  :value="selected"
-                  @input="toggleOption(opt)"
+                  :model-value="selected"
+                  @update:model-value="toggleOption(opt)"
                 />
               </q-item-section>
             </q-item>
@@ -145,7 +145,7 @@
           :option-label="(tag) => tag.tag"
           :option-value="(tag) => tag.id"
           :label="$t('tags')"
-          @input="searchResources"
+          @update:model-value="searchResources"
           multiple
           emit-value
           map-options
@@ -160,8 +160,8 @@
               </q-item-section>
               <q-item-section side>
                 <q-toggle
-                  :value="selected"
-                  @input="toggleOption(opt)"
+                  :model-value="selected"
+                  @update:model-value="toggleOption(opt)"
                 />
               </q-item-section>
             </q-item>
@@ -177,7 +177,7 @@
           :option-label="(format) => format.type"
           :option-value="(format) => format.id"
           :label="$t('formats')"
-          @input="searchResources"
+          @update:model-value="searchResources"
           multiple
           emit-value
           map-options
@@ -192,8 +192,8 @@
               </q-item-section>
               <q-item-section side>
                 <q-toggle
-                  :value="selected"
-                  @input="toggleOption(opt)"
+                  :model-value="selected"
+                  @update:model-value="toggleOption(opt)"
                 />
               </q-item-section>
             </q-item>
