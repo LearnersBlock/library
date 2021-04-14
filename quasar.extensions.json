@@ -1,5 +1,5 @@
 {
   "@ejez/apollo": {
-    "graphql_uri": "https://library-api.learnersblock.org/graphql"
+    "typescript": true
   }
 }
