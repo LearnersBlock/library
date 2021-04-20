@@ -26,7 +26,6 @@
     "uid": "UID",
     "transferred": "Transferido",
     "total_entries": "Total de entradas na base de dados",
-    "sample_url": "URL de exemplo",
     "sample": "Exemplo",
     "rsync_url_copied": "URL RSync copiado para o Clipboard",
     "resource_not_available": "Este recurso não está disponível para download.",
