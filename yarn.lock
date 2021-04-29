@@ -923,17 +923,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@ejez/quasar-app-extension-apollo@^2.0.0-alpha.10":
-  version "2.0.0-alpha.10"
-  resolved "https://registry.yarnpkg.com/@ejez/quasar-app-extension-apollo/-/quasar-app-extension-apollo-2.0.0-alpha.10.tgz#483d8840fe8b81e02a7a2533a95d48eddad85524"
-  integrity sha512-djqQTu+bufqR7h/E931NiPo0llG43ZQgHUOwrJzMIzG8z3fhhfnKWi9DPc4bSFXHu0nw9MwszD/qOQkxnUMEUA==
-  dependencies:
-    "@apollo/client" "^3.3.11"
-    "@vue/apollo-composable" "^4.0.0-alpha.12"
-    graphql "^15.5.0"
-    graphql-tag "^2.11.0"
-    react "^17.0.2"
-
 "@electron/get@^1.3.1":
   version "1.12.4"
   resolved "https://registry.yarnpkg.com/@electron/get/-/get-1.12.4.tgz#a5971113fc1bf8fa12a8789dc20152a7359f06ab"
@@ -1182,6 +1171,17 @@
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/@quasar/fastclick/-/fastclick-1.1.4.tgz#21ed3e9a4387dcb43022a08af4ef08a5f1abf159"
   integrity sha512-i9wbyV4iT+v4KhtHJynUFhH5LiEPvAEgSnwMqPN4hf/8uRe82nDl5qP5agrp2el1h0HzyBpbvHaW7NB0BPrtvA==
+
+"@quasar/quasar-app-extension-apollo@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-apollo/-/quasar-app-extension-apollo-2.0.0-beta.1.tgz#029098e041d769dc86532f262a83569ef1217b61"
+  integrity sha512-slG3v7zopBJ3dGIQGQjCrrgbQC6Kit5pGLZM3qV71G4RuB7D0COCHqdimfBu6/NF3UWYkOPTVTcpI+5dhQMGlQ==
+  dependencies:
+    "@apollo/client" "^3.3.11"
+    "@vue/apollo-composable" "^4.0.0-alpha.12"
+    graphql "^15.5.0"
+    graphql-tag "^2.11.0"
+    react "^17.0.2"
 
 "@quasar/ssr-helpers@1.1.0":
   version "1.1.0"

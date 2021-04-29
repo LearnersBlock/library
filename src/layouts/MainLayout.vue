@@ -251,7 +251,7 @@ export default defineComponent({
     const leftDrawerOpen = ref(false)
     // Keyword input
     const keyword = ref<string>('')
-    // Router view refference in order call method from parent to child
+    // Router view reference in order to call method from parent to child
     const view = ref<any>(null)
     // Selected languages for select dropdown - IDs
     const selectedLanguages = ref<string[]>([])
