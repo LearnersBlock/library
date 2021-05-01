@@ -86,10 +86,10 @@
           map-options
           emit-value
         >
-          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+          <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
               v-bind="itemProps"
-              v-on="itemEvents"
+              v-on="itemProps"
             >
               <q-item-section>
                 <q-item-label v-html="opt.language" />
@@ -118,10 +118,10 @@
           emit-value
           map-options
         >
-          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+          <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
               v-bind="itemProps"
-              v-on="itemEvents"
+              v-on="itemProps"
             >
               <q-item-section>
                 <q-item-label v-html="opt.level" />
@@ -150,10 +150,10 @@
           emit-value
           map-options
         >
-          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+          <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
               v-bind="itemProps"
-              v-on="itemEvents"
+              v-on="itemProps"
             >
               <q-item-section>
                 <q-item-label v-html="opt.tag" />
@@ -182,10 +182,10 @@
           emit-value
           map-options
         >
-          <template #option="{ itemProps, itemEvents, opt, selected, toggleOption }">
+          <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
               v-bind="itemProps"
-              v-on="itemEvents"
+              v-on="itemProps"
             >
               <q-item-section>
                 <q-item-label v-html="opt.type" />
