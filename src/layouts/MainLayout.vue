@@ -30,21 +30,24 @@
             target="_self"
           />
         </q-toolbar-title>
-        <q-select
-          v-if="!onDevice"
-          class="w-15 q-mx-auto q-pa-sm"
-          filled
-          square
-          color="dark"
-          bg-color="grey-3"
-          v-model="selectedLanguage"
-          :label="$t('switch_language')"
-          :options="languages"
-          :option-value="(lang) => lang.name"
-          emit-value
-          map-options
-          @update:model-value="switchLanguage"
-        />
+        <q-item clickable>
+          <span class="material-icons">
+            translate
+          </span>
+          <q-menu>
+            <q-list style="min-width: 100px">
+              <q-item
+                @click="changeLanguage(language.value)"
+                v-for="language in languages"
+                :key="language.value"
+                clickable
+                v-close-popup
+              >
+                <q-item-section>{{ language.label }}</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-item>
       </q-toolbar>
     </q-header>
 
@@ -268,30 +271,41 @@ export default defineComponent({
     // Languages for i18n
     const languages = ref<[]>([
       {
-        name: 'en-US',
-        label: 'English'
-      }, {
-        name: 'ar',
-        label: 'اَلْعَرَبِيَّةُ'
-      }, {
-        name: 'es',
-        label: 'Español'
-      }, {
-        name: 'fr',
-        label: 'Français'
+        label: 'English',
+        value: 'en-US'
       },
       {
-        name: 'pt-BR',
-        label: 'Português'
+        label: 'اَلْعَرَبِيَّةُ',
+        value: 'ar'
       },
       {
-        name: 'tr',
-        label: 'Türkçe'
+        label: 'Deutsche',
+        value: 'de'
+      },
+      {
+        label: 'Español',
+        value: 'es'
+      },
+      {
+        label: 'Français',
+        value: 'fr'
+      },
+      {
+        label: 'Italiana',
+        value: 'it'
+      },
+      {
+        label: 'Português',
+        value: 'pt-BR'
+      },
+      {
+        label: 'Türk',
+        value: 'tr'
       }
 
     ] as any)
     // Selected language for i18n
-    const selectedLanguage = ref<string>('en-US')
+    const selectedLanguage = ref(locale)
     // Fetch languages query
     const { result: fetchedLanguages, loading: fetchLanguagesLoading, refetch: fetchLanguages } = useQuery(GET_LANGUAGES)
     // Fetch formats query
@@ -350,12 +364,13 @@ export default defineComponent({
     }
 
     // Switch i18n language according to selectedLanguage input
-    const switchLanguage = () => {
+    const changeLanguage = (value: string) => {
       import(
-        /* webpackInclude: /(de|en-US|ar|fr|pt-BR|es|tr)\.js$/ */
-        'quasar/lang/' + selectedLanguage.value
+        /* webpackInclude: /(en-US|ar|de|es|fr|it|tr|pt-BR)\.js$/ */
+        'quasar/lang/' + value
       ).then((lang) => {
-        $q.lang.set(lang.default)
+        locale.value = value
+        Quasar.lang.set(lang.default)
       })
     }
 
@@ -369,6 +384,7 @@ export default defineComponent({
     }
 
     return {
+      changeLanguage,
       fetchedLanguages,
       fetchFormatsLoading,
       fetchLanguagesLoading,
@@ -391,7 +407,6 @@ export default defineComponent({
       selectedLanguage,
       searchResources,
       searchResourcesString,
-      switchLanguage,
       view
     }
   }
