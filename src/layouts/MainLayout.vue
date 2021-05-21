@@ -30,7 +30,10 @@
             target="_self"
           />
         </q-toolbar-title>
-        <q-item clickable>
+        <q-item
+          v-if="!onDevice"
+          clickable
+        >
           <span class="material-icons">
             translate
           </span>
