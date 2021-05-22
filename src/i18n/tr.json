@@ -14,7 +14,7 @@
     "Afrikaans": "Afrikaanca",
     "languages": "Diller",
     "uid": "UID",
-    "sample": "Örnek",
+    "sample": "Önizleme",
     "rsync_url_copied": "RSync URL'si Panoya Kopyalandı",
     "rsync": "Rsync URL'sini Panoya Kopyala",
     "rsync_url": "Rsync URL'si",
@@ -47,5 +47,8 @@
     "download_complete": "İndirme Tamamlandı",
     "cancel": "Vazgeç",
     "error": "Bir hata oluştu",
-    "checking_files": "Dosyalar denetleniyor..."
+    "checking_files": "Dosyalar denetleniyor...",
+    "level": "Seviye",
+    "settings": "Ayarlar",
+    "home": "Ev"
 }
