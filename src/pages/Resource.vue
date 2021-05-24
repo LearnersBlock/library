@@ -82,10 +82,9 @@
         </div>
         <div
           v-if="fetchedResource.resource.languages && fetchedResource.resource.languages.length"
-          class="q-mt-sm"
         >
           <q-badge
-            class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
+            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
             color="primary"
             v-for="language in fetchedResource.resource.languages"
             :key="language.id"
@@ -104,10 +103,9 @@
         </div>
         <div
           v-if="fetchedResource.resource.formats && fetchedResource.resource.formats.length"
-          class="q-mt-sm"
         >
           <q-badge
-            class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
+            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
             color="primary"
             v-for="format in fetchedResource.resource.formats"
             :key="format.id"
@@ -156,10 +154,9 @@
         </div>
         <div
           v-if="fetchedResource.resource.tags && fetchedResource.resource.tags.length"
-          class="q-mt-sm"
         >
           <q-badge
-            class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
+            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
             color="primary"
             v-for="tag in fetchedResource.resource.tags"
             :key="tag.id"
@@ -178,10 +175,9 @@
         </div>
         <div
           v-if="fetchedResource.resource.levels && fetchedResource.resource.levels.length"
-          class="q-mt-sm"
         >
           <q-badge
-            class="q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
+            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
             color="primary"
             v-for="level in fetchedResource.resource.levels"
             :key="level.id"
@@ -200,10 +196,9 @@
         </div>
         <div
           v-if="fetchedResource.resource.licenses && fetchedResource.resource.licenses.length"
-          class="q-mt-sm"
         >
           <q-badge
-            class="q-pa-md q-mr-sm"
+            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
             color="primary"
             v-for="license in fetchedResource.resource.licenses"
             :key="license.id"

@@ -142,7 +142,7 @@ export default defineComponent({
     })
     // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
-    // Loading boolean in case the api is very fast, the UI still loads for a lil bit - better User Experience
+    // Loading boolean in case the api is very fast, the UI still loads for a bit - better User Experience
     const limit = ref<number>(250)
     const disableButton = ref<boolean>(true)
     // Fetch resources query
