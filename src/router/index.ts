@@ -52,7 +52,7 @@ export default route(function (/* { store, ssrContext } */) {
     return response
   }, function (error) {
     if (error.response) {
-      if (error.response.status === 401 || error.response.status === 421 || error.code === 'ECONNABORTED') {
+      if (error.response.status === 401 || error.response.status === 421) {
         location.href = '/settings/'
       }
     }
