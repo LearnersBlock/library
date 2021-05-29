@@ -23,7 +23,7 @@ The code will build for use on the Learner's Block when the `ONDEVICE=TRUE` vari
 `quasar dev`
 
 ### Lint the files
-yarn run lint
+`yarn run lint`
 
 ### Build the app for production
 The code will build for use on the Learner's Block when the `ONDEVICE=TRUE` variable exists in the build environment. If the variable is missing, it will start in web mode for library.learnersblock.org.
