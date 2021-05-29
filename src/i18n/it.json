@@ -2,7 +2,7 @@
     "rsync": "Copia l’URL Rsync negli appunti",
     "checking_files": "Controllo dei file…",
     "error": "Qualcosa è andato storto",
-    "sample": "Campione",
+    "sample": "Anteprima",
     "rsync_url_copied": "URL RSync copiato negli appunti",
     "rsync_url": "URL Rsync",
     "level": "Livello",
