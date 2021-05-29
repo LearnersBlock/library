@@ -223,13 +223,19 @@
 
     <q-page-container>
       <router-view
-        ref="view"
+        v-slot="{ Component, route }"
         :keyword="keyword"
         :formats="selectedFormats"
         :tags="selectedTags"
         :levels="selectedLevels"
         :languages="selectedLanguages"
-      />
+      >
+        <component
+          :is="Component"
+          :key="route.meta.usePathKey ? route.path : undefined"
+          ref="view"
+        />
+      </router-view>
     </q-page-container>
   </q-layout>
 </template>
