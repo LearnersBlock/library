@@ -21,7 +21,6 @@ import { ref } from 'vue'
 
 export default route(function (/* { store, ssrContext } */) {
   const currentScrollLocation = ref<any>(0)
-  console.log()
 
   const createHistory =
     process.env.SERVER
