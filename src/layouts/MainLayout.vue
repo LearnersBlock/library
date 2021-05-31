@@ -360,6 +360,8 @@ export default defineComponent({
     // Method to call fetchFilteredResources from parent to child
     const searchResources = async () => {
       view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      window.scrollTo(0, 0)
+      $q.sessionStorage.set('position', 0)
     }
 
     // Method to call fetchFilteredResources from parent to child
@@ -368,6 +370,8 @@ export default defineComponent({
         searching.value = true
         await delay(1000)
         view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+        window.scrollTo(0, 0)
+        $q.sessionStorage.set('position', 0)
         searching.value = false
       }
     }
@@ -384,6 +388,8 @@ export default defineComponent({
     }
 
     const resetInputs = () => {
+      window.scrollTo(0, 0)
+      $q.sessionStorage.set('position', 0)
       keyword.value = ''
       selectedLanguages.value = []
       selectedFormats.value = []

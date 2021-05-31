@@ -16,20 +16,14 @@
           position="top-left"
           :offset="[18, 18]"
         >
-          <router-link
-            color="secondary"
-            class="back text-h6 cursor-pointer"
-            tag="div"
-            to="/"
+          <q-btn
+            color="white"
+            text-color="primary"
+            class="text-subtitle2 text-weight-bold"
+            @click="$router.go(-1)"
           >
-            <q-btn
-              color="white"
-              text-color="primary"
-              class="text-subtitle2 text-weight-bold"
-            >
-              {{ $t('back') }}
-            </q-btn>
-          </router-link>
+            {{ $t('back') }}
+          </q-btn>
         </q-page-sticky>
       </q-item>
       <div v-if="fetchedResource.resource.logo && fetchedResource.resource.logo.formats && fetchedResource.resource.logo.formats.thumbnail && fetchedResource.resource.logo.formats.thumbnail.url">

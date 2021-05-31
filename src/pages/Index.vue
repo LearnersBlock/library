@@ -1,5 +1,6 @@
 <template ref="indexPage">
   <q-page class="row items-center justify-evenly">
+    <q-scroll-observer @scroll="onScroll" />
     <div v-if="!apiIsUp">
       {{ $t('under_maintenance') }}
     </div>
@@ -113,7 +114,7 @@
 import { useQuery } from '@vue/apollo-composable'
 import { defineComponent, onMounted, ref } from 'vue'
 import { GET_RESOURCES, GET_RESOURCES_LENGTH } from '../gql/resource/queries'
-import { Loading } from 'quasar'
+import { Loading, useQuasar } from 'quasar'
 
 export default defineComponent({
   name: 'PageIndex',
@@ -135,6 +136,7 @@ export default defineComponent({
     }
   },
   setup (props) {
+    const $q = useQuasar()
     const apiIsUp = ref<boolean>(true)
     const { onError } = useQuery(GET_RESOURCES, { limit: 1 })
     onError(() => {
@@ -195,6 +197,10 @@ export default defineComponent({
       Loading.hide()
     }
 
+    function onScroll (scrollLocation) {
+      $q.sessionStorage.set('position', scrollLocation.position.top)
+    }
+
     function redirect () {
       location.href = '/settings'
     }
@@ -210,6 +216,7 @@ export default defineComponent({
       limit,
       loadMore,
       onDevice,
+      onScroll,
       redirect
     }
   }
