@@ -8,7 +8,6 @@ import {
 } from 'vue-router'
 import { SessionStorage } from 'quasar'
 import routes from './routes'
-import { ref } from 'vue'
 
 /*
  * If not building with SSR mode, you can
@@ -19,9 +18,7 @@ import { ref } from 'vue'
  * with the Router instance.
  */
 
-export default route(function ({ store }) {
-  const currentScrollLocation = ref<any>(0)
-
+export default route(function (/* { store, ssrContext } */) {
   const createHistory =
     process.env.SERVER
       ? createMemoryHistory
@@ -46,10 +43,6 @@ export default route(function ({ store }) {
       // eslint-disable-next-line no-void
       process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE
     )
-  })
-
-  Router.afterEach(() => {
-    currentScrollLocation.value = store.state.savedResources.position
   })
 
   axios.defaults.withCredentials = true
