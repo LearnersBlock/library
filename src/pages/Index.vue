@@ -27,61 +27,78 @@
         v-if="fetchedResources.resources"
         class="resource_box q-mt-lg q-mb-xl"
       >
-        <router-link
-          class="resource q-mt-md items-center text-black "
-          tag="div"
-          :to="'/resource/' + resource.id"
-          v-for="resource in fetchedResources.resources"
-          :key="resource.id"
+        <q-infinite-scroll
+          @load="loadMore"
+          :offset="500"
         >
-          <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
-            <q-img
-              :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url"
-              loading="lazy"
-              spinner-color="grey"
-              height="140px"
-              class="resource_image"
-            />
-          </div>
-          <div v-else>
-            <img
-              class="resource_image"
-              :src="resource.logo ? 'https://library-api.learnersblock.org' + resource.logo.url : require('../assets/default.jpg')"
-            >
-          </div>
-          <div class="resource_info">
-            <div
-              dir="auto"
-              class="text-h3 resource_name josefin sans"
-            >
-              {{ resource.name }}
+          <router-link
+            class="resource q-mt-md items-center text-black "
+            tag="div"
+            :to="'/resource/' + resource.id"
+            v-for="resource in fetchedResources.resources"
+            :key="resource.id"
+          >
+            <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
+              <q-img
+                :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url"
+                loading="lazy"
+                spinner-color="grey"
+                height="140px"
+                class="resource_image"
+              />
             </div>
-            <div
-              dir="auto"
-              class="text-h6 q-mt-md resource_description"
-            >
-              {{ resource.description }}
+            <div v-else>
+              <img
+                class="resource_image"
+                :src="resource.logo ? 'https://library-api.learnersblock.org' + resource.logo.url : require('../assets/default.jpg')"
+              >
             </div>
-            <div class="resource_languages">
-              <div>
-                <q-badge
-                  class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large"
-                  color="primary"
-                  v-for="language in resource.languages"
-                  :key="language.id"
-                >
-                  {{ $t(language.language) }}
-                </q-badge>
+            <div class="resource_info">
+              <div
+                dir="auto"
+                class="text-h3 resource_name josefin sans"
+              >
+                {{ resource.name }}
+              </div>
+              <div
+                dir="auto"
+                class="text-h6 q-mt-md resource_description"
+              >
+                {{ resource.description }}
+              </div>
+              <div class="resource_languages">
+                <div>
+                  <q-badge
+                    class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large"
+                    color="primary"
+                    v-for="language in resource.languages"
+                    :key="language.id"
+                  >
+                    {{ $t(language.language) }}
+                  </q-badge>
+                </div>
+              </div>
+              <div
+                v-if="resource.size"
+                class="text-subtitle1 resource_size"
+              >
+                {{ $t('size') }}: {{ resource.size }} GB
               </div>
             </div>
-            <div
-              v-if="resource.size"
-              class="text-subtitle1 resource_size"
-            >
-              {{ $t('size') }}: {{ resource.size }} GB
+          </router-link>            <div
+            v-if="endOfResults"
+            class="text-h5 text-center text-grey q-mt-md"
+          >
+            {{ $t('no_more_results') }}
+          </div><template #loading>
+            <div class="row justify-center q-my-md">
+              <q-spinner-dots
+                color="primary"
+                size="40px"
+              />
             </div>
-          </div>
-        </router-link>
+          </template>
+        </q-infinite-scroll>
       </div>
       <div
         v-if="fetchedResources.resources == '' && !fetchResourcesLoading"
@@ -97,8 +114,9 @@
 /* eslint-disable vue/require-default-prop */
 import { useQuery } from '@vue/apollo-composable'
 import { GET_RESOURCES } from '../gql/resource/queries'
-import { Loading, useQuasar } from 'quasar'
+import { Loading } from 'quasar'
 import { defineComponent, onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'PageIndex',
@@ -121,9 +139,13 @@ export default defineComponent({
   },
   setup (props) {
     // Import required features
-    const $q = useQuasar()
     const apiIsUp = ref<boolean>(true)
     const { onError } = useQuery(GET_RESOURCES, { limit: 1 })
+    const $store = useStore()
+
+    // Constants for resource fetching
+    const limit = ref<number>(30)
+    const endOfResults = ref<boolean>(false)
 
     onError(() => {
       apiIsUp.value = false
@@ -135,7 +157,7 @@ export default defineComponent({
       result: fetchedResources,
       loading: fetchResourcesLoading,
       refetch: fetchResources
-    } = useQuery(GET_RESOURCES)
+    } = useQuery(GET_RESOURCES, { limit: 30 })
 
     // On mount, enable loading and fetch resources
     onMounted(async () => {
@@ -143,10 +165,26 @@ export default defineComponent({
         Loading.show()
         await fetchFilteredResources()
         Loading.hide()
+      } else if ($store.state.savedResources.resources) {
+        fetchedResources.value = $store.state.savedResources.resources
       } else {
         await fetchResources()
       }
     })
+
+    async function loadMore (_index, done) {
+      if (limit.value > fetchedResources.value.resources.length) {
+        endOfResults.value = true
+        return
+      }
+      limit.value = limit.value + 30
+      await fetchFilteredResources().then(() => {
+        $store.commit('savedResources/updateResources', fetchedResources)
+      })
+      setTimeout(() => {
+        done()
+      }, 2000)
+    }
 
     // Enable loading and filter resources according to all inputs
     const fetchFilteredResources = async (
@@ -161,12 +199,13 @@ export default defineComponent({
           languages,
           formats,
           tags,
-          levels
+          levels,
+          limit: limit.value
         } as any)
     }
 
     function onScroll (scrollLocation) {
-      $q.sessionStorage.set('position', scrollLocation.position.top)
+      $store.commit('savedResources/scrollPosition', scrollLocation.position.top)
     }
 
     function redirect () {
@@ -175,9 +214,11 @@ export default defineComponent({
 
     return {
       apiIsUp,
+      endOfResults,
       fetchedResources,
       fetchFilteredResources,
       fetchResourcesLoading,
+      loadMore,
       onDevice,
       onScroll,
       redirect

@@ -19,7 +19,7 @@ import { ref } from 'vue'
  * with the Router instance.
  */
 
-export default route(function (/* { store, ssrContext } */) {
+export default route(function ({ store }) {
   const currentScrollLocation = ref<any>(0)
 
   const createHistory =
@@ -43,7 +43,7 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   Router.afterEach(() => {
-    currentScrollLocation.value = SessionStorage.getItem('position')
+    currentScrollLocation.value = store.state.savedResources.position
   })
 
   axios.defaults.withCredentials = true

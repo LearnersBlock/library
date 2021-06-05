@@ -243,6 +243,7 @@ import { Quasar, useQuasar, Loading } from 'quasar'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -251,6 +252,7 @@ export default defineComponent({
     const $q = useQuasar()
     const { locale } = useI18n({ useScope: 'global' })
     const $router = useRouter()
+    const $store = useStore()
     // Drawer toggle
     const leftDrawerOpen = ref(false)
     // Keyword input
@@ -353,9 +355,10 @@ export default defineComponent({
     // Method to call fetchFilteredResources from parent to child
     const searchResources = async () => {
       Loading.show()
-      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      $store.commit('savedResources/updateResources', false)
+      $store.commit('savedResources/scrollPosition', 0)
       window.scrollTo(0, 0)
-      $q.sessionStorage.set('position', 0)
       Loading.hide()
     }
 
@@ -365,10 +368,11 @@ export default defineComponent({
         searching.value = true
         await delay(1000)
         Loading.show()
-        await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
-        window.scrollTo(0, 0)
-        $q.sessionStorage.set('position', 0)
+        view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+        $store.commit('savedResources/updateResources', false)
+        $store.commit('savedResources/scrollPosition', 0)
         Loading.hide()
+        window.scrollTo(0, 0)
         searching.value = false
       }
     }
@@ -387,13 +391,14 @@ export default defineComponent({
     const resetInputs = async () => {
       Loading.show()
       window.scrollTo(0, 0)
-      $q.sessionStorage.set('position', 0)
+      $store.commit('savedResources/scrollPosition', 0)
+      $store.commit('savedResources/updateResources', false)
       keyword.value = ''
       selectedLanguages.value = []
       selectedFormats.value = []
       selectedTags.value = []
       selectedLevels.value = []
-      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
       Loading.hide()
     }
 
