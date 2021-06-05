@@ -239,7 +239,7 @@ import { GET_FORMATS } from '../gql/format/queries'
 import { GET_TAGS } from '../gql/tag/queries'
 import { GET_LEVELS } from '../gql/level/queries'
 import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
-import { Quasar, useQuasar } from 'quasar'
+import { Quasar, useQuasar, Loading } from 'quasar'
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -322,6 +322,7 @@ export default defineComponent({
     } = useQuery(GET_RESOURCES_LENGTH, {})
 
     onMounted(async () => {
+      Loading.show()
       if (langCookie.value) {
         locale.value = langCookie.value
         Quasar.lang.set(langCookie.value)
@@ -330,6 +331,7 @@ export default defineComponent({
       await fetchFormats()
       await fetchTags()
       await fetchLevels()
+      Loading.hide()
     })
 
     // If keyword input is cleared, then execute the query
@@ -350,9 +352,11 @@ export default defineComponent({
 
     // Method to call fetchFilteredResources from parent to child
     const searchResources = async () => {
-      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      Loading.show()
+      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
       window.scrollTo(0, 0)
       $q.sessionStorage.set('position', 0)
+      Loading.hide()
     }
 
     // Method to call fetchFilteredResources from parent to child
@@ -360,9 +364,11 @@ export default defineComponent({
       if (!searching.value) {
         searching.value = true
         await delay(1000)
-        view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+        Loading.show()
+        await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
         window.scrollTo(0, 0)
         $q.sessionStorage.set('position', 0)
+        Loading.hide()
         searching.value = false
       }
     }
@@ -378,7 +384,8 @@ export default defineComponent({
       })
     }
 
-    const resetInputs = () => {
+    const resetInputs = async () => {
+      Loading.show()
       window.scrollTo(0, 0)
       $q.sessionStorage.set('position', 0)
       keyword.value = ''
@@ -386,7 +393,8 @@ export default defineComponent({
       selectedFormats.value = []
       selectedTags.value = []
       selectedLevels.value = []
-      view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      Loading.hide()
     }
 
     return {

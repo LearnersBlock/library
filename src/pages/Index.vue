@@ -4,11 +4,6 @@
     <div v-if="!apiIsUp">
       {{ $t('under_maintenance') }}
     </div>
-    <q-spinner
-      color="primary"
-      size="10%"
-      v-if="fetchResourcesLoading"
-    />
     <div
       v-if="fetchedResources && !fetchResourcesLoading"
       class="resource_container"
@@ -40,10 +35,13 @@
           :key="resource.id"
         >
           <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
-            <img
-              class="resource_image"
+            <q-img
               :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url"
-            >
+              loading="lazy"
+              spinner-color="white"
+              height="140px"
+              class="resource_image"
+            />
           </div>
           <div v-else>
             <img
@@ -91,20 +89,6 @@
       >
         {{ $t('no_results_found') }}
       </div>
-      <div
-        v-if="!disableButton"
-        class="text-center"
-      >
-        <q-btn
-          v-if="fetchedResources.resources.length && !fetchResourcesLoading && fetchedResourcesLength"
-          :disable="fetchedResources.resources.length >= fetchedResourcesLength.resourcesConnection.aggregate.totalCount"
-          color="grey-6"
-          @click="loadMore"
-          class="resource_button q-mb-xl"
-        >
-          {{ $t('load_more') }}
-        </q-btn>
-      </div>
     </div>
   </q-page>
 </template>
@@ -112,7 +96,7 @@
 <script lang="ts">
 /* eslint-disable vue/require-default-prop */
 import { useQuery } from '@vue/apollo-composable'
-import { GET_RESOURCES, GET_RESOURCES_LENGTH } from '../gql/resource/queries'
+import { GET_RESOURCES } from '../gql/resource/queries'
 import { Loading, useQuasar } from 'quasar'
 import { defineComponent, onMounted, ref } from 'vue'
 
@@ -146,34 +130,23 @@ export default defineComponent({
     })
     // Read envs for page state
     const onDevice = ref<any>(process.env.ONDEVICE)
-    // Loading boolean in case the api is very fast, the UI still loads for a bit - better User Experience
-    const limit = ref<number>(250)
-    const disableButton = ref<boolean>(true)
     // Fetch resources query
     const {
       result: fetchedResources,
       loading: fetchResourcesLoading,
       refetch: fetchResources
-    } = useQuery(GET_RESOURCES, { limit: 250 })
-    const {
-      result: fetchedResourcesLength,
-      loading: fetchResourcesLengthLoading,
-      refetch: fetchResourcesLength
-    } = useQuery(GET_RESOURCES_LENGTH, {})
+    } = useQuery(GET_RESOURCES)
 
     // On mount, enable loading and fetch resources
     onMounted(async () => {
       if (props.keyword?.length || props.formats?.length || props.languages?.length || props.tags?.length || props.levels?.length) {
+        Loading.show()
         await fetchFilteredResources()
+        Loading.hide()
       } else {
         await fetchResources()
       }
     })
-
-    const loadMore = async () => {
-      limit.value = limit.value + 30
-      await fetchFilteredResources()
-    }
 
     // Enable loading and filter resources according to all inputs
     const fetchFilteredResources = async (
@@ -182,26 +155,14 @@ export default defineComponent({
       languages: string[] = props.languages as string[],
       tags: string[] = props.tags as string[],
       levels: string[] = props.levels as string[]) => {
-      Loading.show()
-      await fetchResourcesLength(
-        {
-          keyword,
-          languages,
-          formats,
-          tags,
-          levels
-        }
-      )
       await fetchResources(
         {
           keyword,
           languages,
           formats,
           tags,
-          levels,
-          limit: limit.value
+          levels
         } as any)
-      Loading.hide()
     }
 
     function onScroll (scrollLocation) {
@@ -214,14 +175,9 @@ export default defineComponent({
 
     return {
       apiIsUp,
-      disableButton,
       fetchedResources,
       fetchFilteredResources,
       fetchResourcesLoading,
-      fetchedResourcesLength,
-      fetchResourcesLengthLoading,
-      limit,
-      loadMore,
       onDevice,
       onScroll,
       redirect
