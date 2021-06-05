@@ -21,7 +21,7 @@ export default store(function (/* { ssrContext } */) {
 
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING
+    strict: false
   })
 
   return Store

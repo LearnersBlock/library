@@ -1,6 +1,5 @@
 <template ref="indexPage">
   <q-page class="row items-center justify-evenly">
-    <q-scroll-observer @scroll="onScroll" />
     <div v-if="!apiIsUp">
       {{ $t('under_maintenance') }}
     </div>
@@ -85,12 +84,16 @@
                 {{ $t('size') }}: {{ resource.size }} GB
               </div>
             </div>
-          </router-link>            <div
+          </router-link>
+          <div
             v-if="endOfResults"
-            class="text-h5 text-center text-grey q-mt-md"
+            class="text-h3 text-center text-grey q-mt-lg"
           >
-            {{ $t('no_more_results') }}
-          </div><template #loading>
+            <q-icon name="done_outline" />
+          </div><template
+            #loading
+            v-if="!endOfResults"
+          >
             <div class="row justify-center q-my-md">
               <q-spinner-dots
                 color="primary"
@@ -114,7 +117,6 @@
 /* eslint-disable vue/require-default-prop */
 import { useQuery } from '@vue/apollo-composable'
 import { GET_RESOURCES } from '../gql/resource/queries'
-import { Loading } from 'quasar'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 
@@ -144,7 +146,6 @@ export default defineComponent({
     const $store = useStore()
 
     // Constants for resource fetching
-    const limit = ref<number>(30)
     const endOfResults = ref<boolean>(false)
 
     onError(() => {
@@ -161,29 +162,31 @@ export default defineComponent({
 
     // On mount, enable loading and fetch resources
     onMounted(async () => {
-      if (props.keyword?.length || props.formats?.length || props.languages?.length || props.tags?.length || props.levels?.length) {
-        Loading.show()
-        await fetchFilteredResources()
-        Loading.hide()
-      } else if ($store.state.savedResources.resources) {
-        fetchedResources.value = $store.state.savedResources.resources
+      if (!$store.state.savedResources.resources) {
+        $store.commit('savedResources/resourceLimit', 30)
+        await $store.commit('savedResources/updateResources', fetchedResources)
       } else {
-        await fetchResources()
+        fetchedResources.value = $store.state.savedResources.resources
       }
     })
 
     async function loadMore (_index, done) {
-      if (limit.value > fetchedResources.value.resources.length) {
+      if (endOfResults.value) {
+        setTimeout(() => {
+          done()
+        }, 2000)
+      } else if ($store.state.savedResources.limit > $store.state.savedResources.resources.resources.length) {
         endOfResults.value = true
-        return
-      }
-      limit.value = limit.value + 30
-      await fetchFilteredResources().then(() => {
-        $store.commit('savedResources/updateResources', fetchedResources)
-      })
-      setTimeout(() => {
         done()
-      }, 2000)
+      } else {
+        $store.commit('savedResources/resourceLimit', $store.state.savedResources.limit + 30)
+        await fetchFilteredResources().then(() => {
+          $store.commit('savedResources/updateResources', fetchedResources)
+        })
+        setTimeout(() => {
+          done()
+        }, 2000)
+      }
     }
 
     // Enable loading and filter resources according to all inputs
@@ -200,12 +203,10 @@ export default defineComponent({
           formats,
           tags,
           levels,
-          limit: limit.value
+          limit: $store.state.savedResources.limit
         } as any)
-    }
-
-    function onScroll (scrollLocation) {
-      $store.commit('savedResources/scrollPosition', scrollLocation.position.top)
+      $store.commit('savedResources/updateResources', fetchedResources)
+      endOfResults.value = false
     }
 
     function redirect () {
@@ -220,7 +221,6 @@ export default defineComponent({
       fetchResourcesLoading,
       loadMore,
       onDevice,
-      onScroll,
       redirect
     }
   }
