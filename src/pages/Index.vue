@@ -38,7 +38,7 @@
             <q-img
               :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url"
               loading="lazy"
-              spinner-color="white"
+              spinner-color="grey"
               height="140px"
               class="resource_image"
             />
