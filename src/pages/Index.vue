@@ -255,10 +255,11 @@ export default defineComponent({
 
   &_image {
     height: auto;
-    margin-right: 2rem;
+    margin-right: 2.5rem;
     width: 10rem;
      @media only screen and (max-width: 960px) {
        margin: auto;
+       margin-right: 0;
        width: 10rem;
        height: auto;
        margin-bottom: 2rem;
