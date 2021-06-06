@@ -119,6 +119,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { GET_RESOURCES } from '../gql/resource/queries'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
+import { Loading } from 'quasar'
 
 export default defineComponent({
   name: 'PageIndex',
@@ -162,32 +163,17 @@ export default defineComponent({
 
     // On mount, enable loading and fetch resources
     onMounted(async () => {
-      if (!$store.state.savedResources.resources) {
+      if (props.keyword?.length || props.formats?.length || props.languages?.length || props.tags?.length || props.levels?.length) {
+        Loading.show()
+        await fetchFilteredResources()
+        Loading.hide()
+      } else if (!$store.state.savedResources.resources) {
         $store.commit('savedResources/resourceLimit', 30)
         await $store.commit('savedResources/updateResources', fetchedResources)
       } else {
         fetchedResources.value = $store.state.savedResources.resources
       }
     })
-
-    async function loadMore (_index, done) {
-      if (endOfResults.value) {
-        setTimeout(() => {
-          done()
-        }, 2000)
-      } else if ($store.state.savedResources.limit > $store.state.savedResources.resources.resources.length) {
-        endOfResults.value = true
-        done()
-      } else {
-        $store.commit('savedResources/resourceLimit', $store.state.savedResources.limit + 30)
-        await fetchFilteredResources().then(() => {
-          $store.commit('savedResources/updateResources', fetchedResources)
-        })
-        setTimeout(() => {
-          done()
-        }, 2000)
-      }
-    }
 
     // Enable loading and filter resources according to all inputs
     const fetchFilteredResources = async (
@@ -207,6 +193,26 @@ export default defineComponent({
         } as any)
       $store.commit('savedResources/updateResources', fetchedResources)
       endOfResults.value = false
+    }
+
+    // Load more resources when reaching bottom of results
+    async function loadMore (_index, done) {
+      if (endOfResults.value) {
+        setTimeout(() => {
+          done()
+        }, 2000)
+      } else if ($store.state.savedResources.limit > $store.state.savedResources.resources.resources.length) {
+        endOfResults.value = true
+        done()
+      } else {
+        $store.commit('savedResources/resourceLimit', $store.state.savedResources.limit + 30)
+        await fetchFilteredResources().then(() => {
+          $store.commit('savedResources/updateResources', fetchedResources)
+        })
+        setTimeout(() => {
+          done()
+        }, 2000)
+      }
     }
 
     function redirect () {
