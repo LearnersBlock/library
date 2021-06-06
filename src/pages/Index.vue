@@ -90,7 +90,8 @@
             class="text-h3 text-center text-grey q-mt-lg"
           >
             <q-icon name="done_outline" />
-          </div><template
+          </div>
+          <template
             #loading
             v-if="!endOfResults"
           >
@@ -167,11 +168,11 @@ export default defineComponent({
         Loading.show()
         await fetchFilteredResources()
         Loading.hide()
-      } else if (!$store.state.savedResources.resources) {
+      } else if ($store.state.savedResources.resources) {
+        fetchedResources.value = $store.state.savedResources.resources
+      } else {
         $store.commit('savedResources/resourceLimit', 30)
         await $store.commit('savedResources/updateResources', fetchedResources)
-      } else {
-        fetchedResources.value = $store.state.savedResources.resources
       }
     })
 
