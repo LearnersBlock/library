@@ -16,14 +16,15 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "node-fetch": "^2.6.1",
-    "quasar": "^2.0.0-beta.19",
-    "vue-i18n": "^9.1.4"
+    "quasar": "^2.0.0-rc.1",
+    "vue-i18n": "^9.1.4",
+    "vuex": "4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.0.0",
-    "@quasar/app": "^3.0.0-beta.28",
+    "@quasar/app": "^3.0.0-rc.1",
     "@quasar/quasar-app-extension-apollo": "^2.0.0-beta.1",
-    "@types/node": "^14.14.33",
+    "@types/node": "^15.12.1",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "eslint": "^7.14.0",
