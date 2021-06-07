@@ -21,5 +21,17 @@
     "back": "Enrere",
     "author": "Autoria",
     "error": "Ha fallat alguna cosa",
-    "checking_files": "S’estan comprovant els fitxers…"
+    "checking_files": "S’estan comprovant els fitxers…",
+    "download_complete": "Ha finalitzat la baixada",
+    "download_speed": "Velocitat de baixada",
+    "resource_not_available": "La baixada d’aquest recurs no està disponible.",
+    "total_entries": "Entrades totals a la base de dades",
+    "submit_resource": "Envia un recurs",
+    "switch_language": "Canvia la llengua",
+    "search_options": "Opcions de cerca",
+    "sample": "Previsualitza",
+    "rsync_url_copied": "S’ha copiat l’URL del RSync al porta-retalls",
+    "rsync_url": "URL del Rsync",
+    "results_found": "resultats trobats",
+    "published_date": "Data de publicació"
 }
