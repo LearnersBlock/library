@@ -224,11 +224,11 @@
           @click="downloadToBlock"
         />
         <q-tooltip
+          class="text-caption"
           v-if="!fetchedResource.resource.rsync && !fetchedResource.resource.download_url"
           anchor="top middle"
           self="center middle"
           :offset="[10, 10]"
-          style="font-size: 16px"
         >
           {{ $t('resource_not_available') }}
         </q-tooltip>

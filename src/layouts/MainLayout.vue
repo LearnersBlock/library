@@ -30,10 +30,25 @@
         <q-item
           v-if="!onDevice"
           clickable
+          @click="redirect('https://airtable.com/shrkg3MkzXLd7hBts')"
+        >
+          <span class="material-icons">
+            send
+          </span>
+          <q-tooltip class="text-caption text-center">
+            {{ $t('submit_resource') }}
+          </q-tooltip>
+        </q-item>
+        <q-item
+          v-if="!onDevice"
+          clickable
         >
           <span class="material-icons">
             translate
           </span>
+          <q-tooltip class="text-caption text-center">
+            {{ $t('switch_language') }}
+          </q-tooltip>
           <q-menu>
             <q-list style="min-width: 100px">
               <q-item
@@ -339,6 +354,17 @@ export default defineComponent({
       }
     })
 
+    // Switch i18n language according to selectedLanguage input
+    const changeLanguage = (value: string) => {
+      import(
+        /* webpackInclude: /(en-US|ar|de|es|fr|it|tr|pt-BR)\.js$/ */
+        'quasar/lang/' + value
+      ).then((lang) => {
+        locale.value = value
+        Quasar.lang.set(lang.default)
+      })
+    }
+
     function delay (ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms))
     }
@@ -367,15 +393,8 @@ export default defineComponent({
       }
     }
 
-    // Switch i18n language according to selectedLanguage input
-    const changeLanguage = (value: string) => {
-      import(
-        /* webpackInclude: /(en-US|ar|de|es|fr|it|tr|pt-BR)\.js$/ */
-        'quasar/lang/' + value
-      ).then((lang) => {
-        locale.value = value
-        Quasar.lang.set(lang.default)
-      })
+    function redirect (url) {
+      window.open(url, '_blank')
     }
 
     const resetInputs = () => {
@@ -405,6 +424,7 @@ export default defineComponent({
       languages,
       leftDrawerOpen,
       onDevice,
+      redirect,
       resetInputs,
       selectedLanguages,
       selectedFormats,
