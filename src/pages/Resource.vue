@@ -293,10 +293,9 @@
         v-else
         class="q-mt-lg "
       >
-        <q-btn-dropdown
+        <q-btn
           v-if="fetchedResource.resource.download_url || fetchedResource.resource.rsync"
           glossy
-          split
           unelevated
           @click="downloadZip"
           color="primary"
@@ -305,19 +304,7 @@
           :label="$t('download')"
           :disable-main-btn="!fetchedResource.resource.download_url"
           :disable-dropdown="!fetchedResource.resource.rsync"
-        >
-          <q-list>
-            <q-item
-              clickable
-              v-close-popup
-              @click="copyRsync();$q.notify($t('rsync_url_copied'));"
-            >
-              <q-item-section>
-                <q-item-label>{{ $t('rsync') }}</q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-btn-dropdown>
+        />
         <q-btn
           class="q-ml-sm"
           v-if="fetchedResource.resource.sample"
