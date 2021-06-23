@@ -51,18 +51,18 @@
       </div>
       <div
         dir="auto"
-        class="text-h6 q-mt-md resource_description"
+        class="text-body1 q-mt-md resource_description"
       >
         {{ fetchedResource.resource.description }}
       </div>
       <q-separator class="q-mt-md" />
       <div class="resource_info q-mt-lg text-left">
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('author') }}:
         </div>
         <div
           v-if="fetchedResource.resource.author"
-          class="text-h6 q-mt-sm"
+          class="text-body1 q-mt-sm"
         >
           <a
             :href="fetchedResource.resource.author_website"
@@ -76,7 +76,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('languages') }}:
         </div>
         <div
@@ -97,7 +97,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('formats') }}:
         </div>
         <div
@@ -118,12 +118,12 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('size') }}:
         </div>
         <div
           v-if="fetchedResource.resource.size"
-          class="text-h6 q-mt-sm"
+          class="text-body1 q-mt-sm"
         >
           {{ fetchedResource.resource.size }} GB
         </div>
@@ -133,12 +133,12 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('host') }}:
         </div>
         <div
           v-if="fetchedResource.resource.host"
-          class="text-h6 q-mt-sm"
+          class="text-body1 q-mt-sm"
         >
           {{ fetchedResource.resource.host }}
         </div>
@@ -148,7 +148,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('tags') }}:
         </div>
         <div
@@ -169,7 +169,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('level') }}:
         </div>
         <div
@@ -190,7 +190,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-h6 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm resource_info-label">
           {{ $t('licenses') }}:
         </div>
         <div
