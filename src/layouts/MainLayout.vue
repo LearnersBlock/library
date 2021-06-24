@@ -382,7 +382,7 @@ export default defineComponent({
     const searchResources = async () => {
       Loading.show()
       window.scrollTo(0, 0)
-      $store.commit('savedResources/resourceLimit', 30)
+      $store.commit('savedResources/resourceLimit', 40)
       await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
       Loading.hide()
     }
@@ -394,7 +394,7 @@ export default defineComponent({
         await delay(1000)
         Loading.show()
         window.scrollTo(0, 0)
-        $store.commit('savedResources/resourceLimit', 30)
+        $store.commit('savedResources/resourceLimit', 40)
         await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
         Loading.hide()
         searching.value = false
