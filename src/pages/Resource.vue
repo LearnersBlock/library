@@ -51,13 +51,13 @@
       </div>
       <div
         dir="auto"
-        class="text-body1 q-mt-md resource_description"
+        class="text-body1 q-mt-md"
       >
         {{ fetchedResource.resource.description }}
       </div>
       <q-separator class="q-mt-md" />
       <div class="resource_info q-mt-lg text-left">
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('author') }}:
         </div>
         <div
@@ -76,7 +76,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('languages') }}:
         </div>
         <div
@@ -97,7 +97,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('formats') }}:
         </div>
         <div
@@ -118,7 +118,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('size') }}:
         </div>
         <div
@@ -133,7 +133,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('host') }}:
         </div>
         <div
@@ -148,7 +148,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('tags') }}:
         </div>
         <div
@@ -169,7 +169,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('level') }}:
         </div>
         <div
@@ -190,7 +190,7 @@
         >
           {{ '--' }}
         </div>
-        <div class="text-body1 q-mt-sm resource_info-label">
+        <div class="text-body1 q-mt-sm">
           {{ $t('licenses') }}:
         </div>
         <div
@@ -507,12 +507,6 @@ export default defineComponent({
             text-align: center;
             grid-template-columns: .5fr .5fr;
         }
-
-      &-label {
-         @media only screen and (max-width: 470px) {
-            font-size: 1.2rem;
-        }
-      }
     }
 
     &_name {
@@ -521,12 +515,6 @@ export default defineComponent({
       }
        @media only screen and (max-width: 1050px) {
         font-size: 2.6rem;
-      }
-    }
-
-    &_description {
-      @media only screen and (max-width: 1300px) {
-        font-size: 1.2rem;
       }
     }
 

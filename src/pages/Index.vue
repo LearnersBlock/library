@@ -62,7 +62,7 @@
               </div>
               <div
                 dir="auto"
-                class="text-body1 q-mt-md resource_description"
+                class="text-body1 q-mt-md"
               >
                 {{ resource.description }}
               </div>
@@ -290,12 +290,6 @@ export default defineComponent({
   &_name {
       @media only screen and (max-width: 800px) {
       font-size: 1.7rem;
-    }
-  }
-
-   &_description {
-      @media only screen and (max-width: 800px) {
-      font-size: 1.2rem;
     }
   }
 
