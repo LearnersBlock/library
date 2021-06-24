@@ -213,6 +213,7 @@
           </template>
         </q-select>
         <q-btn
+          rounded
           color="primary"
           class="q-ml-md q-mt-md"
           @click="resetInputs"

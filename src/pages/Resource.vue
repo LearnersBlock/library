@@ -19,7 +19,6 @@
           <q-btn
             color="white"
             text-color="primary"
-            class="text-subtitle2 text-weight-bold"
             @click="$router.go(-1)"
             rounded
             outline
