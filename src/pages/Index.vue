@@ -56,7 +56,7 @@
             <div class="resource_info">
               <div
                 dir="auto"
-                class="text-h3 resource_name josefin sans"
+                class="text-h4 resource_name josefin sans"
               >
                 {{ resource.name }}
               </div>
