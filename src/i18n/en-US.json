@@ -51,5 +51,6 @@
     "home": "Home",
     "settings": "Settings",
     "level": "Level",
-    "submit_resource": "Submit a resource"
+    "submit_resource": "Submit a resource",
+    "powered_by": "Powered By"
 }
