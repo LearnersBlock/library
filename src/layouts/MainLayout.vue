@@ -226,6 +226,13 @@
         >
           {{ $t('total_entries') }}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}
         </div>
+        <div class="q-ml-md q-mt-md q-mb-sm text-grey absolute-bottom">
+          {{ $t('powered_by') }} <a
+            href="https://learnersblock.org"
+            target="_blank"
+            style="text-decoration: underline; color: inherit"
+          >LearnersBlock.org</a>
+        </div>
       </q-list>
     </q-drawer>
     <q-page-container>
