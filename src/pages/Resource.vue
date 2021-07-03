@@ -57,7 +57,7 @@
       <q-separator class="q-mt-md" />
       <div class="resource_info q-mt-lg text-left">
         <div class="text-body1 q-mt-sm">
-          {{ $t('author') }}:
+          {{ $t('author') }}
         </div>
         <div
           v-if="fetchedResource.resource.author"
@@ -76,7 +76,7 @@
           {{ '--' }}
         </div>
         <div class="text-body1 q-mt-sm">
-          {{ $t('languages') }}:
+          {{ $t('languages') }}
         </div>
         <div
           v-if="fetchedResource.resource.languages && fetchedResource.resource.languages.length"
@@ -97,7 +97,7 @@
           {{ '--' }}
         </div>
         <div class="text-body1 q-mt-sm">
-          {{ $t('formats') }}:
+          {{ $t('formats') }}
         </div>
         <div
           v-if="fetchedResource.resource.formats && fetchedResource.resource.formats.length"
@@ -118,7 +118,7 @@
           {{ '--' }}
         </div>
         <div class="text-body1 q-mt-sm">
-          {{ $t('size') }}:
+          {{ $t('size') }}
         </div>
         <div
           v-if="fetchedResource.resource.size"
@@ -133,7 +133,7 @@
           {{ '--' }}
         </div>
         <div class="text-body1 q-mt-sm">
-          {{ $t('host') }}:
+          {{ $t('host') }}
         </div>
         <div
           v-if="fetchedResource.resource.host"
@@ -148,7 +148,7 @@
           {{ '--' }}
         </div>
         <div class="text-body1 q-mt-sm">
-          {{ $t('tags') }}:
+          {{ $t('tags') }}
         </div>
         <div
           v-if="fetchedResource.resource.tags && fetchedResource.resource.tags.length"
@@ -169,7 +169,7 @@
           {{ '--' }}
         </div>
         <div class="text-body1 q-mt-sm">
-          {{ $t('level') }}:
+          {{ $t('level') }}
         </div>
         <div
           v-if="fetchedResource.resource.levels && fetchedResource.resource.levels.length"
@@ -190,7 +190,7 @@
           {{ '--' }}
         </div>
         <div class="text-body1 q-mt-sm">
-          {{ $t('licenses') }}:
+          {{ $t('licenses') }}
         </div>
         <div
           v-if="fetchedResource.resource.licenses && fetchedResource.resource.licenses.length"

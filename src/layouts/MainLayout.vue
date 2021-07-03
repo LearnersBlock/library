@@ -224,7 +224,7 @@
           v-if="fetchedResourcesLength"
           class="q-ml-md q-mt-md text-grey"
         >
-          {{ $t('total_entries') }}: {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}
+          {{ $t('total_entries') }} {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}
         </div>
         <div class="q-ml-md q-mt-md q-mb-sm text-grey absolute-bottom">
           {{ $t('powered_by') }} <a
