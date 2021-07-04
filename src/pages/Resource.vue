@@ -50,12 +50,12 @@
       </div>
       <div
         dir="auto"
-        class="text-body1 q-mt-md"
+        class="text-body1 q-pa-sm"
       >
         {{ fetchedResource.resource.description }}
       </div>
-      <q-separator class="q-mt-md" />
-      <div class="resource_info q-mt-lg text-left">
+      <q-separator class="q-mt-sm" />
+      <div class="resource_info q-mt-md text-left">
         <div class="text-body1 q-mt-sm">
           {{ $t('author') }}
         </div>
@@ -484,7 +484,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .resource {
     &_image {
-        width: 15rem;
+        width: 11rem;
         margin-bottom: 1rem;
         @media only screen and (max-width: 1050px) {
             width: 15rem;

@@ -25,7 +25,7 @@
       </q-btn>
       <div
         v-if="fetchedResources.resources"
-        class="resource_box q-mt-lg q-mb-xl"
+        class="q-mt-lg q-mb-xl"
       >
         <q-infinite-scroll
           @load="loadMore"
@@ -43,7 +43,6 @@
                 :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url"
                 loading="lazy"
                 spinner-color="grey"
-                height="140px"
                 class="resource_image"
               />
             </div>
@@ -62,14 +61,14 @@
               </div>
               <div
                 dir="auto"
-                class="text-body1 q-mt-md"
+                class="text-body1"
               >
                 {{ resource.description }}
               </div>
               <div class="resource_languages">
                 <div>
                   <q-badge
-                    class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large"
+                    class="q-pa-sm q-mr-sm q-mt-md multi-line text-body2 text-weight-large"
                     color="primary"
                     v-for="language in resource.languages"
                     :key="language.id"
@@ -249,15 +248,14 @@ export default defineComponent({
   }
 
   &_image {
-    height: auto;
     margin-right: 2.5rem;
-    width: 10rem;
+    width: 8rem;
      @media only screen and (max-width: 960px) {
        margin: auto;
        margin-right: 0;
        width: 10rem;
        height: auto;
-       margin-bottom: 2rem;
+       margin-bottom: 1.5rem;
 
       }
       @media screen and (max-width: 1680px) {
@@ -289,16 +287,16 @@ export default defineComponent({
   &_size {
     position: absolute;
     right: 2.25rem;
-    bottom: 1.5rem;
+    bottom: .1rem;
     @media only screen and (max-width: 960px) {
       position: relative;
       right: .3rem;
-      margin-top: 3rem;
+      margin-top: 1.5rem;
     }
     @media only screen and (max-width: 800px) {
       position: relative;
       right: .3rem;
-      margin-top: 3rem;
+      margin-top: 1rem;
     }
   }
 
@@ -311,7 +309,7 @@ export default defineComponent({
   &_container {
     position: absolute;
     top: 2rem;
-    width: 70%;
+    width: 90%;
   }
 }
 </style>
