@@ -11,7 +11,7 @@
           v-if="isInIndex"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <div class="q-ml-md q-mt-sm">
+        <div class="q-ml-sm q-mt-sm">
           <a href="/">
             <img
               alt=""
@@ -27,18 +27,6 @@
             target="_self"
           />
         </q-toolbar-title>
-        <q-item
-          v-if="!onDevice"
-          clickable
-          @click="redirect('https://airtable.com/shrkg3MkzXLd7hBts')"
-        >
-          <span class="material-icons">
-            send
-          </span>
-          <q-tooltip class="text-caption text-center">
-            {{ $t('submit_resource') }}
-          </q-tooltip>
-        </q-item>
         <q-item
           v-if="!onDevice"
           clickable
@@ -62,6 +50,18 @@
               </q-item>
             </q-list>
           </q-menu>
+        </q-item>
+        <q-item
+          v-if="!onDevice"
+          clickable
+          @click="redirect('https://airtable.com/shrkg3MkzXLd7hBts')"
+        >
+          <span class="material-icons">
+            send
+          </span>
+          <q-tooltip class="text-caption text-center">
+            {{ $t('submit_resource') }}
+          </q-tooltip>
         </q-item>
       </q-toolbar>
     </q-header>

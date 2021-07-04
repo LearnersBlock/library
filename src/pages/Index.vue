@@ -25,14 +25,13 @@
       </q-btn>
       <div
         v-if="fetchedResources.resources"
-        class="q-mt-lg q-mb-xl"
       >
         <q-infinite-scroll
           @load="loadMore"
           :offset="2000"
         >
           <router-link
-            class="resource q-mt-md items-center text-black"
+            class="resource q-mb-md items-center text-black"
             tag="div"
             :to="'/resource/' + resource.id"
             v-for="resource in fetchedResources.resources"
@@ -87,7 +86,10 @@
             v-if="endOfResults"
             class="text-h3 text-center text-grey q-mt-lg"
           >
-            <q-icon name="done_outline" />
+            <q-icon
+              name="done_outline"
+              class="q-mb-md"
+            />
           </div>
           <template
             #loading
