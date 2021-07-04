@@ -43,7 +43,7 @@
         >
       </div>
       <div
-        class="text-h2 josefin sans resource_name"
+        class="text-h2 resource_name"
         dir="auto"
       >
         {{ fetchedResource.resource.name }}
