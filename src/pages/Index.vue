@@ -54,11 +54,13 @@
             <div class="resource_info">
               <div
                 class="text-h4 resource_name josefin sans"
+                dir="auto"
               >
                 {{ resource.name }}
               </div>
               <div
                 class="text-body1"
+                dir="auto"
               >
                 {{ resource.description }}
               </div>
