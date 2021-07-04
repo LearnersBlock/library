@@ -32,7 +32,7 @@
           :offset="2000"
         >
           <router-link
-            class="resource q-mt-md items-center text-black "
+            class="resource q-mt-md items-center text-black"
             tag="div"
             :to="'/resource/' + resource.id"
             v-for="resource in fetchedResources.resources"
@@ -54,13 +54,11 @@
             </div>
             <div class="resource_info">
               <div
-                dir="auto"
                 class="text-h4 resource_name josefin sans"
               >
                 {{ resource.name }}
               </div>
               <div
-                dir="auto"
                 class="text-body1"
               >
                 {{ resource.description }}
