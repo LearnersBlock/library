@@ -32,13 +32,13 @@
       </q-item>
       <div v-if="fetchedResource.resource.logo && fetchedResource.resource.logo.formats && fetchedResource.resource.logo.formats.thumbnail && fetchedResource.resource.logo.formats.thumbnail.url">
         <img
-          class="resource_image q-mt-xl"
+          class="resource_image"
           :src="'https://library-api.learnersblock.org' + fetchedResource.resource.logo.formats.thumbnail.url"
         >
       </div>
       <div v-else>
         <img
-          class="resource_image q-mt-xl"
+          class="resource_image"
           :src="fetchedResource.resource.logo ? 'https://library-api.learnersblock.org' + fetchedResource.resource.logo.url : require('../assets/default.jpg')"
         >
       </div>
