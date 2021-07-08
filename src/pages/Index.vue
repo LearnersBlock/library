@@ -14,12 +14,12 @@
         outline
         color="white"
         text-color="primary"
-        class="ml-3 mt-9 text-subtitle2 text-weight-bold"
+        class="q-mb-md text-subtitle2 text-weight-bold"
       >
-        <span class="material-icons mr-1 mb-.5">
+        <span class="material-icons">
           arrow_back_ios
         </span>
-        <div class="mt-0.5">
+        <div>
           {{ $t('settings') }}
         </div>
       </q-btn>

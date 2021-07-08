@@ -23,7 +23,7 @@
             rounded
             outline
           >
-            <span class="material-icons mr-1 mb-.5">
+            <span class="material-icons">
               arrow_back_ios
             </span>
             {{ $t('back') }}
