@@ -218,6 +218,19 @@
       />
       <div v-if="onDevice">
         <q-btn
+          v-if="fetchedResource.resource.no_direct_download"
+          class="q-mt-lg q-mb-lg"
+          glossy
+          rounded
+          unelevated
+          :disable="!fetchedResource.resource.rsync && !fetchedResource.resource.download_url"
+          color="primary"
+          icon="pageview"
+          :label="$t('explore')"
+          @click="downloadZip"
+        />
+        <q-btn
+          v-else
           class="q-mt-lg q-mb-lg"
           glossy
           rounded
@@ -298,9 +311,9 @@
           unelevated
           @click="downloadZip"
           color="primary"
-          icon="download"
+          :icon="fetchedResource.resource.no_direct_download ? 'pageview': 'download'"
           rounded
-          :label="$t('download')"
+          :label="fetchedResource.resource.no_direct_download ? $t('explore'): $t('download')"
           :disable-main-btn="!fetchedResource.resource.download_url"
           :disable-dropdown="!fetchedResource.resource.rsync"
         />
