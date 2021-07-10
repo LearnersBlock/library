@@ -90,17 +90,17 @@
           >
             <q-icon
               name="done_outline"
-              class="q-mb-md"
+              class="q-mb-lg"
             />
           </div>
           <template
             #loading
             v-if="!endOfResults"
           >
-            <div class="row justify-center q-my-md">
+            <div class="row justify-center q-my-md q-mb-xl">
               <q-spinner-dots
                 color="primary"
-                size="40px"
+                size="60px"
               />
             </div>
           </template>
