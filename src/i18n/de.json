@@ -31,7 +31,7 @@
     "download_speed": "Herunterladen-Geschwindigkeit",
     "download_complete": "Herunterladen-Ereignis abgeschlossen",
     "copy_to_clipboard": "In Zwischenablage kopieren",
-    "author": "Autor:",
+    "author": "Autor/in:",
     "Spanish": "Spanisch",
     "Rohingya": "Rohingya",
     "Portuguese": "Portugiesisch",
@@ -52,5 +52,6 @@
     "size": "Größe:",
     "download": "Herunterladen",
     "submit_resource": "Eine Ressource einreichen",
-    "powered_by": "Angetrieben von"
+    "powered_by": "Angetrieben von",
+    "explore": "Durchsuchen"
 }
