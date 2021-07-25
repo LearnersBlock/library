@@ -216,6 +216,7 @@
         size="3em"
         v-if="!exitLoop"
       />
+      <!-- Code for running on Learner's Block -->
       <div v-if="onDevice">
         <q-btn
           v-if="fetchedResource.resource.no_direct_download"
@@ -263,19 +264,20 @@
         />
         <q-linear-progress
           v-if="!exitLoop"
-          size="25px"
+          size="30px"
           :value="downloadProgress"
           color="primary"
         >
           <div class="absolute-full flex flex-center">
             <q-badge
-              class="q-mr-sm"
+              class="q-mr-sm text-caption"
               v-if="downloadProgress"
               color="white"
               text-color="black"
               :label="`${Number(downloadProgress).toFixed(2)*100} % `"
             />
             <q-badge
+              class="text-caption"
               v-if="downloadProgress"
               color="white"
               text-color="black"
@@ -342,17 +344,8 @@ export default defineComponent({
     const hostname = ref<any>(window.location.hostname)
     const onDevice = ref<any>(process.env.ONDEVICE)
 
-    // Bottom button functions
-    const viewSample = () => {
-      window.open(fetchedResource.value.resource.sample)
-    }
-
     function delay (ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms))
-    }
-
-    const downloadZip = () => {
-      window.open(fetchedResource.value.resource.download_url)
     }
 
     async function downloadFiles () {
@@ -409,10 +402,18 @@ export default defineComponent({
       }
     }
 
+    const downloadZip = () => {
+      window.open(fetchedResource.value.resource.download_url)
+    }
+
     async function stopDownload () {
       exitLoop.value = true
       downloadedMb.value = 0
       downloadProgress.value = 0
+    }
+
+    const viewSample = () => {
+      window.open(fetchedResource.value.resource.sample)
     }
 
     return {
