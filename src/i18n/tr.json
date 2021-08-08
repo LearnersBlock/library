@@ -53,5 +53,7 @@
     "home": "Ev",
     "submit_resource": "Kaynak Gönder",
     "powered_by": "Sağlayan",
-    "explore": "Keşfet"
+    "explore": "Keşfet",
+    "display_only_direct_download": "Yalnızca doğrudan indirilebilecek ögeleri görüntüle.",
+    "direct_download": "Doğrudan İndir"
 }
