@@ -84,7 +84,7 @@
                   {{ $t('size') }} {{ resource.size }} GB
                 </div>
                 <div
-                  v-if="!resource.no_direct_download"
+                  v-if="resource.download_url"
                   style="line-height: 0px;"
                 >
                   <q-badge color="secondary">
@@ -210,7 +210,7 @@ export default defineComponent({
 
     const filteredResources = computed(() => {
       if (directDownload.value) {
-        return fetchedResources.value.resources.filter(resource => resource.no_direct_download === false)
+        return fetchedResources.value.resources.filter(resource => resource.download_url)
       } else {
         return fetchedResources.value.resources
       }
