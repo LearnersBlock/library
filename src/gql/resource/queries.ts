@@ -12,6 +12,7 @@ export const GET_RESOURCES = gql`
         }, sort: "published_at:desc",limit:$limit) {
           id
           name
+          no_direct_download
           description
           languages {
             id
