@@ -55,160 +55,133 @@
         {{ fetchedResource.resource.description }}
       </div>
       <q-separator class="q-mt-sm" />
-      <div class="resource_info q-mt-md text-left">
-        <div class="text-body1 q-mt-sm">
-          {{ $t('author') }}
-        </div>
+      <div class="q-mt-md text-left text-body1">
         <div
           v-if="fetchedResource.resource.author"
-          class="text-body1 q-mt-sm"
+          class="resource_info"
         >
-          <a
-            :href="fetchedResource.resource.author_website"
-            target="_blank"
-          >{{ fetchedResource.resource.author }}
-          </a>
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
-        </div>
-        <div class="text-body1 q-mt-sm">
-          {{ $t('languages') }}
+          <div>
+            {{ $t('author') }}
+          </div>
+          <div>
+            <a
+              :href="fetchedResource.resource.author_website"
+              target="_blank"
+            >{{ fetchedResource.resource.author }}
+            </a>
+          </div>
         </div>
         <div
           v-if="fetchedResource.resource.languages && fetchedResource.resource.languages.length"
+          class="resource_info q-mt-sm"
         >
-          <q-badge
-            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
-            color="secondary"
-            v-for="language in fetchedResource.resource.languages"
-            :key="language.id"
-          >
-            {{ $t(language.language) }}
-          </q-badge>
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
-        </div>
-        <div class="text-body1 q-mt-sm">
-          {{ $t('formats') }}
+          <div>
+            {{ $t('languages') }}
+          </div>
+          <div>
+            <q-badge
+              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              color="secondary"
+              v-for="language in fetchedResource.resource.languages"
+              :key="language.id"
+            >
+              {{ $t(language.language) }}
+            </q-badge>
+          </div>
         </div>
         <div
           v-if="fetchedResource.resource.formats && fetchedResource.resource.formats.length"
+          class="resource_info q-mt-sm"
         >
-          <q-badge
-            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
-            color="secondary"
-            v-for="format in fetchedResource.resource.formats"
-            :key="format.id"
-          >
-            {{ format.type }}
-          </q-badge>
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
-        </div>
-        <div class="text-body1 q-mt-sm">
-          {{ $t('size') }}
+          <div>
+            {{ $t('formats') }}
+          </div>
+          <div>
+            <q-badge
+              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              color="secondary"
+              v-for="format in fetchedResource.resource.formats"
+              :key="format.id"
+            >
+              {{ format.type }}
+            </q-badge>
+          </div>
         </div>
         <div
           v-if="fetchedResource.resource.size"
-          class="text-body1 q-mt-sm"
+          class="resource_info q-mt-sm"
         >
-          {{ fetchedResource.resource.size }} GB
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
-        </div>
-        <div class="text-body1 q-mt-sm">
-          {{ $t('host') }}
+          <div>
+            {{ $t('size') }}
+          </div>
+          <div>
+            {{ fetchedResource.resource.size }} GB
+          </div>
         </div>
         <div
           v-if="fetchedResource.resource.host"
-          class="text-body1 q-mt-sm"
+          class="resource_info q-mt-sm"
         >
-          {{ fetchedResource.resource.host }}
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
-        </div>
-        <div class="text-body1 q-mt-sm">
-          {{ $t('tags') }}
+          <div>
+            {{ $t('host') }}
+          </div>
+          <div>
+            {{ fetchedResource.resource.host }}
+          </div>
         </div>
         <div
           v-if="fetchedResource.resource.tags && fetchedResource.resource.tags.length"
+          class="resource_info q-mt-sm"
         >
-          <q-badge
-            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
-            color="secondary"
-            v-for="tag in fetchedResource.resource.tags"
-            :key="tag.id"
-          >
-            {{ tag.tag }}
-          </q-badge>
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
-        </div>
-        <div class="text-body1 q-mt-sm">
-          {{ $t('level') }}
+          <div>
+            {{ $t('tags') }}
+          </div>
+          <div>
+            <q-badge
+              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              color="secondary"
+              v-for="tag in fetchedResource.resource.tags"
+              :key="tag.id"
+            >
+              {{ tag.tag }}
+            </q-badge>
+          </div>
         </div>
         <div
           v-if="fetchedResource.resource.levels && fetchedResource.resource.levels.length"
+          class="resource_info q-mt-sm"
         >
-          <q-badge
-            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
-            color="secondary"
-            v-for="level in fetchedResource.resource.levels"
-            :key="level.id"
-          >
-            {{ level.level }}
-          </q-badge>
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
-        </div>
-        <div class="text-body1 q-mt-sm">
-          {{ $t('licenses') }}
+          <div>
+            {{ $t('level') }}
+          </div>
+          <div>
+            <q-badge
+              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              color="secondary"
+              v-for="level in fetchedResource.resource.levels"
+              :key="level.id"
+            >
+              {{ level.level }}
+            </q-badge>
+          </div>
         </div>
         <div
           v-if="fetchedResource.resource.licenses && fetchedResource.resource.licenses.length"
+          class="resource_info q-mt-sm"
         >
-          <q-badge
-            class="q-mt-sm q-pa-sm q-mr-sm q-mb-sm multi-line text-body2 text-weight-medium resource_language"
-            color="secondary"
-            v-for="license in fetchedResource.resource.licenses"
-            :key="license.id"
-          >
-            {{ license.license }}
-          </q-badge>
-        </div>
-        <div
-          class="q-mt-sm"
-          v-else
-        >
-          {{ '--' }}
+          <div>
+            {{ $t('licenses') }}
+          </div>
+          <div>
+            <q-badge
+              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              color="secondary"
+              v-for="license in fetchedResource.resource.licenses"
+              :key="license.id"
+            >
+              {{ license.license }}
+            </q-badge>
+          </div>
         </div>
       </div>
       <q-spinner
@@ -472,12 +445,6 @@ export default defineComponent({
        @media only screen and (max-width: 1050px) {
         font-size: 2.6rem;
       }
-    }
-
-    &_language {
-         @media only screen and (max-width: 470px) {
-            margin-top: .4rem;
-        }
     }
 
     &_container {
