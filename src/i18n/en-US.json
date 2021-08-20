@@ -55,5 +55,11 @@
     "powered_by": "Powered by",
     "explore": "Explore",
     "display_only_direct_download": "Display only items available for direct download.",
-    "direct_download": "Direct Download"
+    "direct_download": "Direct Download",
+    "category": "Category:",
+    "subjects": "Subjects:",
+    "paid": "Paid",
+    "freemium": "Freemium",
+    "free": "Free",
+    "categories": "Categories:"
 }
