@@ -80,7 +80,7 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
               color="secondary"
               v-for="language in fetchedResource.resource.languages"
               :key="language.id"
@@ -98,7 +98,7 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
               color="secondary"
               v-for="format in fetchedResource.resource.formats"
               :key="format.id"
@@ -138,7 +138,7 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
               color="secondary"
               v-for="tag in fetchedResource.resource.tags"
               :key="tag.id"
@@ -156,7 +156,7 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
               color="secondary"
               v-for="level in fetchedResource.resource.levels"
               :key="level.id"
@@ -174,7 +174,7 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-sm multi-line text-body2 text-weight-medium"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
               color="secondary"
               v-for="license in fetchedResource.resource.licenses"
               :key="license.id"
