@@ -67,7 +67,7 @@
               <div class="resource_languages">
                 <div>
                   <q-badge
-                    class="q-pa-sm q-mr-sm q-mt-md multi-line text-body2 text-weight-large"
+                    class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large"
                     color="secondary"
                     v-for="language in resource.languages"
                     :key="language.id"
