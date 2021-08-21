@@ -136,6 +136,9 @@ import { useStore } from 'vuex'
 export default defineComponent({
   name: 'PageIndex',
   props: {
+    categories: {
+      type: Array
+    },
     formats: {
       type: Array
     },
@@ -194,7 +197,8 @@ export default defineComponent({
       formats: string[] = props.formats! as string[],
       languages: string[] = props.languages as string[],
       subjects: string[] = props.subjects as string[],
-      levels: string[] = props.levels as string[]) => {
+      levels: string[] = props.levels as string[],
+      categories: string[] = props.categories as string[]) => {
       await fetchResources(
         {
           keyword,
@@ -202,6 +206,7 @@ export default defineComponent({
           formats,
           subjects,
           levels,
+          categories,
           limit: $store.state.savedResources.limit
         } as any)
       $store.commit('savedResources/updateResources', fetchedResources)

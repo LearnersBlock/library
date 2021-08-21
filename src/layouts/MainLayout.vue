@@ -91,6 +91,37 @@
         <q-select
           class="w-90 q-mx-auto q-mt-md"
           outlined
+          v-if="fetchedCategories"
+          v-model="selectedCategories"
+          :label="$t('categories')"
+          :option-label="(category) => category.category"
+          :option-value="(category) => category.id"
+          :options="fetchedCategories.categories"
+          @update:model-value="searchResources"
+          multiple
+          map-options
+          emit-value
+        >
+          <template #option="{ itemProps, opt, selected, toggleOption }">
+            <q-item
+              v-bind="itemProps"
+              v-on="itemProps"
+            >
+              <q-item-section>
+                <q-item-label v-html="opt.category" />
+              </q-item-section>
+              <q-item-section side>
+                <q-toggle
+                  :model-value="selected"
+                  @update:model-value="toggleOption(opt)"
+                />
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+        <q-select
+          class="w-90 q-mx-auto q-mt-md"
+          outlined
           v-if="fetchedLanguages"
           v-model="selectedLanguages"
           :label="$t('languages')"
@@ -260,6 +291,7 @@
         :subjects="selectedSubjects"
         :levels="selectedLevels"
         :languages="selectedLanguages"
+        :categories="selectedCategories"
       >
         <component
           :is="Component"
@@ -274,6 +306,7 @@
 <script lang="ts">
 
 import { useQuery } from '@vue/apollo-composable'
+import { GET_CATEGORIES } from '../gql/category/queries'
 import { GET_LANGUAGES } from '../gql/language/queries'
 import { GET_FORMATS } from '../gql/format/queries'
 import { GET_LEVELS } from '../gql/level/queries'
@@ -303,6 +336,8 @@ export default defineComponent({
     const keyword = ref<string>('')
     // Router view reference in order to call method from parent to child
     const view = ref<any>(null)
+    // Selected languages for select dropdown - IDs
+    const selectedCategories = ref<string[]>([])
     // Selected languages for select dropdown - IDs
     const selectedLanguages = ref<string[]>([])
     // Selected formats
@@ -352,6 +387,8 @@ export default defineComponent({
     ] as any)
     // Selected language for i18n
     const selectedLanguage = ref(locale)
+    // Fetch categories query
+    const { result: fetchedCategories, loading: fetchCategoriesLoading, refetch: fetchCategories } = useQuery(GET_CATEGORIES)
     // Fetch languages query
     const { result: fetchedLanguages, loading: fetchLanguagesLoading, refetch: fetchLanguages } = useQuery(GET_LANGUAGES)
     // Fetch formats query
@@ -375,6 +412,7 @@ export default defineComponent({
           Quasar.lang.set(langCookie.value)
         }
       }
+      await fetchCategories()
       await fetchLanguages()
       await fetchFormats()
       await fetchSubjects()
@@ -414,7 +452,7 @@ export default defineComponent({
       Loading.show()
       window.scrollTo(0, 0)
       $store.commit('savedResources/resourceLimit', 40)
-      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value)
+      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value, selectedCategories.value)
       Loading.hide()
     }
 
@@ -426,7 +464,7 @@ export default defineComponent({
         Loading.show()
         window.scrollTo(0, 0)
         $store.commit('savedResources/resourceLimit', 40)
-        await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value)
+        await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value, selectedCategories.value)
         Loading.hide()
         searching.value = false
       }
@@ -444,13 +482,16 @@ export default defineComponent({
       selectedFormats.value = []
       selectedSubjects.value = []
       selectedLevels.value = []
-      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value)
+      selectedCategories.value = []
+      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedCategories.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value, selectedCategories.value)
       Loading.hide()
     }
 
     return {
       changeLanguage,
       directDownload,
+      fetchedCategories,
+      fetchCategoriesLoading,
       fetchedLanguages,
       fetchFormatsLoading,
       fetchLanguagesLoading,
@@ -467,6 +508,7 @@ export default defineComponent({
       onDevice,
       redirect,
       resetInputs,
+      selectedCategories,
       selectedLanguages,
       selectedFormats,
       selectedSubjects,

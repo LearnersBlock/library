@@ -72,6 +72,24 @@
           </div>
         </div>
         <div
+          v-if="fetchedResource.resource.categories && fetchedResource.resource.categories.length"
+          class="resource_info q-mt-sm"
+        >
+          <div>
+            {{ $t('categories') }}
+          </div>
+          <div>
+            <q-badge
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
+              color="secondary"
+              v-for="category in fetchedResource.resource.categories"
+              :key="category.id"
+            >
+              {{ $t(category.category) }}
+            </q-badge>
+          </div>
+        </div>
+        <div
           v-if="fetchedResource.resource.languages && fetchedResource.resource.languages.length"
           class="resource_info q-mt-sm"
         >
