@@ -53,7 +53,7 @@ export const GET_RESOURCE = gql`
           }
           subjects {
             id
-            subjects
+            subject
           }
           levels {
             id
