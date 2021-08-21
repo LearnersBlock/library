@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
 
 export const GET_RESOURCES = gql`
-  query resources($keyword: String, $languages: [String], $formats: [String], $tags: [String], $levels: [String], $limit: Int){
+  query resources($keyword: String, $languages: [String], $formats: [String], $subjects: [String], $levels: [String], $limit: Int){
       resources(
         where: { 
           _or: [{name_contains: $keyword},{description_contains: $keyword}]
-          tags: {id_in: $tags}
+          subjects: {id_in: $subjects}
           levels: {id_in: $levels}
           languages: {id_in: $languages}
           formats: {id_in: $formats}
@@ -51,9 +51,9 @@ export const GET_RESOURCE = gql`
             id
             license
           }
-          tags {
+          subjects {
             id
-            tag
+            subjects
           }
           levels {
             id

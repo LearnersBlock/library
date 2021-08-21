@@ -139,7 +139,7 @@ export default defineComponent({
     formats: {
       type: Array
     },
-    tags: {
+    subjects: {
       type: Array
     },
     levels: {
@@ -193,14 +193,14 @@ export default defineComponent({
       keyword: string = props.keyword!,
       formats: string[] = props.formats! as string[],
       languages: string[] = props.languages as string[],
-      tags: string[] = props.tags as string[],
+      subjects: string[] = props.subjects as string[],
       levels: string[] = props.levels as string[]) => {
       await fetchResources(
         {
           keyword,
           languages,
           formats,
-          tags,
+          subjects,
           levels,
           limit: $store.state.savedResources.limit
         } as any)

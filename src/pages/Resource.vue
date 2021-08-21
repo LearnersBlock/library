@@ -130,20 +130,20 @@
           </div>
         </div>
         <div
-          v-if="fetchedResource.resource.tags && fetchedResource.resource.tags.length"
+          v-if="fetchedResource.resource.subjects && fetchedResource.resource.subjects.length"
           class="resource_info q-mt-sm"
         >
           <div>
-            {{ $t('tags') }}
+            {{ $t('subjects') }}
           </div>
           <div>
             <q-badge
               class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
               color="secondary"
-              v-for="tag in fetchedResource.resource.tags"
-              :key="tag.id"
+              v-for="subject in fetchedResource.resource.subjects"
+              :key="subject.id"
             >
-              {{ tag.tag }}
+              {{ subject.subject }}
             </q-badge>
           </div>
         </div>

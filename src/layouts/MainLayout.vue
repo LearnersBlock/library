@@ -153,12 +153,12 @@
         <q-select
           class="w-90 q-mx-auto q-mt-md"
           outlined
-          v-model="selectedTags"
-          v-if="fetchedTags"
-          :options="fetchedTags.tags"
-          :option-label="(tag) => tag.tag"
-          :option-value="(tag) => tag.id"
-          :label="$t('tags')"
+          v-model="selectedSubjects"
+          v-if="fetchedSubjects"
+          :options="fetchedSubjects.subjects"
+          :option-label="(subject) => subject.subject"
+          :option-value="(subject) => subject.id"
+          :label="$t('subjects')"
           @update:model-value="searchResources"
           multiple
           emit-value
@@ -170,7 +170,7 @@
               v-on="itemProps"
             >
               <q-item-section>
-                <q-item-label v-html="opt.tag" />
+                <q-item-label v-html="opt.subject" />
               </q-item-section>
               <q-item-section side>
                 <q-toggle
@@ -257,7 +257,7 @@
         v-slot="{ Component, route }"
         :keyword="keyword"
         :formats="selectedFormats"
-        :tags="selectedTags"
+        :subjects="selectedSubjects"
         :levels="selectedLevels"
         :languages="selectedLanguages"
       >
@@ -276,8 +276,8 @@
 import { useQuery } from '@vue/apollo-composable'
 import { GET_LANGUAGES } from '../gql/language/queries'
 import { GET_FORMATS } from '../gql/format/queries'
-import { GET_TAGS } from '../gql/tag/queries'
 import { GET_LEVELS } from '../gql/level/queries'
+import { GET_SUBJECTS } from '../gql/subject/queries'
 import { GET_RESOURCES_LENGTH } from '../gql/resource/queries'
 import { Loading, Quasar, useQuasar } from 'quasar'
 import { computed, defineComponent, onMounted, provide, ref, watch } from 'vue'
@@ -307,8 +307,8 @@ export default defineComponent({
     const selectedLanguages = ref<string[]>([])
     // Selected formats
     const selectedFormats = ref<[]>([])
-    // Selected tags
-    const selectedTags = ref<string[]>([])
+    // Selected subjects
+    const selectedSubjects = ref<string[]>([])
     // Selected level
     const selectedLevels = ref<string[]>([])
     // Searching a new string
@@ -356,8 +356,8 @@ export default defineComponent({
     const { result: fetchedLanguages, loading: fetchLanguagesLoading, refetch: fetchLanguages } = useQuery(GET_LANGUAGES)
     // Fetch formats query
     const { result: fetchedFormats, loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
-    // Fetch tags query
-    const { result: fetchedTags, loading: fetchTagsLoading, refetch: fetchTags } = useQuery(GET_TAGS)
+    // Fetch subjects query
+    const { result: fetchedSubjects, loading: fetchSubjectsLoading, refetch: fetchSubjects } = useQuery(GET_SUBJECTS)
     // Fetch level query
     const { result: fetchedLevels, loading: fetchLevelsLoading, refetch: fetchLevels } = useQuery(GET_LEVELS)
     // Fetch resources query
@@ -377,7 +377,7 @@ export default defineComponent({
       }
       await fetchLanguages()
       await fetchFormats()
-      await fetchTags()
+      await fetchSubjects()
       await fetchLevels()
       Loading.hide()
     })
@@ -414,7 +414,7 @@ export default defineComponent({
       Loading.show()
       window.scrollTo(0, 0)
       $store.commit('savedResources/resourceLimit', 40)
-      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value)
       Loading.hide()
     }
 
@@ -426,7 +426,7 @@ export default defineComponent({
         Loading.show()
         window.scrollTo(0, 0)
         $store.commit('savedResources/resourceLimit', 40)
-        await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+        await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value)
         Loading.hide()
         searching.value = false
       }
@@ -442,9 +442,9 @@ export default defineComponent({
       keyword.value = ''
       selectedLanguages.value = []
       selectedFormats.value = []
-      selectedTags.value = []
+      selectedSubjects.value = []
       selectedLevels.value = []
-      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedTags.value, selectedLevels.value)
+      await view.value.fetchFilteredResources(keyword.value, selectedFormats.value, selectedLanguages.value, selectedSubjects.value, selectedLevels.value)
       Loading.hide()
     }
 
@@ -455,8 +455,8 @@ export default defineComponent({
       fetchFormatsLoading,
       fetchLanguagesLoading,
       fetchedResourcesLength,
-      fetchedTags,
-      fetchTagsLoading,
+      fetchedSubjects,
+      fetchSubjectsLoading,
       fetchedLevels,
       fetchLevelsLoading,
       fetchedFormats,
@@ -469,7 +469,7 @@ export default defineComponent({
       resetInputs,
       selectedLanguages,
       selectedFormats,
-      selectedTags,
+      selectedSubjects,
       selectedLevels,
       selectedLanguage,
       searchResources,
