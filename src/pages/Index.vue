@@ -37,6 +37,20 @@
             v-for="resource in filteredResources"
             :key="resource.id"
           >
+            <div v-if="resource">
+              <q-badge
+                class="q-mt-sm q-mr-sm text-body2"
+                color="secondary"
+                floating
+                rounded
+                transparent
+                multi-line
+                v-for="license in resource.licenses"
+                :key="license.id"
+              >
+                {{ $t(license.license.toLowerCase()) }}
+              </q-badge>
+            </div>
             <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">
               <q-img
                 :src="'https://library-api.learnersblock.org' + resource.logo.formats.thumbnail.url"
