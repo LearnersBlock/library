@@ -212,7 +212,6 @@
             </q-item>
           </template>
         </q-select>
-        <!-- Hide formats filter as currently under used
           <q-select
           class="w-90 q-mx-auto q-mt-md"
           outlined
@@ -244,7 +243,6 @@
             </q-item>
           </template>
         </q-select>
-    //-->
         <div class="w-90 q-ml-lg q-mt-sm text-grey-9">
           <q-checkbox
             left-label

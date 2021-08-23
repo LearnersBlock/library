@@ -107,7 +107,6 @@
             </q-badge>
           </div>
         </div>
-        <!-- Hide format badges as currently under used
         <div
           v-if="fetchedResource.resource.formats && fetchedResource.resource.formats.length"
           class="resource_info q-mt-sm"
@@ -126,7 +125,6 @@
             </q-badge>
           </div>
         </div>
-        //-->
         <div
           v-if="fetchedResource.resource.size"
           class="resource_info q-mt-sm"
