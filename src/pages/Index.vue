@@ -28,7 +28,7 @@
       >
         <q-infinite-scroll
           @load="loadMore"
-          :offset="2000"
+          :offset="4000"
         >
           <router-link
             class="resource q-mb-md items-center text-black"

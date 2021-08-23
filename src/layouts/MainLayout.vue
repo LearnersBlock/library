@@ -212,7 +212,7 @@
             </q-item>
           </template>
         </q-select>
-          <q-select
+        <q-select
           class="w-90 q-mx-auto q-mt-md"
           outlined
           v-model="selectedFormats"
