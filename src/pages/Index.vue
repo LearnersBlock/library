@@ -9,20 +9,17 @@
     >
       <q-btn
         v-if="onDevice"
-        @click="redirect"
+        class="q-mb-md text-subtitle2 text-weight-bold"
         rounded
         outline
         color="white"
+        size="sm"
         text-color="primary"
-        class="q-mb-md text-subtitle2 text-weight-bold"
-      >
-        <span class="material-icons">
-          arrow_back_ios
-        </span>
-        <div>
-          {{ $t('settings') }}
-        </div>
-      </q-btn>
+        :label="$t('settings')"
+        icon="arrow_back"
+        @click="redirect"
+      />
+
       <div
         v-if="fetchedResources.resources"
       >
