@@ -329,29 +329,31 @@ export default defineComponent({
     const $router = useRouter()
     const $store = useStore()
 
+    // Provide directDownload status to Index.vue
     const directDownload = ref(false)
     provide('direct-download', directDownload)
 
-    // Drawer toggle
-    const leftDrawerOpen = ref(false)
     // Keyword input
     const keyword = ref<string>('')
-    // Router view reference in order to call method from parent to child
-    const view = ref<any>(null)
+    // Drawer toggle
+    const leftDrawerOpen = ref(false)
+    // Read envs for page state
+    const onDevice = ref<any>(process.env.ONDEVICE)
     // Selected languages for select dropdown - IDs
     const selectedCategories = ref<string[]>([])
-    // Selected languages for select dropdown - IDs
-    const selectedLanguages = ref<string[]>([])
     // Selected formats
     const selectedFormats = ref<[]>([])
-    // Selected subjects
-    const selectedSubjects = ref<string[]>([])
+    // Selected languages for select dropdown - IDs
+    const selectedLanguages = ref<string[]>([])
     // Selected level
     const selectedLevels = ref<string[]>([])
     // Searching a new string
     const searching = ref<boolean>(false)
-    // Read envs for page state
-    const onDevice = ref<any>(process.env.ONDEVICE)
+    // Selected subjects
+    const selectedSubjects = ref<string[]>([])
+    // Router view reference in order to call method from parent to child
+    const view = ref<any>(null)
+
     // Languages for i18n
     const languages = ref<[]>([
       {
@@ -387,6 +389,7 @@ export default defineComponent({
         value: 'tr'
       }
     ] as any)
+
     // Selected language for i18n
     const selectedLanguage = ref(locale)
     // Fetch categories query

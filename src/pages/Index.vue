@@ -242,7 +242,6 @@ export default defineComponent({
     // Load more resources when reaching bottom of results
     async function loadMore (_index, done) {
       if (endOfResults.value) {
-        console.log('here')
         setTimeout(() => {
           done()
         }, 2000)
