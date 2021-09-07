@@ -323,6 +323,7 @@ export default defineComponent({
   setup () {
     // Import required features
     const $q = useQuasar()
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { locale } = useI18n({ useScope: 'global' })
     const $router = useRouter()
     const $store = useStore()
@@ -388,22 +389,21 @@ export default defineComponent({
     // Selected language for i18n
     const selectedLanguage = ref(locale)
     // Fetch categories query
-    const { result: fetchedCategories, loading: fetchCategoriesLoading, refetch: fetchCategories } = useQuery(GET_CATEGORIES)
+    const { result: fetchedCategories, loading: fetchCategoriesLoading } = useQuery(GET_CATEGORIES)
     // Fetch languages query
-    const { result: fetchedLanguages, loading: fetchLanguagesLoading, refetch: fetchLanguages } = useQuery(GET_LANGUAGES)
+    const { result: fetchedLanguages, loading: fetchLanguagesLoading } = useQuery(GET_LANGUAGES)
     // Fetch formats query
-    const { result: fetchedFormats, loading: fetchFormatsLoading, refetch: fetchFormats } = useQuery(GET_FORMATS)
+    const { result: fetchedFormats, loading: fetchFormatsLoading } = useQuery(GET_FORMATS)
     // Fetch subjects query
-    const { result: fetchedSubjects, loading: fetchSubjectsLoading, refetch: fetchSubjects } = useQuery(GET_SUBJECTS)
+    const { result: fetchedSubjects, loading: fetchSubjectsLoading } = useQuery(GET_SUBJECTS)
     // Fetch level query
-    const { result: fetchedLevels, loading: fetchLevelsLoading, refetch: fetchLevels } = useQuery(GET_LEVELS)
+    const { result: fetchedLevels, loading: fetchLevelsLoading } = useQuery(GET_LEVELS)
     // Fetch resources query
     const {
       result: fetchedResourcesLength
     } = useQuery(GET_RESOURCES_LENGTH, {})
 
     onMounted(async () => {
-      Loading.show()
       if (onDevice.value) {
         const langCookie = ref<any>($q.localStorage.getItem('lang'))
         if (langCookie.value) {
@@ -412,12 +412,6 @@ export default defineComponent({
           Quasar.lang.set(langCookie.value)
         }
       }
-      await fetchCategories()
-      await fetchLanguages()
-      await fetchFormats()
-      await fetchSubjects()
-      await fetchLevels()
-      Loading.hide()
     })
 
     // If keyword input is cleared, then execute the query

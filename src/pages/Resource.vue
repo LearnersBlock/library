@@ -17,17 +17,16 @@
           :offset="[25, 20]"
         >
           <q-btn
-            color="white"
-            text-color="primary"
-            @click="$router.go(-1)"
             rounded
             outline
-          >
-            <span class="material-icons">
-              arrow_back_ios
-            </span>
-            {{ $t('back') }}
-          </q-btn>
+            color="white"
+            size="sm"
+            text-color="primary"
+            :label="$t('back')"
+            icon="arrow_back"
+            :loading="backButtonLoading"
+            @click="backButtonLoading = true, $router.go(-1)"
+          />
         </q-page-sticky>
       </q-item>
       <div v-if="fetchedResource.resource.logo && fetchedResource.resource.logo.formats && fetchedResource.resource.logo.formats.thumbnail && fetchedResource.resource.logo.formats.thumbnail.url">
@@ -310,6 +309,7 @@ export default defineComponent({
   setup () {
     // Import required features
     const $q = useQuasar()
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { t } = useI18n()
     const route = useRoute()
 
@@ -401,7 +401,7 @@ export default defineComponent({
       window.open(link)
     }
 
-    async function stopDownload () {
+    function stopDownload () {
       exitLoop.value = true
       downloadedMb.value = 0
       downloadProgress.value = 0
@@ -412,6 +412,7 @@ export default defineComponent({
     }
 
     return {
+      backButtonLoading: ref(false),
       downloadFiles,
       downloadedMb,
       downloadProgress,

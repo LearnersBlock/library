@@ -4,7 +4,15 @@
       {{ $t('under_maintenance') }}
     </div>
     <div
-      v-if="fetchedResources && !fetchResourcesLoading"
+      v-else-if="fetchResourcesLoading"
+    >
+      <q-spinner
+        color="primary"
+        size="6em"
+      />
+    </div>
+    <div
+      v-else-if="fetchedResources && !fetchResourcesLoading"
       class="resource_container"
     >
       <q-btn
@@ -19,9 +27,14 @@
         icon="arrow_back"
         @click="redirect"
       />
-
       <div
-        v-if="fetchedResources.resources"
+        v-if="fetchedResources.resources == '' && !fetchResourcesLoading"
+        class="text-h3 text-center text-grey"
+      >
+        {{ $t('no_results_found') }}
+      </div>
+      <div
+        v-else-if="fetchedResources.resources && !fetchResourcesLoading"
       >
         <q-infinite-scroll
           @load="loadMore"
@@ -105,6 +118,7 @@
               </div>
             </div>
           </router-link>
+          {{endOfResults}}
           <div
             v-if="endOfResults"
             class="text-h3 text-center text-grey q-mt-lg"
@@ -126,12 +140,6 @@
             </div>
           </template>
         </q-infinite-scroll>
-      </div>
-      <div
-        v-if="fetchedResources.resources == '' && !fetchResourcesLoading"
-        class="text-h3 text-center text-grey"
-      >
-        {{ $t('no_results_found') }}
       </div>
     </div>
   </q-page>
@@ -192,13 +200,13 @@ export default defineComponent({
     } = useQuery(GET_RESOURCES, { limit: numberOfResults.value }) as any
 
     // On mount, enable loading and fetch resources
-    onMounted(async () => {
+    onMounted(() => {
       if ($store.state.savedResources.resources) {
         $store.state.savedResources.limit = $store.state.savedResources.resources.resources.length
         fetchedResources.value = $store.state.savedResources.resources
       } else {
         $store.commit('savedResources/resourceLimit', numberOfResults.value)
-        await $store.commit('savedResources/updateResources', fetchedResources)
+        $store.commit('savedResources/updateResources', fetchedResources)
       }
     })
 
@@ -235,6 +243,7 @@ export default defineComponent({
     // Load more resources when reaching bottom of results
     async function loadMore (_index, done) {
       if (endOfResults.value) {
+        console.log('here')
         setTimeout(() => {
           done()
         }, 2000)
