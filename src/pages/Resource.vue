@@ -1,11 +1,15 @@
 <template>
-  <q-page class="row items-center justify-evenly q-mb-lg">
+  <q-page class="row justify-evenly q-mb-lg">
     <!-- Loading Spinner -->
-    <q-spinner
-      color="primary"
-      size="10%"
+    <div
       v-if="fetchResourceLoading"
-    />
+      class="row items-center"
+    >
+      <q-spinner
+        color="primary"
+        size="6em"
+      />
+    </div>
     <!-- Resource container -->
     <div
       v-if="fetchedResource"
