@@ -83,10 +83,10 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
-              color="secondary"
               v-for="category in fetchedResource.resource.categories"
               :key="category.id"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
+              color="secondary"
             >
               {{ $t(category.category) }}
             </q-badge>
@@ -101,10 +101,10 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
-              color="secondary"
               v-for="language in fetchedResource.resource.languages"
               :key="language.id"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
+              color="secondary"
             >
               {{ $t(language.language) }}
             </q-badge>
@@ -119,10 +119,10 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
-              color="secondary"
               v-for="format in fetchedResource.resource.formats"
               :key="format.id"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
+              color="secondary"
             >
               {{ format.type }}
             </q-badge>
@@ -159,10 +159,10 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
-              color="secondary"
               v-for="subject in fetchedResource.resource.subjects"
               :key="subject.id"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
+              color="secondary"
             >
               {{ subject.subject }}
             </q-badge>
@@ -177,10 +177,10 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
-              color="secondary"
               v-for="level in fetchedResource.resource.levels"
               :key="level.id"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
+              color="secondary"
             >
               {{ level.level }}
             </q-badge>
@@ -195,10 +195,10 @@
           </div>
           <div>
             <q-badge
-              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
-              color="secondary"
               v-for="license in fetchedResource.resource.licenses"
               :key="license.id"
+              class="q-mr-xs q-mt-xs q-mb-xs multi-line text-body2 text-weight-medium"
+              color="secondary"
             >
               {{ license.license }}
             </q-badge>
@@ -206,9 +206,9 @@
         </div>
       </div>
       <q-spinner
+        v-if="!exitLoop"
         color="primary"
         size="3em"
-        v-if="!exitLoop"
       />
       <!-- Code for running on Learner's Block -->
       <div v-if="onDevice">
@@ -235,8 +235,8 @@
           @click="downloadFiles(fetchedResource.resource.download_url)"
         />
         <q-btn
-          class="q-mt-lg q-ml-sm q-mb-lg"
           v-if="fetchedResource.resource.sample"
+          class="q-mt-lg q-ml-sm q-mb-lg"
           glossy
           rounded
           unelevated
@@ -253,15 +253,15 @@
         >
           <div class="absolute-full flex flex-center">
             <q-badge
-              class="q-mr-sm text-caption"
               v-if="downloadProgress"
+              class="q-mr-sm text-caption"
               color="white"
               text-color="black"
               :label="`${Number(downloadProgress)} % `"
             />
             <q-badge
-              class="text-caption"
               v-if="downloadProgress"
+              class="text-caption"
               color="white"
               text-color="black"
               :label="`${Number(downloadedMb)} Mb`"
@@ -277,16 +277,16 @@
           v-if="fetchedResource.resource.download_url || fetchedResource.resource.author_website"
           glossy
           unelevated
-          @click="downloadZip(fetchedResource.resource.download_url ? fetchedResource.resource.download_url: fetchedResource.resource.author_website)"
           color="primary"
           :icon="fetchedResource.resource.download_url ? 'download': 'pageview'"
           rounded
           :label="fetchedResource.resource.download_url ? $t('download'): $t('explore')"
           :disable-main-btn="!fetchedResource.resource.download_url"
+          @click="downloadZip(fetchedResource.resource.download_url ? fetchedResource.resource.download_url: fetchedResource.resource.author_website)"
         />
         <q-btn
-          class="q-ml-sm"
           v-if="fetchedResource.resource.sample"
+          class="q-ml-sm"
           glossy
           rounded
           unelevated

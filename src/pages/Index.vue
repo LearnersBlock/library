@@ -37,26 +37,26 @@
         v-else-if="fetchedResources.resources && !fetchResourcesLoading"
       >
         <q-infinite-scroll
-          @load="loadMore"
           :offset="4000"
+          @load="loadMore"
         >
           <router-link
+            v-for="resource in filteredResources"
+            :key="resource.id"
             class="resource q-mb-md items-center text-black"
             tag="div"
             :to="'/resource/' + resource.id"
-            v-for="resource in filteredResources"
-            :key="resource.id"
           >
             <div v-if="resource">
               <q-badge
+                v-for="license in resource.licenses"
+                :key="license.id"
                 class="q-mt-sm q-mr-sm text-body2"
                 color="secondary"
                 floating
                 rounded
                 transparent
                 multi-line
-                v-for="license in resource.licenses"
-                :key="license.id"
               >
                 {{ $t(license.license.toLowerCase()) }}
               </q-badge>
@@ -91,10 +91,10 @@
               <div class="resource_languages">
                 <div>
                   <q-badge
-                    class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large"
-                    color="secondary"
                     v-for="language in resource.languages"
                     :key="language.id"
+                    class="q-pa-sm q-mr-sm q-mt-sm multi-line text-body2 text-weight-large"
+                    color="secondary"
                   >
                     {{ $t(language.language) }}
                   </q-badge>
@@ -118,7 +118,6 @@
               </div>
             </div>
           </router-link>
-          {{endOfResults}}
           <div
             v-if="endOfResults"
             class="text-h3 text-center text-grey q-mt-lg"
@@ -129,8 +128,8 @@
             />
           </div>
           <template
-            #loading
             v-if="!endOfResults"
+            #loading
           >
             <div class="row justify-center q-my-md q-mb-xl">
               <q-spinner-dots
@@ -251,7 +250,7 @@ export default defineComponent({
         endOfResults.value = true
         done()
       } else {
-        $store.commit('savedResources/resourceLimit', $store.state.savedResources.limit + numberOfResults.value)
+        $store.commit('savedResources/resourceLimit', parseInt($store.state.savedResources.limit) + numberOfResults.value)
         await fetchFilteredResources()
         done()
       }
