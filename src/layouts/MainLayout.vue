@@ -284,7 +284,8 @@
         >
           {{ $t('total_entries') }} {{ fetchedResourcesLength.resourcesConnection.aggregate.totalCount }}
         </div>
-        <div class="q-ml-md q-mt-md q-mb-sm text-grey absolute-bottom">
+        <q-separator class="q-mt-lg" />
+        <div class="q-mt-sm text-grey text-center">
           {{ $t('powered_by') }} <a
             href="https://learnersblock.org"
             target="_blank"
