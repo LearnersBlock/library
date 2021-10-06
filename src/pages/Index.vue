@@ -7,7 +7,7 @@
       {{ $t('under_maintenance') }}
     </div>
     <div
-      v-else-if="fetchResourcesLoading || (fetchedResources.resources.length == 0 && endOfResults == false)"
+      v-else-if="fetchResourcesLoading || (fetchedResources.length == 0 && endOfResults == false)"
     >
       <q-spinner
         color="primary"
@@ -15,7 +15,7 @@
       />
     </div>
     <div
-      v-else-if="fetchedResources.resources && !fetchResourcesLoading"
+      v-else-if="fetchedResources && !fetchResourcesLoading"
       class="resource_container"
     >
       <q-btn
