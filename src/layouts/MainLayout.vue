@@ -33,7 +33,6 @@
           />
         </q-toolbar-title>
         <q-item
-          v-if="!onDevice"
           clickable
         >
           <q-icon
@@ -60,7 +59,6 @@
           </q-menu>
         </q-item>
         <q-item
-          v-if="!onDevice"
           clickable
           @click="redirect('https://airtable.com/shrkg3MkzXLd7hBts')"
         >
@@ -299,8 +297,8 @@ import { GET_LANGUAGES } from '../gql/language/queries'
 import { GET_FORMATS } from '../gql/format/queries'
 import { GET_LEVELS } from '../gql/level/queries'
 import { GET_SUBJECTS } from '../gql/subject/queries'
-import { Loading, Quasar, useQuasar } from 'quasar'
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
+import { Loading, Quasar } from 'quasar'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -309,7 +307,6 @@ export default defineComponent({
   name: 'MainLayout',
   setup () {
     // Import required features
-    const $q = useQuasar()
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const { locale } = useI18n({ useScope: 'global' })
     const $router = useRouter()
@@ -319,8 +316,6 @@ export default defineComponent({
     const keyword = ref<string>('')
     // Drawer toggle
     const leftDrawerOpen = ref(false)
-    // Read envs for page state
-    const onDevice = ref<any>(process.env.ONDEVICE)
     // Selected languages for select dropdown - IDs
     const selectedCategories = ref<string[]>([])
     // Selected formats
@@ -384,17 +379,6 @@ export default defineComponent({
     const { result: fetchedSubjects, loading: fetchSubjectsLoading } = useQuery(GET_SUBJECTS)
     // Fetch level query
     const { result: fetchedLevels, loading: fetchLevelsLoading } = useQuery(GET_LEVELS)
-
-    onMounted(() => {
-      if (onDevice.value) {
-        const langCookie = ref<any>($q.localStorage.getItem('lang'))
-        if (langCookie.value) {
-          // Fetch language cookie
-          locale.value = langCookie.value
-          Quasar.lang.set(langCookie.value)
-        }
-      }
-    })
 
     // If keyword input is cleared, then execute the query
     watch(() => keyword.value, (newValue) => {
@@ -479,7 +463,6 @@ export default defineComponent({
       keyword,
       languages,
       leftDrawerOpen,
-      onDevice,
       redirect,
       resetInputs,
       selectedCategories,

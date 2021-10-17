@@ -18,18 +18,6 @@
       v-else-if="fetchedResources && !fetchResourcesLoading"
       class="resource_container"
     >
-      <q-btn
-        v-if="onDevice"
-        class="q-mb-md text-subtitle2 text-weight-bold"
-        rounded
-        outline
-        color="white"
-        size="sm"
-        text-color="primary"
-        :label="$t('settings')"
-        icon="arrow_back"
-        @click="redirect"
-      />
       <div
         v-if="fetchedResources.resources == '' && !fetchResourcesLoading"
         class="text-h3 text-center text-grey"
@@ -185,9 +173,6 @@ export default defineComponent({
     const endOfResults = ref<boolean>(false)
     const numberOfResults = ref<number>(40)
 
-    // Read envs for page state
-    const onDevice = ref<any>(process.env.ONDEVICE)
-
     // Fetch resources query
     const {
       result: fetchedResources,
@@ -266,7 +251,6 @@ export default defineComponent({
       fetchFilteredResources,
       fetchResourcesLoading,
       loadMore,
-      onDevice,
       redirect
     }
   }

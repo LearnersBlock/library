@@ -210,67 +210,7 @@
         color="primary"
         size="3em"
       />
-      <!-- Code for running on Learner's Block -->
-      <div v-if="onDevice">
-        <q-btn
-          v-if="fetchedResource.resource.author_website && !fetchedResource.resource.download_url"
-          class="q-mt-lg q-mb-lg"
-          glossy
-          rounded
-          unelevated
-          color="primary"
-          icon="pageview"
-          :label="$t('explore')"
-          @click="downloadZip(fetchedResource.resource.author_website)"
-        />
-        <q-btn
-          v-else-if="fetchedResource.resource.download_url"
-          class="q-mt-lg q-mb-lg"
-          glossy
-          rounded
-          unelevated
-          color="primary"
-          icon="download"
-          :label="exitLoop ? $t('download'): $t('cancel')"
-          @click="downloadFiles(fetchedResource.resource.download_url)"
-        />
-        <q-btn
-          v-if="fetchedResource.resource.sample"
-          class="q-mt-lg q-ml-sm q-mb-lg"
-          glossy
-          rounded
-          unelevated
-          color="primary"
-          icon="visibility"
-          :label="$t('sample')"
-          @click="viewSample"
-        />
-        <q-linear-progress
-          v-if="!exitLoop"
-          size="30px"
-          :value="downloadProgress/100"
-          color="primary"
-        >
-          <div class="absolute-full flex flex-center">
-            <q-badge
-              v-if="downloadProgress"
-              class="q-mr-sm text-caption"
-              color="white"
-              text-color="black"
-              :label="`${Number(downloadProgress)} % `"
-            />
-            <q-badge
-              v-if="downloadProgress"
-              class="text-caption"
-              color="white"
-              text-color="black"
-              :label="`${Number(downloadedMb)} Mb`"
-            />
-          </div>
-        </q-linear-progress>
-      </div>
       <div
-        v-else
         class="q-mt-lg "
       >
         <q-btn
@@ -326,7 +266,6 @@ export default defineComponent({
     const downloadTransferred = ref<any>()
     const exitLoop = ref<boolean>(true)
     const hostname = ref<any>(window.location.hostname)
-    const onDevice = ref<any>(process.env.ONDEVICE)
 
     function delay (ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms))
@@ -427,7 +366,6 @@ export default defineComponent({
       fetchedResource,
       fetchResourceLoading,
       hostname,
-      onDevice,
       viewSample
     }
   }
