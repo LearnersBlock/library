@@ -1,5 +1,4 @@
 {
-    "Arabic": "Árabe",
     "languages": "Idiomas:",
     "uid": "UID",
     "sample": "Previsualización",
@@ -30,11 +29,9 @@
     "level": "Nivel:",
     "download_speed": "Velocidad de descarga",
     "download_complete": "Descarga completa",
-    "Portuguese": "Portugués",
     "Indonesian": "Indonesio",
     "error": "Se produjo un problema",
     "checking_files": "Comprobando archivos…",
-    "Burmese": "Birmano",
     "Afrikaans": "Afrikáans",
     "home": "Inicio",
     "transferred": "Transferido",
