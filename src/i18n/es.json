@@ -2,7 +2,6 @@
     "languages": "Idiomas:",
     "sample": "Previsualización",
     "reset": "Restablecer",
-    "tags": "Etiquetas:",
     "licenses": "Licencia:",
     "host": "Alojado por:",
     "author": "Autoría:",
@@ -16,12 +15,10 @@
     "back": "Atrás",
     "size": "Tamaño:",
     "download": "Descargar",
-    "cancel": "Cancelar",
     "no_space": "Se agotó el espacio del Block.",
     "level": "Nivel:",
     "download_complete": "Descarga completa",
     "error": "Se produjo un problema",
-    "home": "Inicio",
     "total_entries": "Total de entradas en base de datos:",
     "rsync_url_copied": "Se copió el URL de RSync en el portapapeles",
     "rsync_url": "URL de RSync",
@@ -31,7 +28,6 @@
     "powered_by": "Funciona con",
     "direct_download": "Descarga directa",
     "categories": "Categorías:",
-    "freemium": "«Freemium»",
     "subjects": "Materias:",
     "category": "Categoría:"
 }
