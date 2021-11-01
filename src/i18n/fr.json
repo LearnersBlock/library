@@ -12,19 +12,14 @@
     "back": "Retour",
     "reset": "Réinitialiser",
     "under_maintenance": "En maintenance",
-    "total_entries": "Total d'entrées dans la base de données :",
     "sample": "Aperçu",
     "rsync_url_copied": "URL RSync copiée dans le presse-papier",
     "rsync_url": "URL Rsync",
     "rsync": "Copier l’URL Rsync dans le presse-papier",
-    "not_logged_in": "Vous n’êtes pas connecté(e). Essayer de vous reconnecter dans l’onglet paramètres et réessayez.",
     "no_results_found": "Aucun résultat trouvé",
-    "download_speed": "Vitesse de téléchargement",
     "download_complete": "Téléchargement terminé",
     "download": "Télécharger",
-    "cancel": "Annuler",
     "error": "Une erreur s’est produite",
-    "settings": "Paramètres",
     "level": "Niveau :",
     "no_space": "Votre Block n’a plus d’espace.",
     "submit_resource": "Soumettre une ressource",
@@ -33,6 +28,5 @@
     "direct_download": "Téléchargement direct",
     "subjects": "Sujets :",
     "category": "Catégorie :",
-    "categories": "Catégories :",
-    "freemium": "Semi-payant"
+    "categories": "Catégories :"
 }
