@@ -19,7 +19,6 @@
     "rsync": "Kopier Rsync-nettadresse til utklippstavle",
     "download": "Last ned",
     "no_space": "Du har ikke mer plass på din Learner's Block.",
-    "download_speed": "Nedlastinghastighet",
     "download_complete": "Nedlasting fullført",
     "error": "Noe gikk galt",
     "level": "Nivå:",
