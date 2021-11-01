@@ -19,7 +19,6 @@
     "level": "Nivel:",
     "download_complete": "Descarga completa",
     "error": "Se produjo un problema",
-    "total_entries": "Total de entradas en base de datos:",
     "rsync_url_copied": "Se copió el URL de RSync en el portapapeles",
     "rsync_url": "URL de RSync",
     "rsync": "Copiar URL de Rsync en portapapeles",

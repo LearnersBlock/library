@@ -1,7 +1,6 @@
 {
     "download": "Baixa",
     "level": "Nivell:",
-    "home": "Inici",
     "under_maintenance": "En manteniment",
     "size": "Mida:",
     "reset": "Reinicialitza",
@@ -16,7 +15,6 @@
     "author": "Autoria:",
     "error": "Ha fallat alguna cosa",
     "download_complete": "Ha finalitzat la baixada",
-    "resource_not_available": "La baixada d’aquest recurs no està disponible.",
     "submit_resource": "Envia un recurs",
     "switch_language": "Canvia la llengua",
     "search_options": "Opcions de cerca",
@@ -26,7 +24,6 @@
     "results_found": "resultats trobats",
     "host": "Hostatjat per:",
     "powered_by": "Amb tecnologia de",
-    "display_only_direct_download": "Mostra només els elements que es poden baixar directament.",
     "categories": "Categories:",
     "subjects": "Temes:",
     "category": "Categoria:",

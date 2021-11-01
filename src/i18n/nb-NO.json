@@ -1,6 +1,5 @@
 {
     "rsync_url": "rsync-nettadresse",
-    "url": "Nedlastingsnettadresse",
     "reset": "Tilbakestill",
     "back": "Tilbake",
     "licenses": "Lisenser:",
@@ -20,12 +19,10 @@
     "rsync": "Kopier Rsync-nettadresse til utklippstavle",
     "download": "Last ned",
     "no_space": "Du har ikke mer plass på din Learner's Block.",
-    "resource_not_available": "Ressursen er ikke tilgjengelig for nedlasting.",
     "download_speed": "Nedlastinghastighet",
     "download_complete": "Nedlasting fullført",
     "error": "Noe gikk galt",
     "level": "Nivå:",
-    "home": "Hjem",
     "submit_resource": "Send inn en ressurs",
     "powered_by": "Drevet av"
 }

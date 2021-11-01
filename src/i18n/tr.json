@@ -18,18 +18,15 @@
     "keywords": "Anahtar Kelimeler",
     "size": "Boyut:",
     "download": "İndir",
-    "transferred": "Aktarıldı",
     "no_space": "Bloğunuzda boş alan yok.",
     "download_complete": "İndirme Tamamlandı",
     "error": "Bir şeyler yanlış gitti",
     "level": "Seviye:",
-    "home": "Ev",
     "submit_resource": "Kaynak Gönder",
     "powered_by": "Sağlayan",
     "explore": "Keşfet",
     "direct_download": "Doğrudan İndir",
     "categories": "Kategoriler:",
-    "freemium": "Yarı Ücretli",
     "subjects": "Konular:",
     "category": "Kategori:"
 }

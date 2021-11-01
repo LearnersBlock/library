@@ -15,11 +15,9 @@
     "keywords": "Palavras-chave",
     "download": "Baixar",
     "size": "Tamanho:",
-    "home": "Início",
     "transferred": "Transferido",
     "sample": "Pré-visualização",
     "rsync_url_copied": "URL RSync copiado para o Clipboard",
-    "not_logged_in": "Você não está logado. Tente fazer login novamente no painel de configurações e tente novamente.",
     "no_space": "O seu Block está sem espaço.",
     "languages": "Linguagens:",
     "download_complete": "Download Completo",
@@ -30,7 +28,6 @@
     "submit_resource": "Submeter um Recurso",
     "direct_download": "Download Direto",
     "categories": "Categorias:",
-    "paid": "Pago",
     "subjects": "Assuntos:",
     "category": "Categoria:"
 }
