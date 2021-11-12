@@ -1,6 +1,6 @@
 {
     "no_results_found": "Результаты не найдены",
-    "licenses": "Лицензии:",
+    "licenses": "Лицензия:",
     "languages": "Языки:",
     "keywords": "Ключевые слова",
     "formats": "Форматы:",
@@ -27,5 +27,6 @@
     "under_maintenance": "Техническое обслуживание",
     "categories": "Категории:",
     "category": "Категория:",
-    "subjects": "Темы:"
+    "subjects": "Темы:",
+    "direct_download": "Прямая загрузка"
 }
