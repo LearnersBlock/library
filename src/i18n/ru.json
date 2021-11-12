@@ -24,5 +24,8 @@
     "powered_by": "При поддержке",
     "submit_resource": "Отправить ресурс",
     "level": "Уровень:",
-    "under_maintenance": "Техническое обслуживание"
+    "under_maintenance": "Техническое обслуживание",
+    "categories": "Категории:",
+    "category": "Категория:",
+    "subjects": "Темы:"
 }
