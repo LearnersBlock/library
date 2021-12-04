@@ -48,10 +48,10 @@
             <q-list style="min-width: 100px">
               <q-item
                 v-for="language in languages"
-                :key="language.value"
+                :key="language"
                 v-close-popup
                 clickable
-                @click="changeLanguage(language.value)"
+                @click="changeLanguage(language)"
               >
                 <q-item-section>{{ language.label }}</q-item-section>
               </q-item>
@@ -91,7 +91,7 @@
         <q-input
           v-model="keyword"
           outlined
-          class="q-mt-sm q-mx-auto w-90"
+          class="text-body2 q-mt-sm q-mx-auto w-90"
           clearable
           :label="$t('keywords')"
           @keyup="searchResourcesString"
@@ -99,7 +99,7 @@
         <q-select
           v-if="fetchedCategories"
           v-model="selectedCategories"
-          class="w-90 q-mx-auto q-mt-md"
+          class="text-body2 w-90 q-mx-auto q-mt-md"
           outlined
           :label="$t('categories')"
           :option-label="(category) => category.category"
@@ -112,6 +112,7 @@
         >
           <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
+              class="text-body2"
               v-bind="itemProps"
               v-on="itemProps"
             >
@@ -130,7 +131,7 @@
         <q-select
           v-if="fetchedLanguages"
           v-model="selectedLanguages"
-          class="w-90 q-mx-auto q-mt-md"
+          class="text-body2 w-90 q-mx-auto q-mt-md"
           outlined
           :label="$t('languages')"
           :option-label="(lang) => lang.language"
@@ -143,6 +144,7 @@
         >
           <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
+              class="text-body2"
               v-bind="itemProps"
               v-on="itemProps"
             >
@@ -161,7 +163,7 @@
         <q-select
           v-if="fetchedLevels"
           v-model="selectedLevels"
-          class="w-90 q-mx-auto q-mt-md"
+          class="text-body2 w-90 q-mx-auto q-mt-md"
           outlined
           :options="fetchedLevels.levels"
           :option-label="(level) => level.level"
@@ -174,6 +176,7 @@
         >
           <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
+              class="text-body2"
               v-bind="itemProps"
               v-on="itemProps"
             >
@@ -192,7 +195,7 @@
         <q-select
           v-if="fetchedSubjects"
           v-model="selectedSubjects"
-          class="w-90 q-mx-auto q-mt-md"
+          class="text-body2 w-90 q-mx-auto q-mt-md"
           outlined
           :options="fetchedSubjects.subjects"
           :option-label="(subject) => subject.subject"
@@ -205,6 +208,7 @@
         >
           <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
+              class="text-body2"
               v-bind="itemProps"
               v-on="itemProps"
             >
@@ -223,7 +227,7 @@
         <q-select
           v-if="fetchedFormats"
           v-model="selectedFormats"
-          class="w-90 q-mx-auto q-mt-md"
+          class="text-body2 w-90 q-mx-auto q-mt-md"
           outlined
           :options="fetchedFormats.formats"
           :option-label="(format) => format.type"
@@ -236,6 +240,7 @@
         >
           <template #option="{ itemProps, opt, selected, toggleOption }">
             <q-item
+              class="text-body2"
               v-bind="itemProps"
               v-on="itemProps"
             >

@@ -74,7 +74,7 @@
                 {{ resource.name }}
               </div>
               <div
-                class="text-body1"
+                class="text-body1 inter"
                 dir="auto"
               >
                 {{ resource.description }}
