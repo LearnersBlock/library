@@ -49,7 +49,7 @@
                 transparent
                 multi-line
               >
-                {{ $t(license.license.toLowerCase()) }}
+                {{ license.license }}
               </q-badge>
             </div>
             <div v-if="resource.logo && resource.logo.formats && resource.logo.formats.thumbnail && resource.logo.formats.thumbnail.url">

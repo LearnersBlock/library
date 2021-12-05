@@ -51,7 +51,7 @@
                 :key="language"
                 v-close-popup
                 clickable
-                @click="changeLanguage(language)"
+                @click="changeLanguage(language.value)"
               >
                 <q-item-section>{{ language.label }}</q-item-section>
               </q-item>
@@ -337,7 +337,7 @@ export default defineComponent({
     const view = ref<any>(null)
 
     // Languages for i18n
-    const languages = ref<[]>([
+    const languages = ([
       {
         label: 'English',
         value: 'en-US'
