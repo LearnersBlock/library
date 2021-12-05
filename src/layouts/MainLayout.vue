@@ -48,7 +48,7 @@
             <q-list style="min-width: 100px">
               <q-item
                 v-for="language in languages"
-                :key="language"
+                :key="language.value"
                 v-close-popup
                 clickable
                 @click="changeLanguage(language.value)"
