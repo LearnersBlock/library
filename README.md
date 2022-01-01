@@ -2,9 +2,7 @@
 
 # Library
 
-This repository provides the source code for https://library.learnersblock.org and the [Learner's Block]( https://github.com/LearnersBlock/learners-block/tree/main/frontend/apps/library) Library access. For online use, it is hosted through [Netlify](http://netlify.com) and subsequently contains configuration files relevant to deployment to their platform. On the Learner's Block, the repository is embedded as a subtree.
-
-It is maintained through the [Learner's Block Library repository](https://github.com/LearnersBlock/library) and all pull requests should be submitted there. 
+This repository provides the source code for https://library.learnersblock.org. It is hosted through [Netlify](http://netlify.com) and subsequently contains configuration files relevant to deployment to their platform.
 
 Resources stored in the database are not managed through this repository, they are maintained through a separate backend. Resource submissions can be made through our [contact page](https://learnersblock.org/contact) until a submissions page is added. 
 
