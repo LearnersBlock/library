@@ -11,7 +11,7 @@
     "size": "Размер:",
     "switch_language": "Смена языка",
     "search_options": "Параметры поиска",
-    "sample": "Предосмотр",
+    "sample": "Предпросмотр",
     "rsync_url_copied": "Адрес Rsync скопирован в буфер обмена",
     "rsync_url": "Адрес URL",
     "rsync": "Скопируйте URL-адрес rsync в буфер обмена",
